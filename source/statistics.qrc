@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>AppleIncRootCertificate.cer</file>
+    </qresource>
+</RCC>
