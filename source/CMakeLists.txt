@@ -19,61 +19,40 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
+set(${PROJECT_NAME}_os_src App_default.cpp Device_default.cpp)
 if(WIN32)
-add_library(${PROJECT_NAME}
-  ../README.md
-  App_default.cpp
-  App.cpp
-  App.h
-  Device_default.cpp
-  Device_win.cpp
-  Device.cpp
-  Device.h
-  Reachability.cpp
-  Reachability.h
-  Statistics.cpp
-  Statistics.h
-  statistics.qrc
-)
+  set(${PROJECT_NAME}_os_src App_default.cpp Device_win.cpp)
 endif()
-
-if(APPLE)
-add_library(${PROJECT_NAME}
-  ../README.md
-  App_default.cpp
-  App_mac_objc.mm
-  App.cpp
-  App.h
-  Device_default.cpp
-  Device_mac_objc.mm
-  Device.cpp
-  Device.h
-  Reachability.cpp
-  Reachability.h
-  Statistics.cpp
-  Statistics.h
-  statistics.qrc
-)
+if(APPLE AND NOT IOS)
+  set(${PROJECT_NAME}_os_src App_mac_objc.mm Device_mac_objc.mm statistics.qrc)
 endif()
-
+if (IOS)
+  set(${PROJECT_NAME}_os_src App_default.cpp Device_ios_objc.mm statistics.qrc)
+endif()
 if(UNIX AND NOT APPLE)
+  set(${PROJECT_NAME}_os_src App_default.cpp Device_linux.cpp)
+endif()
+
 add_library(${PROJECT_NAME}
   ../README.md
-  App_default.cpp
   App.cpp
   App.h
-  Device_default.cpp
-  Device_linux.cpp
   Device.cpp
   Device.h
   Reachability.cpp
   Reachability.h
   Statistics.cpp
   Statistics.h
-  statistics.qrc
+  ${${PROJECT_NAME}_os_src}
 )
-endif()
 
-target_link_libraries(${PROJECT_NAME} PRIVATE OpenSSL::SSL Qt5::Network)
+set(${PROJECT_NAME}_os_libs)
+if(APPLE AND NOT IOS)
+  set(${PROJECT_NAME}_os_libs OpenSSL::SSL ${FOUNDATION} ${SYSTEMCONFIGURATION})
+endif()
+if(WIN32)
+  set(${PROJECT_NAME}_os_libs gdi32.lib)
+endif()
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Network ${${PROJECT_NAME}_os_libs})
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR})

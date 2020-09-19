@@ -17,7 +17,8 @@ set(WARNING_FLAGS
 
   # From Xcode default project
 #  -Wno-sign-conversion
-#  -Wno-exit-time-destructors
+  # QRC and singleton
+  -Wno-exit-time-destructors
 #  -Wno-conversion
 
   # Own parameter
@@ -29,10 +30,6 @@ set(WARNING_FLAGS
 
   # For doxygen documentation, because we handle two languages #1
   -Wno-documentation
-  -Wno-documentation-unknown-command
-
-  # QRC and static instance
-  -Wno-exit-time-destructors
 
   # QRC
   -Wno-global-constructors
@@ -42,4 +39,7 @@ set(WARNING_FLAGS
 
   # Only Apple
   -Wno-old-style-cast
+
+  # Only Android Linux Build
+  -Wno-weak-vtables
 )

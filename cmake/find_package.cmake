@@ -13,5 +13,9 @@
 # * Zuwiderhandlungen werden strafrechtlich verfolgt.
 # */
 
-find_package(OpenSSL REQUIRED)
+if(APPLE AND NOT IOS)
+  find_library(FOUNDATION Foundation)
+  find_library(SYSTEMCONFIGURATION SystemConfiguration)
+  find_package(OpenSSL REQUIRED)
+endif()
 find_package(Qt5 COMPONENTS Network REQUIRED)

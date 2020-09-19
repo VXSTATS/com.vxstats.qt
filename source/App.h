@@ -192,7 +192,7 @@ namespace VX {
      * @~german
      * @brief Standardkonstruktur für App.
      */
-    App() {}
+    App() = default;
 
     /**
      * @~english
@@ -201,7 +201,7 @@ namespace VX {
      * @~german
      * @brief Standarddestruktor für App.
      */
-    virtual ~App() {}
+    virtual ~App() = default;
 
   private:
     /**
