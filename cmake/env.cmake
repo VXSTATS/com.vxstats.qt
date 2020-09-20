@@ -13,8 +13,10 @@
 # * Zuwiderhandlungen werden strafrechtlich verfolgt.
 # */
 
-#for debugging of build steps
-#set(CMAKE_VERBOSE_MAKEFILE ON)
+# Debugging of build steps
+set(CMAKE_VERBOSE_MAKEFILE OFF)
+# Enable ios build
+set(IOS OFF)
 
 # Pathes
 if(NOT DEV)
@@ -70,4 +72,4 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set(CMAKE_MODULE_PATH ${CMAKE}/modules)
 
 # Includes
-include(${CMAKE}/find_package.cmake)
+include(${CMAKE}/find.cmake)

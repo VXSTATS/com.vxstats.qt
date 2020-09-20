@@ -14,8 +14,12 @@
 # */
 
 if(APPLE AND NOT IOS)
-  find_library(FOUNDATION Foundation)
-  find_library(SYSTEMCONFIGURATION SystemConfiguration)
+  find_library(FOUNDATION Foundation REQUIRED)
+  find_library(SYSTEMCONFIGURATION SystemConfiguration REQUIRED)
   find_package(OpenSSL REQUIRED)
+endif()
+if(IOS)
+  find_library(UIKIT UIKit REQUIRED)
+  message(${UIKIT})
 endif()
 find_package(Qt5 COMPONENTS Network REQUIRED)

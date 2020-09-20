@@ -8,8 +8,8 @@ Environment variables
 doxygen.cmake
 Template for running doxygen - not yet usable
 
-find_package.cmake
-Overall find package to use these variables in other cmake files
+find.cmake
+Overall find package or libraries to use these variables in other cmake files
 
 ## Add environment variables
 
