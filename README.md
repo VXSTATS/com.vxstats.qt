@@ -117,7 +117,7 @@ VX::Statistics::instance().touch( "$action" );
 
 # Compatiblity
 ## Qt Versions
-- 6 (not yet supported)
+- <b style='color:red'>6 (not yet supported)</b>
 - 5.15
 - 5.14
 - 5.13
@@ -146,7 +146,7 @@ VX::Statistics::instance().touch( "$action" );
 - API 16 4.1.1 and above
 
 ## macOS
-- macOS 10.16  - (not yet supported)
+- <b style='color:red'>macOS 10.16  - (not yet supported)</b>
 - macOS 10.15
 - macOS 10.14
 - macOS 10.13
@@ -156,7 +156,7 @@ VX::Statistics::instance().touch( "$action" );
 - macOS 10.9
 
 ## iOS
-- iOS 14 - (not yet supported)
+- <b style='color:red'>iOS 14 - (not yet supported)</b>
 - iOS 13
 - iOS 12
 - iOS 11
