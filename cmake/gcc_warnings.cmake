@@ -14,6 +14,4 @@
 # */
 
 set(WARNING_FLAGS
-
-#  -Wno-unknown-pragmas
 )

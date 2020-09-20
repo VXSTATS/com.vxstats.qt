@@ -14,7 +14,7 @@
 # */
 
 # Build with or without gui dependency
-set(GUI OFF)
+set(GUI ON)
 
 # Enable ios build
 set(IOS OFF)

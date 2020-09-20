@@ -17,7 +17,7 @@ set(WARNING_FLAGS
 
   # From Xcode default project
 #  -Wno-sign-conversion
-  # QRC and singleton
+  # +QRC and singleton
   -Wno-exit-time-destructors
 #  -Wno-conversion
 
