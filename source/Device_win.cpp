@@ -81,16 +81,16 @@ namespace VX {
       }
     }
   }
-
-  bool Device_win::hasTouchScreen() const {
-
-    return GetSystemMetrics( SM_MAXIMUMTOUCHES );
-  }
-
+  
   bool Device_win::isTabletMode() const {
 
     QSettings settings( QStringLiteral( "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ImmersiveShell" ), QSettings::NativeFormat );
     return settings.value( QStringLiteral( "TabletMode" ) ).toInt();
+  }
+
+  bool Device_win::hasTouchScreen() const {
+
+    return GetSystemMetrics( SM_MAXIMUMTOUCHES );
   }
 
   bool Device_win::isVoiceOverActive() const {

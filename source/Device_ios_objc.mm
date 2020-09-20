@@ -130,7 +130,7 @@ namespace VX {
 
   bool Device_ios::hasTouchScreen() const {
 
-    return false;
+    return true;
   }
 
   bool Device_ios::isVoiceOverActive() const {
