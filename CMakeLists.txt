@@ -15,7 +15,7 @@
 
 cmake_minimum_required(VERSION 3.10.0)
 
-project(com.vxstats.sdk.qt)
+project(com.vxstats.qt)
 include(cmake/env.cmake)
 
 add_subdirectory(source)

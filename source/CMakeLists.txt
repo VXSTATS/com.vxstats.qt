@@ -13,7 +13,7 @@
 # * Zuwiderhandlungen werden strafrechtlich verfolgt.
 # */
 
-project(com.vxstats.sdk.qt)
+project(com.vxstats.qt)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)

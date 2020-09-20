@@ -27,4 +27,4 @@ if(GUI)
   set(${PROJECT_NAME}_libs Qt5::Gui)
 endif()
 
-target_link_libraries(${PROJECT_NAME} PRIVATE com.vxstats.sdk.qt Qt5::Core ${${PROJECT_NAME}_libs})
+target_link_libraries(${PROJECT_NAME} PRIVATE com.vxstats.qt Qt5::Core ${${PROJECT_NAME}_libs})
