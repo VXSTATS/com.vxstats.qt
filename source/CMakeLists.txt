@@ -56,6 +56,6 @@ endif()
 if(WIN32)
   set(${PROJECT_NAME}_os_libs gdi32.lib)
 endif()
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Network ${${PROJECT_NAME}_os_libs})
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Gui Qt5::Network ${${PROJECT_NAME}_os_libs})
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR})
