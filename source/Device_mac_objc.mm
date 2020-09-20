@@ -61,12 +61,11 @@ namespace VX {
     std::size_t len = 0;
     ::sysctlbyname( "hw.model", nullptr, &len, nullptr, 0 );
 
-    char *model = new char[ len + 1 ]; //reinterpret_cast<char *>( malloc( len + 1 ) );
-    ::memset( model, 0, len + 1 );
+    std::vector<char> model;
+    model.resize( len );
 
-    ::sysctlbyname( "hw.model", model, &len, nullptr, 0 );
-    QString hwmodel = model;
-    delete[] model;
+    ::sysctlbyname( "hw.model", model.data(), &len, nullptr, 0 );
+    QString hwmodel = model.data();
 
     int versionBegin = hwmodel.indexOf( QStringLiteral( "," ) );
     if ( versionBegin > 1 && hwmodel.at( versionBegin - 1 ).isDigit() ) {

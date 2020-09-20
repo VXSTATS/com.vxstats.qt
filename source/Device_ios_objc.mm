@@ -67,12 +67,11 @@ namespace VX {
     std::size_t len = 0;
     ::sysctlbyname( "hw.machine", nullptr, &len, nullptr, 0 );
 
-    char *model = ( char * )malloc( len + 1 ); // TODO: new char[ len + 1 ];
-    ::memset( model, 0, len + 1 );
+    std::vector<char> model;
+    model.resize( len );
 
-    ::sysctlbyname( "hw.machine", model, &len, nullptr, 0 );
-    QString hwmodel = model;
-    free( model );
+    ::sysctlbyname( "hw.machine", model.data(), &len, nullptr, 0 );
+    QString hwmodel = model.data();
 
     if ( hwmodel == QStringLiteral( "x86_64" ) ) {
 
