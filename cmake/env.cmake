@@ -61,11 +61,20 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${WARNING_FLAGS_SPACED}")
 
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+  include(${CMAKE}/msvc_warnings.cmake)
+
+  set(WARNING_FLAGS_SPACED "")
+  foreach(WARNING_FLAG ${WARNING_FLAGS})
+    set(WARNING_FLAGS_SPACED "${WARNING_FLAGS_SPACED} ${WARNING_FLAG}")
+  endforeach()
+
   # Force to always compile with W4
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /WX")
   if(CMAKE_CXX_FLAGS MATCHES "/W[0-4]")
     string(REGEX REPLACE "/W[0-4]" "/W4" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
   endif()
+  
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${WARNING_FLAGS_SPACED}")
 endif()
 
 add_compile_options("$<$<CONFIG:DEBUG>:-DDEBUG>")

@@ -140,7 +140,7 @@ VX::Statistics::instance().play( "$urlOrName" );
 ### Search
 To capture searches including the information for which has been searched.
 ```c++
-VX::Statistics::instance().play( "$search" );
+VX::Statistics::instance().search( "$search" );
 ```
 
 ### Shake
@@ -164,15 +164,15 @@ VX::Statistics::instance().touch( "$action" );
 - 5.12
 - 5.11
 - 5.10
-- 5.9 (better version support, we recommend to use a version above 5.9)
-- 5.8
-- 5.7
-- 5.6
+- 5.9 (better version support)
+- 5.8 (support ended)
+- 5.7 (support ended)
+- 5.6 (support ended)
 
 ## Windows
 - Windows 10
 - Windows 8.1
-- Windows 8 (extended support ends 10.01.2023)
+- Windows 8 (support ended, extended support ends 10.01.2023)
 - Windows 7 (support ended)
 
 ## macOS
@@ -183,13 +183,12 @@ VX::Statistics::instance().touch( "$action" );
 - macOS 10.12
 - macOS 10.11
 - macOS 10.10
-- macOS 10.9
 
 ## Linux
 - Red Hat 8.2
 - Ubuntu 20.04
 - Ubuntu 18.04
-- Ubuntu 16.04
+- Ubuntu 16.04 (support ended, extended support ends 30.04.2021)
 - Every combination of supported Qt Version on a linux system should work nicely
 
 ## iOS
@@ -200,7 +199,6 @@ VX::Statistics::instance().touch( "$action" );
 - iOS 10
 - iOS 9
 - iOS 8
-- iOS 7
 
 ## Android
 - API 16 4.1.1 and above
