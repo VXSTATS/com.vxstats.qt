@@ -23,4 +23,8 @@ add_executable(${PROJECT_NAME}
   main.cpp
 )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE com.vxstats.sdk.qt Qt5::Core Qt5::Gui)
+if(GUI)
+  set(${PROJECT_NAME}_libs Qt5::Gui)
+endif()
+
+target_link_libraries(${PROJECT_NAME} PRIVATE com.vxstats.sdk.qt Qt5::Core ${${PROJECT_NAME}_libs})

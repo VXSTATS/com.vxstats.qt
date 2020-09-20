@@ -46,7 +46,6 @@ add_library(${PROJECT_NAME}
   ${${PROJECT_NAME}_os_src}
 )
 
-set(${PROJECT_NAME}_os_libs)
 if(APPLE AND NOT IOS)
   set(${PROJECT_NAME}_os_libs OpenSSL::SSL ${FOUNDATION} ${SYSTEMCONFIGURATION})
 endif()
@@ -56,6 +55,9 @@ endif()
 if(WIN32)
   set(${PROJECT_NAME}_os_libs gdi32.lib)
 endif()
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Gui Qt5::Network ${${PROJECT_NAME}_os_libs})
+if(GUI)
+  set(${PROJECT_NAME}_os_libs ${${PROJECT_NAME}_os_libs} Qt5::Gui)
+endif()
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Network ${${PROJECT_NAME}_os_libs})
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR})
