@@ -123,7 +123,7 @@ namespace VX {
   bool Device::hasTouchScreen() const {
 
 #ifdef QT_GUI_LIB
-    return QTouchDevice::devices().size() > 0;
+    return !QTouchDevice::devices().empty();
 #else
     return false;
 #endif

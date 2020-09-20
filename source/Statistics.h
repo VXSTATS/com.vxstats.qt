@@ -235,7 +235,7 @@ namespace VX {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Woverloaded-virtual"
 #endif
-    void event( const QString &_event, const QString &_value = QString() );
+    void event( const QString &_event, const QString &_value = {} );
 #ifdef __clang__
 #pragma clang diagnostic pop
 #endif
@@ -393,7 +393,7 @@ namespace VX {
      * @~german
      * @brief Interner Server Pfad für das Signalling.
      */
-    QString m_serverFilePath = QString();
+    QString m_serverFilePath = {};
 
     /**
      * @~english
@@ -420,7 +420,7 @@ namespace VX {
      * @~german
      * @brief Zuletzt besuchte Seite.
      */
-    QString m_lastPage = QString();
+    QString m_lastPage = {};
 
     /**
      * @~english
@@ -429,7 +429,7 @@ namespace VX {
      * @~german
      * @brief Zuletzt versendete Nachricht.
      */
-    QUrlQuery m_lastMessage = QUrlQuery();
+    QUrlQuery m_lastMessage = {};
 
     /**
      * @~english

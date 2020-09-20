@@ -211,7 +211,7 @@ namespace VX {
      * @~german
      * @brief Id der Anwendung.
      */
-    QString m_identifier = QString();
+    QString m_identifier = {};
 
     /**
      * @~english
@@ -220,7 +220,7 @@ namespace VX {
      * @~german
      * @brief Version der Anwendung.
      */
-    QString m_version = QString();
+    QString m_version = {};
 
     /**
      * @~english
@@ -229,6 +229,6 @@ namespace VX {
      * @~german
      * @brief Build der Anwendung.
      */
-    QString m_build = QString();
+    QString m_build = {};
   };
 }

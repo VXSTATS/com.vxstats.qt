@@ -310,7 +310,7 @@ namespace VX {
      * @~german
      * @brief Das Gerätemodell.
      */
-    QString m_model = QString();
+    QString m_model = {};
 
     /**
      * @~english
@@ -319,7 +319,7 @@ namespace VX {
      * @~german
      * @brief Der Gerätehersteller.
      */
-    QString m_vendor = QString();
+    QString m_vendor = {};
 
     /**
      * @~english
@@ -328,7 +328,7 @@ namespace VX {
      * @~english
      * @brief Die Geräteversion.
      */
-    QString m_version = QString();
+    QString m_version = {};
 
     /**
      * @~english
@@ -337,7 +337,7 @@ namespace VX {
      * @~german
      * @brief Die eindeutige Id des Gerätes.
      */
-    QString m_uniqueIdentifier = QString();
+    QString m_uniqueIdentifier = {};
 
     /**
      * @~english
