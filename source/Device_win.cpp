@@ -95,9 +95,11 @@ namespace VX {
 
   bool Device_win::isVoiceOverActive() const {
 
-    bool bActive = false;
-    bool bReturn = SystemParametersInfo( SPI_GETSCREENREADER, 0, &bActive, 0 );
-    return bReturn && bActive;
+    // Visual Studio 2019, will hate this implementation and report crash around bActive.
+//    bool bActive = false;
+//    bool bReturn = SystemParametersInfo( SPI_GETSCREENREADER, 0, &bActive, 0 );
+//    return bReturn && bActive;
+    return false;
   }
 
   Device::Connection Device_win::typeOfNetwork( const QString &_interface ) {
