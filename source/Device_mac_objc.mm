@@ -58,7 +58,7 @@ namespace VX {
 
     setVendor( QStringLiteral( "Apple Inc." ) );
 
-    size_t len = 0;
+    std::size_t len = 0;
     ::sysctlbyname( "hw.model", nullptr, &len, nullptr, 0 );
 
     char *model = new char[ len + 1 ]; //reinterpret_cast<char *>( malloc( len + 1 ) );

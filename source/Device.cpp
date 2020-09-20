@@ -23,6 +23,10 @@
   #include <QOperatingSystemVersion>
 #endif
 
+#ifdef QT_GUI_LIB
+  #include <QTouchDevice>
+#endif
+
 /* local header */
 #include "Device.h"
 
@@ -118,7 +122,11 @@ namespace VX {
 
   bool Device::hasTouchScreen() const {
 
+#ifdef QT_GUI_LIB
+    return QTouchDevice::devices().size() > 0;
+#else
     return false;
+#endif
   }
 
   bool Device::isVoiceOverActive() const {

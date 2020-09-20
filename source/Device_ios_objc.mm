@@ -14,8 +14,14 @@
  */
 
 /* qt header */
-#include <QDebug>
+#ifdef DEBUG
+  #include <QDebug>
+#endif
 #include <QFile>
+
+#ifdef QT_GUI_LIB
+  #include <QTouchDevice>
+#endif
 
 /* system header */
 #include <stdio.h>
@@ -58,7 +64,7 @@ namespace VX {
 
     setVendor( QStringLiteral( "Apple Inc." ) );
 
-    size_t len = 0;
+    std::size_t len = 0;
     ::sysctlbyname( "hw.machine", nullptr, &len, nullptr, 0 );
 
     char *model = ( char * )malloc( len + 1 ); // TODO: new char[ len + 1 ];
@@ -130,7 +136,11 @@ namespace VX {
 
   bool Device_ios::hasTouchScreen() const {
 
+#ifdef QT_GUI_LIB
+    return QTouchDevice::devices().size() > 0;
+#else
     return true;
+#endif
   }
 
   bool Device_ios::isVoiceOverActive() const {
