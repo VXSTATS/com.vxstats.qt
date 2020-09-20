@@ -39,85 +39,85 @@ Write down all installation rules and dependencies
 # Implementation
 ## Pre-Setup
 Qt application name and version.
-```cpp
+```c++
 QCoreApplication::setApplicationName( "$appid" );
 QCoreApplication::setApplicationVersion( "$version" );
 ```
 
 Alternatially use direct setup without Qt meta system.
-```cpp
+```c++
 VX::App::instance().setIdentifier( "$appid" );
 VX::App::instance().setVersion( "$version" );
 ```
 
 Setup your build id is only directly possible, Qt will not support such a value directly.
-```cpp
+```c++
 VX::App::instance().setBuild( "$build" );
 ```
 
 ## Setup
 Setup your environment with your credentials. Please insert your username, password and url here. For defuscation please follow our best practice documentation.
-```cpp
+```c++
 VX::Statistics::instance().setServerFilePath( "https://$username:$password@$url/" );
 ```
 
 ## Page
 This is the global context, where you are currently on in your application. Just name it easy and with logical app structure to identify where the user stays.
-```cpp
+```c++
 VX::Statistics::instance().page( "Main" );
 ```
 
 ## Event
 When you would like to request a page with dynamic content please use this function.
-```cpp
+```c++
 VX::Statistics::instance().event( "$action", "$value" );
 ```
 
 ### Ads
 To capture ads - correspondingly the shown ad.
-```cpp
+```c++
 VX::Statistics::instance().ads( "$campain" );
 ```
 
 ### Move
 To capture map shifts - correspondingly the new center.
-```cpp
+```c++
 VX::Statistics::instance().move( "$latitude", "$longitude" );
 ```
 
 ### Open
 To capture open websites or documents including the information which page or document has been requested.
-```cpp
+```c++
 VX::Statistics::instance().open( "$urlOrName" );
 ```
 
 ### Play
 To capture played files including the information which file/action has been played.
-```cpp
+```c++
 VX::Statistics::instance().play( "$urlOrName" );
 ```
 
 ### Search
 To capture searches including the information for which has been searched.
-```cpp
+```c++
 VX::Statistics::instance().play( "$search" );
 ```
 
 ### Shake
 To capture when the device has been shaken.
-```cpp
+```c++
 VX::Statistics::instance().shake();
 ```
 
 ### Touch
 To capture typed/touched actions.
-```cpp
+```c++
 VX::Statistics::instance().touch( "$action" );
 ```
 
 # Compatiblity
 ## Qt Versions
-- <b style='color:red'>6 (not yet supported)</b>
+- *6 (not yet supported)*
 - 5.15
 - 5.14
 - 5.13
@@ -146,7 +146,7 @@ VX::Statistics::instance().touch( "$action" );
 - API 16 4.1.1 and above
 
 ## macOS
-- <font color="red">macOS 10.16  - (not yet supported)</font>
+- *macOS 10.16  - (not yet supported)*
 - macOS 10.15
 - macOS 10.14
 - macOS 10.13
@@ -156,7 +156,7 @@ VX::Statistics::instance().touch( "$action" );
 - macOS 10.9
 
 ## iOS
-- <p style='color:red'>iOS 14 - (not yet supported)</p>
+- *iOS 14 - (not yet supported)*
 - iOS 13
 - iOS 12
 - iOS 11
