@@ -146,7 +146,7 @@ VX::Statistics::instance().touch( "$action" );
 - API 16 4.1.1 and above
 
 ## macOS
-- <b style='color:red'>macOS 10.16  - (not yet supported)</b>
+- <font color="red">macOS 10.16  - (not yet supported)</font>
 - macOS 10.15
 - macOS 10.14
 - macOS 10.13
@@ -156,7 +156,7 @@ VX::Statistics::instance().touch( "$action" );
 - macOS 10.9
 
 ## iOS
-- <b style='color:red'>iOS 14 - (not yet supported)</b>
+- <p style='color:red'>iOS 14 - (not yet supported)</p>
 - iOS 13
 - iOS 12
 - iOS 11
