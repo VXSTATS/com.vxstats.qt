@@ -1,8 +1,10 @@
 * [Preparation](#preparation)
-* [Installation](#installation)
-   * [Android](#android)
    * [macOS](#macos)
-   * [iOS](#ios)
+* [Installation](#installation)
+   * [User defined build variables](#user-defined-build-variables)
+      * [Debugging](#debugging)
+      * [Gui dependencies](#gui-dependencies)
+      * [iOS](#ios)
 * [Implementation](#implementation)
    * [Pre-Setup](#pre-setup)
    * [Setup](#setup)
@@ -18,23 +20,61 @@
 * [Compatiblity](#compatiblity)
    * [Qt Versions](#qt-versions)
    * [Windows](#windows)
-   * [Linux](#linux)
-   * [Android](#android-1)
    * [macOS](#macos-1)
+   * [Linux](#linux)
    * [iOS](#ios-1)
+   * [Android](#android)
 * [Known Issues](#known-issues)
    * [Windows](#windows-1)
 * [Pending Issues](#pending-issues)
    * [App Store](#app-store)
 
 # Preparation
+Checkout and create environment.
+```bash
+git clone https://github.com/VXAPPS/com.vxstats.qt.git
+cd com.vxstats.qt
+mkdir build
+cd build
+```
+
+## macOS
+The macOS build will handle a fair use check of the app, so it is important to have openssl installed. You can find openssl with OPENSSL_ROOT_DIR set. The easiest way is to install openssl via brew (https://brew.sh/).
+```bash
+brew install openssl
+```
+Than you will find a openssl installation around here: /usr/local/Cellar/openssl@1.1/1.1.1g
 
 # Installation
-Write down all installation rules and dependencies
+Use a Qt Creator for loading CMakeList.txt from checked out folder, or just run the cmake enviroment, generate makefiles and build it.
+```bash
+cmake ..
+make -j`nproc`
+```
 
-## Android
-## macOS
-## iOS
+## User defined build variables
+Inside cmake/env.cmake you find some user defined build variables for special purposes.
+
+### Debugging
+You can log the verbose build output of 
+```bash
+# Debugging of build steps
+set(CMAKE_VERBOSE_MAKEFILE ON)
+```
+
+### Gui dependencies
+You can disable Qt Gui dependencies.
+```bash
+# Build with or without gui dependency
+set(GUI OFF)
+```
+
+### iOS
+If you want to build for iOS, or you could build it with a iOS specified cmake toolchain (https://github.com/leetal/ios-cmake). You will find a complete documentation here and can generate native XCode builds.
+```bash
+# Enable ios build
+set(IOS ON)
+```
 
 # Implementation
 ## Pre-Setup
@@ -135,16 +175,6 @@ VX::Statistics::instance().touch( "$action" );
 - Windows 8 (extended support ends 10.01.2023)
 - Windows 7 (support ended)
 
-## Linux
-- Red Hat 8.2
-- Ubuntu 20.04
-- Ubuntu 18.04
-- Ubuntu 16.04
-- Every combination of supported Qt Version on a linux system should work nicely
-
-## Android
-- API 16 4.1.1 and above
-
 ## macOS
 - *macOS 10.16  - (not yet supported)*
 - macOS 10.15
@@ -155,6 +185,13 @@ VX::Statistics::instance().touch( "$action" );
 - macOS 10.10
 - macOS 10.9
 
+## Linux
+- Red Hat 8.2
+- Ubuntu 20.04
+- Ubuntu 18.04
+- Ubuntu 16.04
+- Every combination of supported Qt Version on a linux system should work nicely
+
 ## iOS
 - *iOS 14 - (not yet supported)*
 - iOS 13
@@ -164,6 +201,9 @@ VX::Statistics::instance().touch( "$action" );
 - iOS 9
 - iOS 8
 - iOS 7
+
+## Android
+- API 16 4.1.1 and above
 
 # Known Issues
 ## Windows

@@ -13,14 +13,14 @@
 # * Zuwiderhandlungen werden strafrechtlich verfolgt.
 # */
 
+# Debugging of build steps
+set(CMAKE_VERBOSE_MAKEFILE OFF)
+
 # Build with or without gui dependency
 set(GUI ON)
 
 # Enable ios build
 set(IOS OFF)
-
-# Debugging of build steps
-set(CMAKE_VERBOSE_MAKEFILE OFF)
 
 # Pathes
 if(NOT DEV)
