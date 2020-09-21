@@ -85,7 +85,7 @@ namespace VX {
 
     if ( page.length() > baseLength ) {
 
-      qDebug() << Q_FUNC_INFO << __LINE__ << "Bad implementation - 'page':" << page << "is larger than 255 signs";
+      qDebug() << Q_FUNC_INFO << __LINE__ << "Bad implementation - 'page':" << page << "is larger than" << baseLength << "signs";
       page = page.left( baseLength );
     }
     m_lastPage = page;
@@ -102,14 +102,14 @@ namespace VX {
     QString event = _event;
     if ( event.length() > baseLength ) {
 
-      qDebug() << Q_FUNC_INFO << __LINE__ << "Bad implementation - 'event':" << event << "is larger than 255 signs";
+      qDebug() << Q_FUNC_INFO << __LINE__ << "Bad implementation - 'event':" << event << "is larger than" << baseLength << "signs";
       event = event.left( baseLength );
     }
 
     QString value = _value;
     if ( value.length() > baseLength ) {
 
-      qDebug() << Q_FUNC_INFO << __LINE__ << "Bad implementation - 'value':" << value << "is larger than 255 signs";
+      qDebug() << Q_FUNC_INFO << __LINE__ << "Bad implementation - 'value':" << value << "is larger than" << baseLength << "signs";
       value = value.left( baseLength );
     }
 
@@ -134,7 +134,7 @@ namespace VX {
     }
     else if ( campaign.length() > baseLength ) {
 
-      qDebug() << Q_FUNC_INFO << __LINE__ << "Bad implementation - 'campaign':" << campaign << "is larger than 255 signs";
+      qDebug() << Q_FUNC_INFO << __LINE__ << "Bad implementation - 'campaign':" << campaign << "is larger than" << baseLength << "signs";
       campaign = campaign.left( baseLength );
     }
     event( QStringLiteral( "ads" ), campaign );
@@ -158,7 +158,7 @@ namespace VX {
     }
     else if ( urlOrName.length() > baseLength ) {
 
-      qDebug() << Q_FUNC_INFO << __LINE__ << "Bad implementation - 'urlOrName':" << urlOrName << "is larger than 255 signs";
+      qDebug() << Q_FUNC_INFO << __LINE__ << "Bad implementation - 'urlOrName':" << urlOrName << "is larger than" << baseLength << "signs";
       urlOrName = urlOrName.left( baseLength );
     }
     event( QStringLiteral( "open" ), urlOrName );
@@ -173,7 +173,7 @@ namespace VX {
     }
     else if ( urlOrName.length() > baseLength ) {
 
-      qDebug() << Q_FUNC_INFO << __LINE__ << "Bad implementation - 'urlOrName':" << urlOrName << "is larger than 255 signs";
+      qDebug() << Q_FUNC_INFO << __LINE__ << "Bad implementation - 'urlOrName':" << urlOrName << "is larger than" << baseLength << "signs";
       urlOrName = urlOrName.left( baseLength );
     }
     event( QStringLiteral( "play" ), urlOrName );
@@ -188,7 +188,7 @@ namespace VX {
     }
     else if ( text.length() > baseLength ) {
 
-      qDebug() << Q_FUNC_INFO << __LINE__ << "Bad implementation - 'text':" << text << "is larger than 255 signs";
+      qDebug() << Q_FUNC_INFO << __LINE__ << "Bad implementation - 'text':" << text << "is larger than" << baseLength << "signs";
       text = text.left( baseLength );
     }
     event( QStringLiteral( "search" ), text );
@@ -205,7 +205,7 @@ namespace VX {
     }
     else if ( action.length() > baseLength ) {
 
-      qDebug() << Q_FUNC_INFO << __LINE__ << "Bad implementation - 'action':" << action << "is larger than 255 signs";
+      qDebug() << Q_FUNC_INFO << __LINE__ << "Bad implementation - 'action':" << action << "is larger than" << baseLength << "signs";
       action = action.left( baseLength );
     }
     event( QStringLiteral( "touch" ), action );
