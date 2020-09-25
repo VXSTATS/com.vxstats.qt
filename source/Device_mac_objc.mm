@@ -78,24 +78,7 @@ namespace VX {
     }
 
     setVersion( hwmodel.right( hwmodel.length() - versionBegin ) );
-    hwmodel = hwmodel.left( versionBegin );
-    if ( hwmodel.endsWith( QStringLiteral( "Pro" ) ) ) {
-
-      hwmodel.replace( QStringLiteral( "Pro" ), QStringLiteral( " Pro" ) );
-    }
-    else if ( hwmodel.endsWith( QStringLiteral( "Air" ) ) ) {
-
-      hwmodel.replace( QStringLiteral( "Air" ), QStringLiteral( " Air" ) );
-    }
-    else if ( hwmodel.endsWith( QStringLiteral( "TV" ) ) ) {
-
-      hwmodel.replace( QStringLiteral( "TV" ), QStringLiteral( " TV" ) );
-    }
-    else if ( hwmodel.endsWith( QStringLiteral( "mini" ) ) ) {
-
-      hwmodel.replace( QStringLiteral( "mini" ), QStringLiteral( " mini" ) );
-    }
-    setModel( hwmodel );
+    setModel( hwmodel.left( versionBegin ) );
   }
 
 #if QT_VERSION < 0x050900
