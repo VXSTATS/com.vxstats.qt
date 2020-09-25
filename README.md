@@ -32,7 +32,7 @@
 # Preparation
 Checkout and create environment.
 ```bash
-git clone https://github.com/VXAPPS/com.vxstats.qt.git
+git clone --depth=1 --branch 1.0 --single-branch https://github.com/VXAPPS/com.vxstats.qt.git
 cd com.vxstats.qt
 mkdir build
 cd build
@@ -209,4 +209,4 @@ VX::Statistics::instance().touch( "$action" );
 
 # Pending Issues
 ## App Store
-Maybe it is not possible to leave an App Store review for certain Qt Versions, because we are using some settings not in regular app context. This has to be changed. If you have problems with the review process, please let us know and ask for support@vxapps.com to solve the issue.
+Maybe it is not possible to leave an App Store review for certain Qt versions, because we are using some settings not in regular app context. This has to be changed. If you have problems with the review process, please let us know and ask for support@vxapps.com to solve the issue.

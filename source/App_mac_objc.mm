@@ -47,7 +47,7 @@ namespace VX {
 
     NSBundle *mainBundle = [NSBundle mainBundle];
     NSURL *receiptURL = [mainBundle appStoreReceiptURL];
-    NSError *receiptError;
+    NSError *receiptError = nullptr;
     BOOL isPresent = [receiptURL checkResourceIsReachableAndReturnError:&receiptError];
     if ( !isPresent ) {
 

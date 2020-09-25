@@ -155,9 +155,9 @@ namespace VX {
     Device::Connection result = Device::Connection::Unknown;
     CFArrayRef interfaceArray = SCNetworkInterfaceCopyAll();
     NSArray *networkInterfaces = CFBridgingRelease( interfaceArray );
-    CFStringRef displayName;
-    CFStringRef bsdName;
-    CFStringRef type;
+    CFStringRef displayName = nullptr;
+    CFStringRef bsdName = nullptr;
+    CFStringRef type = nullptr;
 
     for ( NSUInteger x = 0; x < networkInterfaces.count; x++ ) {
 
@@ -196,7 +196,6 @@ namespace VX {
         }
       }
     }
-    CFRelease( interfaceArray );
     return result;
   }
 }
