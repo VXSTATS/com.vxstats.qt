@@ -24,6 +24,7 @@
 #include "Device.h"
 
 /* qt class */
+class QAuthenticator;
 class QNetworkAccessManager;
 class QNetworkReply;
 
@@ -404,11 +405,6 @@ namespace VX {
     QString m_username = {};
     QString m_password = {};
 
-    QString m_realm = {};
-    QString m_domain = {};
-    QString m_nonce = {};
-    QString m_cnonce = {};
-
     /**
      * @~english
      * @brief Current network status.
@@ -513,6 +509,9 @@ namespace VX {
      * @param _reply   Das erhaltene Ergebnis des Versands.
      */
     void slotFinished( QNetworkReply *_reply );
+
+    void slotAuthenticationRequired( QNetworkReply *_reply,
+                                     QAuthenticator *_authenticator );
 
     /**
      * @~english
