@@ -1,15 +1,15 @@
 /*
  * Copyright (C) 01/10/2020 VX APPS <sales@vxapps.com>
  *
- * The ownership of this document rests with the VX APPS. It is
- * strictly prohibited to change, sell or publish it in any way. In case
+ * This document is property of VX APPS. It is
+ * strictly prohibited to modify, sell or publish it in any way. In case
  * you have access to this document, you are obligated to ensure its
  * nondisclosure. Noncompliances will be prosecuted.
  *
- * Diese Datei ist Eigentum der VX APPS. Ändern, verkaufen oder
- * auf eine andere Weise verbreiten und öffentlich machen ist strikt
+ * Diese Datei ist Eigentum der VX APPS. Jegliche Änderung, Verkauf oder
+ * andere Verbreitung und Veröffentlichung ist strikt
  * untersagt. Falls Sie Zugang zu dieser Datei haben, sind Sie
- * verpflichtet alles Mögliche für deren Geheimhaltung zu tun.
+ * verpflichtet, alles in Ihrer Macht stehende für deren Geheimhaltung zu tun.
  * Zuwiderhandlungen werden strafrechtlich verfolgt.
  */
 
@@ -32,7 +32,7 @@ class QNetworkReply;
  * @brief The VX namespace.
  *
  * @~german
- * @brief Der VX Namensbereich.
+ * @brief Der VX Namensraum.
  */
 namespace VX {
   /**
@@ -40,7 +40,7 @@ namespace VX {
    * @brief The Statistics class.
    *
    * @~german
-   * @brief Die Statistics Klasse.
+   * @brief Die Klasse Statistics.
    */
   class Statistics : public QObject {
 
@@ -60,7 +60,7 @@ namespace VX {
 
     /**
      * @~english
-     * @brief Delete move constructor.
+     * @brief Deletes move constructor.
      *
      * @~german
      * @brief Entfernt den verschobenen Konstruktor.
@@ -69,7 +69,7 @@ namespace VX {
 
     /**
      * @~english
-     * @brief Delete copy assign.
+     * @brief Deletes copy assign.
      * @return Nothing.
      *
      * @~german
@@ -80,7 +80,7 @@ namespace VX {
 
     /**
      * @~english
-     * @brief Delete move assign.
+     * @brief Deletes move assign.
      * @return Nothing.
      *
      * @~german
@@ -98,36 +98,36 @@ namespace VX {
      *
      * @~english @b Example: @~german @b Beispiel:
      * @~english <br>for the HTTPS address www.vxapps.com and the folder u/stats.php.
-     * @~german <br>Für die HTTPS Adresse www.vxapps.com und dem Verzeichnis u/stats.php.
+     * @~german <br>Für die HTTPS Adresse www.vxapps.com und das Verzeichnis u/stats.php.
      * @~
      * @code
      * Statistics::instance().setServerFilePath( "https://www.vxapps.com/u/stats.php" );
      * @endcode
      *
      * @~
-     * @param _serverFilePath   @~english The file name to the statistics server. @~german Der Dateiname zum Statistikserver.
+     * @param _serverFilePath   @~english The file name of the statistics server. @~german Der Dateiname zum Statistikserver.
      */
     void setServerFilePath( const QString &_serverFilePath );
 
     /**
+	 * @~english
+     * @brief Request a page with the name pageName in order to transfer it to the statistics server.
+	 *
      * @~german
      * @brief Aufruf einer Seite mit dem Namen pageName um es an den Statistikserver zu übermitteln.
      *
-     * @~english
-     * @brief Request a page with the name pageName in order to transfer it to the statistics server.
-     *
      * @~
      * @param _page   @~english The name of the requested page. @~german Der Name der aufgerufenen Seite.
-     * @note @~english Limited to 255 characters. @~german Auf 255 Zeichen begrentzt.
+     * @note @~english Limited to 255 characters. @~german Auf 255 Zeichen begrenzt.
      */
     void page( const QString &_page );
 
     /**
      * @~english
-     * @brief When you would like to request a page with dynamic content please use this function.
+     * @brief If you want to request a page with dynamic content please use this function.
      *
      * @~german
-     * @brief Wenn Sie eine Seite aufrufen möchten mit dynamischem Inhalt verwenden Sie diese Funktion.
+     * @brief Wenn Sie eine Seite mit dynamischem Inhalt aufrufen möchten, verwenden Sie diese Funktion.
      *
      * @~english @b Example: @~german @b Beispiel:
      * @~english @n Page with ads. @~german @n Seite mit Werbung.
@@ -158,7 +158,7 @@ namespace VX {
      * @endcode
      *
      * @~english @b Example: @~german @b Beispiel:
-     * @~english @n Open browser with URL. @~german @n Browser mit URL.
+     * @~english @n Open browser with URL. @~german @n Browser mit URL öffnen.
      * @~
      * @code
      * Statistics::instance().event( "open", urlOrName );
@@ -200,7 +200,7 @@ namespace VX {
      * @endcode
      *
      * @~english @b Example: @~german @b Beispiel:
-     * @~english @n Shake the device. @~german @n Das Gerät schütteln.
+     * @~english @n Shake the device. @~german @n Gerät schütteln.
      * @~
      * @code
      * Statistics::instance().event( "shake", "" );
@@ -255,7 +255,7 @@ namespace VX {
      * @endcode
      *
      * @~
-     * @param _campaign   @~english The displayed ad. Limited to 255 characters. @~german Die angezeigte Werbung. Auf 255 Zeichen begrentzt.
+     * @param _campaign   @~english The displayed ad. Limited to 255 characters. @~german Die angezeigte Werbung. Auf 255 Zeichen begrenzt.
      */
     void ads( const QString &_campaign );
 
@@ -285,7 +285,7 @@ namespace VX {
      * @brief To capture open websites or documents including the information which page or document has been requested.
      *
      * @~german
-     * @brief Für das Erfassen von geöffneten Webseiten oder Dokumenten mit der Information, welche Seite, bzw.
+     * @brief Für das Erfassen von geöffneten Webseiten oder Dokumenten mit der Information, welche Seite bzw.
      * welches Dokument aufgerufen wurde.
      *
      * @~
@@ -296,7 +296,7 @@ namespace VX {
      * @endcode
      *
      * @~
-     * @param _urlOrName   @~english The displayed website/document. Limited to 255 characters. @~german Die angezeigte Webseite/das angezeigte Dokument. Auf 255 Zeichen begrentzt.
+     * @param _urlOrName   @~english The displayed website/document. Limited to 255 characters. @~german Die angezeigte Webseite/das angezeigte Dokument. Auf 255 Zeichen begrenzt.
      */
     void open( const QString &_urlOrName );
 
@@ -324,7 +324,7 @@ namespace VX {
      * @brief To capture searches including the information for which has been searched.
      *
      * @~german
-     * @brief Für die Erfassung von Suchen mit der Info, nach was gesucht wurde.
+     * @brief Für die Erfassung von Suchen mit der Information, nach was gesucht wurde.
      *
      * @~
      * @see Statistics#event:withValue:
@@ -334,7 +334,7 @@ namespace VX {
      * @endcode
      *
      * @~
-     * @param _text   @~german Der gesuchte Text. Auf 255 Zeichen begrentzt. @~english The searched text. Limited to 255 characters.
+     * @param _text @~english The searched text. Limited to 255 characters.  @~german Der gesuchte Text. Auf 255 Zeichen begrenzt. 
      */
     void search( const QString &_text );
 
@@ -369,7 +369,7 @@ namespace VX {
      * @endcode
      *
      * @~
-     * @param _action   @~english The name of the touched action. Limited to 255 characters. @~german Der Name der getippten/gedrückten Aktion. Auf 255 Zeichen begrentzt.
+     * @param _action   @~english The name of the touched action. Limited to 255 characters. @~german Der Name der getippten/gedrückten Aktion. Auf 255 Zeichen begrenzt.
      */
     void touch( const QString &_action );
 
@@ -380,7 +380,7 @@ namespace VX {
      * @param _parent   Parent object.
      *
      * @~german
-     * @brief Standardkonstruktur für Statistics.
+     * @brief Standardkonstruktor für Statistics.
      * @param _parent   Übergeordnetes Objekt.
      */
     Statistics( QObject *_parent = nullptr );
@@ -391,9 +391,9 @@ namespace VX {
      * @brief Internal server path to connect to.
      *
      * @~german
-     * @brief Interner Server Pfad für das Signalling.
+     * @brief Interner Serverpfad für das Signalling.
      */
-    QString m_serverFilePath = {};
+    QString m_serverFilePath = QString();
 
     /**
      * @~english
@@ -409,7 +409,7 @@ namespace VX {
      * @brief Current radio status.
      *
      * @~german
-     * @brief Aktueller Status einer Funkverbindung.
+     * @brief Aktueller Status der Funkverbindung.
      */
     Device::Radio m_radio = Device::Radio::None;
 
@@ -427,7 +427,7 @@ namespace VX {
      * @brief Last message to send.
      *
      * @~german
-     * @brief Zuletzt versendete Nachricht.
+     * @brief Zuletzt gesendete Nachricht.
      */
     QUrlQuery m_lastMessage = {};
 
@@ -436,13 +436,13 @@ namespace VX {
      * @brief Network access manager to post the events.
      *
      * @~german
-     * @brief Netzwerkverbindungsmanager um Aktivitäten zu verschicken.
+     * @brief Netzwerkverbindungsmanager, um Aktivitäten zu verschicken.
      */
     QNetworkAccessManager *m_networkAccessManager = nullptr;
 
     /**
      * @~english
-     * @brief Define core information for every block you need to send.
+     * @brief Defines core information for every block you need to send.
      * @return Core information block to send.
      *
      * @~german
@@ -453,34 +453,34 @@ namespace VX {
 
     /**
      * @~english
-     * @brief Send the complete message.
+     * @brief Sends the complete message.
      * @param _message   Event to send to the database.
      *
      * @~german
      * @brief Versenden der vollständigen Nachricht.
-     * @param _message   Aktivität um es in die Datenbank zu versenden.
+     * @param _message   Aktivität, um die Nachricht in die Datenbank zu senden.
      */
     void sendMessage( const QUrlQuery &_message );
 
     /**
      * @~english
-     * @brief Add an outstanding message, if we cannot send it directly to the
+     * @brief Adds a pending message, if we cannot send it directly to the
      * server.
-     * @param _message   The message to send.
+     * @param _message   The message to be sent.
      *
      * @~german
-     * @brief Hinzufügen von nicht direkt versendbaren Nachrichten um es später
-     * weiter zu senden.
+     * @brief Hinzufügen von nicht direkt versendbaren Nachrichten, um sie später
+     * weiterzusenden.
      * @param _message   Die zu verschickende Nachricht.
      */
     void addOutstandingMessage( const QUrlQuery &_message );
 
     /**
      * @~english
-     * @brief Send all offline and not direct sended messages.
+     * @brief Sends all offline and not directly sent messages.
      *
      * @~german
-     * @brief Nachträgliches versenden aller aktuell zwischengespeicherten
+     * @brief Nachträgliches Versenden aller aktuell zwischengespeicherten
      * Nachrichten.
      */
     void sendOutstandingMessages();
@@ -488,21 +488,21 @@ namespace VX {
   private Q_SLOTS:
     /**
      * @~english
-     * @brief Called, when a reply has finished, to be complete or to add the
+     * @brief Called when a reply has comfirmed complete receipt, or to add the
      * message to outstanding messages.
      * @param _reply   The received network reply.
      *
      * @~german
-     * @brief Wird aufgerufen, wenn Daten nach dem Versand erhalten wurden um
+     * @brief Wird aufgerufen, wenn Daten nach dem Versand erhalten wurden, um
      * den Erhalt zu bestätigen oder die nicht versendbare Nachricht
      * zwischenzuspeichern.
-     * @param _reply   Das erhaltene Ergebnis des Versandes.
+     * @param _reply   Das erhaltene Ergebnis des Versands.
      */
     void slotFinished( QNetworkReply *_reply );
 
     /**
      * @~english
-     * @brief Changes on Reachability in any case. Online/Offline, Status, Radio.
+     * @brief Any changes to Reachability status. Online/Offline, Status, Radio.
      * @param _connection   New connection type.
      * @param _radio   New radio type.
      *

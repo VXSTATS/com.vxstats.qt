@@ -1,15 +1,15 @@
 /*
  * Copyright (C) 01/10/2020 VX APPS <sales@vxapps.com>
  *
- * The ownership of this document rests with the VX APPS. It is
- * strictly prohibited to change, sell or publish it in any way. In case
+ * This document is property of VX APPS. It is
+ * strictly prohibited to modify, sell or publish it in any way. In case
  * you have access to this document, you are obligated to ensure its
  * nondisclosure. Noncompliances will be prosecuted.
  *
- * Diese Datei ist Eigentum der VX APPS. Ändern, verkaufen oder
- * auf eine andere Weise verbreiten und öffentlich machen ist strikt
+ * Diese Datei ist Eigentum der VX APPS. Jegliche Änderung, Verkauf oder
+ * andere Verbreitung und Veröffentlichung ist strikt
  * untersagt. Falls Sie Zugang zu dieser Datei haben, sind Sie
- * verpflichtet alles Mögliche für deren Geheimhaltung zu tun.
+ * verpflichtet, alles in Ihrer Macht stehende für deren Geheimhaltung zu tun.
  * Zuwiderhandlungen werden strafrechtlich verfolgt.
  */
 
@@ -29,17 +29,17 @@ class QNetworkConfigurationManager;
  * @brief The VX namespace.
  *
  * @~german
- * @brief Der VX Namensbereich.
+ * @brief Der VX Namensraum.
  */
 namespace VX {
   /**
    * @~english
    * @brief The Reachability class.
-   * Send changes of current network state.
+   * Sends changes of current network state.
    *
    * @~german
-   * @brief Die Reachability Klasse.
-   * Liefert informationen über den geänderten Netzwerkstatus.
+   * @brief Die Klasse Reachability.
+   * Liefert informationen über den aktuellen Netzwerkstatus.
    */
   class Reachability : public QObject {
 
@@ -60,7 +60,7 @@ namespace VX {
   public Q_SLOTS:
     /**
      * @~english
-     * @brief Changes on Reachability in any case. Online/Offline, Status, Radio.
+     * @brief Any changes on Reachability status. Online/Offline, Status, Radio.
      *
      * @~german
      * @brief Änderungen im Netzwerk zu jedem Status. Online/Offline, Status,
@@ -71,12 +71,12 @@ namespace VX {
   Q_SIGNALS:
     /**
      * @~english
-     * @brief Signal is emitted, when the reachability is changed.
+     * @brief Signal is emitted, if the reachability is changed.
      * @param p_connection   Changed connection.
      * @param p_radio   Changed radio.
      *
      * @~german
-     * @brief Signal wird gefeuert, wenn sich die Verbindung geändert hat.
+     * @brief Signal wird gesendet, wenn sich die Verbindung geändert hat.
      * @param p_connection   Geänderte Verbindungsart.
      * @param p_radio   Geänderte Funkverbindung.
      */
@@ -89,7 +89,7 @@ namespace VX {
      * @brief Network configuration manager to bear the correct network type.
      *
      * @~german
-     * @brief Manager des konfigurierten Netzwerkes um informationen zu dem
+     * @brief Manager des konfigurierten Netzwerkes um Informationen zu dem
      * aktuellen Typ zu erhalten.
      */
     QNetworkConfigurationManager *m_networkConfigurationManager = nullptr;

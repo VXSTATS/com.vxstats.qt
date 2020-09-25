@@ -39,21 +39,21 @@ cd build
 ```
 
 ## macOS
-The macOS build will handle a fair use check of the app, so it is important to have openssl installed. You can find openssl with OPENSSL_ROOT_DIR set. The easiest way is to install openssl via brew (https://brew.sh/).
+The macOS build will do a fair use check of the app, so it is important to have openssl installed. You can find openssl using the OPENSSL_ROOT_DIR set. The easiest way is to install openssl from brew (https://brew.sh/).
 ```bash
 brew install openssl
 ```
-Than you will find a openssl installation around here: /usr/local/Cellar/openssl@1.1/1.1.1g
+Then you will find an openssl installation here: /usr/local/Cellar/openssl@1.1/1.1.1g
 
 # Installation
-Use a Qt Creator for loading CMakeList.txt from checked out folder, or just run the cmake enviroment, generate makefiles and build it.
+Use a Qt Creator to load CMakeList.txt from checked-out folder, or simply run the cmake enviroment, generate makefiles, and build it.
 ```bash
 cmake ..
 make -j`nproc`
 ```
 
 ## User defined build variables
-Inside cmake/env.cmake you find some user defined build variables for special purposes.
+Inside cmake/env.cmake you will find some user-defined build variables for special purposes.
 
 ### Debugging
 You can log the verbose build output of 
@@ -70,7 +70,7 @@ set(GUI OFF)
 ```
 
 ### iOS
-If you want to build for iOS, or you could build it with a iOS specified cmake toolchain (https://github.com/leetal/ios-cmake). You will find a complete documentation here and can generate native XCode builds.
+If you want to build for iOS, or to build with a iOS specified cmake toolchain (https://github.com/leetal/ios-cmake). You will find a complete documentation here and can generate native XCode builds.
 ```bash
 # Enable ios build
 set(IOS ON)
@@ -84,31 +84,31 @@ QCoreApplication::setApplicationName( "$appid" );
 QCoreApplication::setApplicationVersion( "$version" );
 ```
 
-Alternatially use direct setup without Qt meta system.
+Alternatively, use direct setup without Qt meta system.
 ```c++
 VX::App::instance().setIdentifier( "$appid" );
 VX::App::instance().setVersion( "$version" );
 ```
 
-Setup your build id is only directly possible, Qt will not support such a value directly.
+Setting up your build id is only possible directly; Qt will not support such a value directly.
 ```c++
 VX::App::instance().setBuild( "$build" );
 ```
 
 ## Setup
-Setup your environment with your credentials. Please insert your username, password and url here. For defuscation please follow our best practice documentation.
+Set up your environment with your credentials. Please put your username, password and url here. For obfuscation please follow our best practice documentation.
 ```c++
 VX::Statistics::instance().setServerFilePath( "https://$username:$password@$url/" );
 ```
 
 ## Page
-This is the global context, where you are currently on in your application. Just name it easy and with logical app structure to identify where the user stays.
+This is the global context that you are currently in in your application. Just give it a simple name with logical app structure to identify where the user stays.
 ```c++
 VX::Statistics::instance().page( "Main" );
 ```
 
 ## Event
-When you would like to request a page with dynamic content please use this function.
+If you want to request a page with dynamic content please use this function.
 ```c++
 VX::Statistics::instance().event( "$action", "$value" );
 ```
@@ -138,13 +138,13 @@ VX::Statistics::instance().play( "$urlOrName" );
 ```
 
 ### Search
-To capture searches including the information for which has been searched.
+To capture searches including the information for what has been searched.
 ```c++
 VX::Statistics::instance().search( "$search" );
 ```
 
 ### Shake
-To capture when the device has been shaken.
+To capture when the device was shaken.
 ```c++
 VX::Statistics::instance().shake();
 ```
@@ -205,8 +205,8 @@ VX::Statistics::instance().touch( "$action" );
 
 # Known Issues
 ## Windows
-1. If you change the display ratio to a new value - maybe from 100% to 150% - the change will first take effect after relogin.
+1. If you change the display ratio to a new value - e.g. from 100% to 150% - the change will take effect after re-login.
 
 # Pending Issues
 ## App Store
-Maybe it is not possible for a possible App Store review with every Qt Version, because we are using some settings not in regular app context. So this has to be changed, if you have issues of the review process, please let us know and ask for support@vxapps.com to solve your needs.
+Maybe it is not possible to leave an App Store review for certain Qt Versions, because we are using some settings not in regular app context. This has to be changed. If you have problems with the review process, please let us know and ask for support@vxapps.com to solve the issue.

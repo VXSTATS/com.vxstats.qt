@@ -6,7 +6,7 @@ env.cmake
 Environment variables
 
 doxygen.cmake
-Template for running doxygen - not yet usable
+Template to run doxygen - not yet usable
 
 find.cmake
 Overall find package or libraries to use these variables in other cmake files

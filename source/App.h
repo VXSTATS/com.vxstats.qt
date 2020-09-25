@@ -1,15 +1,15 @@
 /*
  * Copyright (C) 01/10/2020 VX APPS <sales@vxapps.com>
  *
- * The ownership of this document rests with the VX APPS. It is
- * strictly prohibited to change, sell or publish it in any way. In case
+ * This document is property of VX APPS. It is
+ * strictly prohibited to modify, sell or publish it in any way. In case
  * you have access to this document, you are obligated to ensure its
  * nondisclosure. Noncompliances will be prosecuted.
  *
- * Diese Datei ist Eigentum der VX APPS. Ändern, verkaufen oder
- * auf eine andere Weise verbreiten und öffentlich machen ist strikt
+ * Diese Datei ist Eigentum der VX APPS. Jegliche Änderung, Verkauf oder
+ * andere Verbreitung und Veröffentlichung ist strikt
  * untersagt. Falls Sie Zugang zu dieser Datei haben, sind Sie
- * verpflichtet alles Mögliche für deren Geheimhaltung zu tun.
+ * verpflichtet, alles in Ihrer Macht stehende für deren Geheimhaltung zu tun.
  * Zuwiderhandlungen werden strafrechtlich verfolgt.
  */
 
@@ -23,17 +23,17 @@
  * @brief The VX namespace.
  *
  * @~german
- * @brief Der VX Namensbereich.
+ * @brief Der VX Namensraum.
  */
 namespace VX {
   /**
    * @~english
    * @brief The App class.
-   * Global information about the running app including validation of fair use.
+   * General information about the running app including validation of fair use.
    *
    * @~german
-   * @brief Die App Klasse.
-   * Bietet allgemeine Informationen über die Anwendung und einer Überprüfung
+   * @brief Die Klasse App.
+   * Bietet allgemeine Informationen über die Anwendung und eine Überprüfung
    * der fairen Verwendung.
    */
   class App {
@@ -52,7 +52,7 @@ namespace VX {
 
     /**
      * @~english
-     * @brief Delete move constructor.
+     * @brief Deletes move constructor.
      *
      * @~german
      * @brief Entfernt den verschobenen Konstruktor.
@@ -61,7 +61,7 @@ namespace VX {
 
     /**
      * @~english
-     * @brief Delete copy assign.
+     * @brief Deletes copy assign.
      * @return Nothing.
      *
      * @~german
@@ -72,7 +72,7 @@ namespace VX {
 
     /**
      * @~english
-     * @brief Delete move assign.
+     * @brief Deletes move assign.
      * @return Nothing.
      *
      * @~german
@@ -83,23 +83,23 @@ namespace VX {
 
     /**
      * @~english
-     * @brief Return true, if the app is fairly used.
+     * @brief Returns true, if the app is fairly used.
      * @return True, if the app is fairly used - otherwise false.
      *
      * @~german
-     * @brief Gibt whar zurück, wenn die Anwendung fair verwendet wird.
+     * @brief Gibt wahr zurück, wenn die Anwendung fair verwendet wird.
      * @return Wahr, wenn die Anwendung fair verwendet wird - sonst falsch.
      */
     virtual bool fairUse() const;
 
     /**
      * @~english
-     * @brief Return the identifier of application. E.g. com.app.name
+     * @brief Returns the identifier of application. E.g. com.app.name
      * @return Identifier of application.
      *
      * @~german
      * @brief Gibt die Id der Anwendung zurück. Bsp.: de.anwendung.name
-     * @return Die Id der Anwendug.
+     * @return Id der Anwendug.
      *
      * @~
      * @see setIdentifier
@@ -108,7 +108,7 @@ namespace VX {
 
     /**
      * @~english
-     * @brief Set the application identifier, if not set
+     * @brief Sets the application identifier, otherwise
      * <a href="https://doc.qt.io/qt-5/qcoreapplication.html#applicationName-prop">QCoreApplication::applicationName()</a>
      * property is used. E.g. com.app.name
      * @param _identifier   Application identifier to set.
@@ -126,7 +126,7 @@ namespace VX {
 
     /**
      * @~english
-     * @brief Return the version of application. E.g. 1.0
+     * @brief Returns the version of application. E.g. 1.0
      * @return Version of application.
      *
      * @~german
@@ -140,7 +140,7 @@ namespace VX {
 
     /**
      * @~english
-     * @brief Set the application version, if not set
+     * @brief Sets the application version, otherwise
      * <a href="https://doc.qt.io/qt-5/qcoreapplication.html#applicationVersion-prop">QCoreApplication::applicationVersion()</a>
      * property is used. E.g. 1.0
      * @param _version   Application version to set.
@@ -158,7 +158,7 @@ namespace VX {
 
     /**
      * @~english
-     * @brief Return the build of application. E.g. 100, 3A4E
+     * @brief Returns the build of application. E.g. 100, 3A4E
      * @return Build of application.
      *
      * @~german
@@ -190,7 +190,7 @@ namespace VX {
      * @brief Default constructor for App.
      *
      * @~german
-     * @brief Standardkonstruktur für App.
+     * @brief Standardkonstruktor für App.
      */
     App() = default;
 
