@@ -101,13 +101,16 @@ namespace VX {
      * @~german <br>Für die HTTPS Adresse www.vxapps.com und das Verzeichnis u/stats.php.
      * @~
      * @code
-     * Statistics::instance().setServerFilePath( "https://www.vxapps.com/u/stats.php" );
+     * VX::Statistics::instance().setServerFilePath( "https://www.vxapps.com/u/stats.php" );
      * @endcode
      *
      * @~
      * @param _serverFilePath   @~english The file name of the statistics server. @~german Der Dateiname zum Statistikserver.
      */
     void setServerFilePath( const QString &_serverFilePath );
+
+    void setUsername( const QString &_username );
+    void setPassword( const QString &_password );
 
     /**
    * @~english
@@ -133,97 +136,97 @@ namespace VX {
      * @~english @n Page with ads. @~german @n Seite mit Werbung.
      * @~
      * @code
-     * Statistics::instance().event( "ads", campaign);
-     * Statistics::instance().event( "ads", "Apple" );
+     * VX::Statistics::instance().event( "ads", campaign);
+     * VX::Statistics::instance().event( "ads", "Apple" );
      * @endcode
      *
      * @see Statistics#ads:
      *
      * @code
-     * Statistics::instance().ads( campaign );
+     * VX::Statistics::instance().ads( campaign );
      * @endcode
      *
      * @~english @b Example: @~german @b Beispiel:
      * @~english @n Move map to geo position. @~german @n Karte auf Geoposition verschieben.
      * @~
      * @code
-     * Statistics::instance().event( "move", latitude,longitude );
-     * Statistics::instance().event( "move", "52.523405,13.411400" );
+     * VX::Statistics::instance().event( "move", latitude,longitude );
+     * VX::Statistics::instance().event( "move", "52.523405,13.411400" );
      * @endcode
      *
      * @see Statistics#move:
      *
      * @code
-     * Statistics::instance().move( latitude longitude:longitude );
+     * VX::Statistics::instance().move( latitude longitude:longitude );
      * @endcode
      *
      * @~english @b Example: @~german @b Beispiel:
      * @~english @n Open browser with URL. @~german @n Browser mit URL öffnen.
      * @~
      * @code
-     * Statistics::instance().event( "open", urlOrName );
-     * Statistics::instance().event( "open", "https://www.vxapps.com" );
+     * VX::Statistics::instance().event( "open", urlOrName );
+     * VX::Statistics::instance().event( "open", "https://www.vxapps.com" );
      * @endcode
      *
      * @see Statistics#open:
      *
      * @code
-     * Statistics::instance().open( urlOrName );
+     * VX::Statistics::instance().open( urlOrName );
      * @endcode
      *
      * @~english @b Example: @~german @b Beispiel:
      * @~english @n Play video. @n @~german Video abspielen.
      * @~
      * @code
-     * Statistics::instance().event( "play", urlOrName );
-     * Statistics::instance().event( "play", "https://www.vxapps.com/movie.m4v" );
+     * VX::Statistics::instance().event( "play", urlOrName );
+     * VX::Statistics::instance().event( "play", "https://www.vxapps.com/movie.m4v" );
      * @endcode
      *
      * @see Statistics#play:
      *
      * @code
-     * Statistics::instance().play( urlOrName );
+     * VX::Statistics::instance().play( urlOrName );
      * @endcode
      *
      * @~english @b Example: @~german @b Beispiel:
      * @~english @n Search for 'asdf'. @~german @n Suchen nach 'asdf'.
      * @~
      * @code
-     * Statistics::instance().event( "search", text );
-     * Statistics::instance().event( "search", "asdf" );
+     * VX::Statistics::instance().event( "search", text );
+     * VX::Statistics::instance().event( "search", "asdf" );
      * @endcode
      *
      * @see Statistics#search:
      *
      * @code
-     * Statistics::instance().search( text );
+     * VX::Statistics::instance().search( text );
      * @endcode
      *
      * @~english @b Example: @~german @b Beispiel:
      * @~english @n Shake the device. @~german @n Gerät schütteln.
      * @~
      * @code
-     * Statistics::instance().event( "shake", "" );
+     * VX::Statistics::instance().event( "shake", "" );
      * @endcode
      *
      * @see Statistics#shake
      *
      * @code
-     * Statistics::instance().shake();
+     * VX::Statistics::instance().shake();
      * @endcode
      *
      * @~english @b Example: @~german @b Beispiel:
      * @~english @n Touch the button for navigation. @~german @n Button für Navitation drücken.
      * @~
      * @code
-     * Statistics::instance().event( "touch", action );
-     * Statistics::instance().event( "touch", "Navigation" );
+     * VX::Statistics::instance().event( "touch", action );
+     * VX::Statistics::instance().event( "touch", "Navigation" );
      * @endcode
      *
      * @see Statistics#touch:
      *
      * @code
-     * Statistics::instance().touch( action );
+     * VX::Statistics::instance().touch( action );
      * @endcode
      *
      * @~
@@ -251,7 +254,7 @@ namespace VX {
      * @see Statistics#event:withValue:
      *
      * @code
-     * Statistics::instance().event( "ads", campaign );
+     * VX::Statistics::instance().event( "ads", campaign );
      * @endcode
      *
      * @~
@@ -270,7 +273,7 @@ namespace VX {
      * @see event
      *
      * @code
-     * Statistics::instance().event( "move", latitude,longitude);
+     * VX::Statistics::instance().event( "move", latitude,longitude);
      * @endcode
      *
      * @~
@@ -292,7 +295,7 @@ namespace VX {
      * @see event
      *
      * @code
-     * Statistics::instance().event( "open", urlOrName );
+     * VX::Statistics::instance().event( "open", urlOrName );
      * @endcode
      *
      * @~
@@ -311,7 +314,7 @@ namespace VX {
      * @see Statistics#event:withValue:
      *
      * @code
-     * Statistics::instance().event( "play", urlOrName );
+     * VX::Statistics::instance().event( "play", urlOrName );
      * @endcode
      *
      * @~
@@ -330,11 +333,11 @@ namespace VX {
      * @see Statistics#event:withValue:
      *
      * @code
-     * Statistics::instance().event( "search", text );
+     * VX::Statistics::instance().event( "search", text );
      * @endcode
      *
      * @~
-     * @param _text @~english The searched text. Limited to 255 characters.  @~german Der gesuchte Text. Auf 255 Zeichen begrenzt.
+     * @param _text   @~english The searched text. Limited to 255 characters. @~german Der gesuchte Text. Auf 255 Zeichen begrenzt.
      */
     void search( const QString &_text );
 
@@ -349,7 +352,7 @@ namespace VX {
      * @see Statistics#event:withValue:
      *
      * @code
-     * Statistics::instance().event( "shake", "" );
+     * VX::Statistics::instance().event( "shake", "" );
      * @endcode
      */
     void shake();
@@ -365,7 +368,7 @@ namespace VX {
      * @see Statistics#event:withValue:
      *
      * @code
-     * Statistics::instance().event( "touch", action );
+     * VX::Statistics::instance().event( "touch", action );
      * @endcode
      *
      * @~
@@ -386,6 +389,9 @@ namespace VX {
     Statistics( QObject *_parent = nullptr );
 
   private:
+
+    int m_requestCounter = 1;
+
     /**
      * @~english
      * @brief Internal server path to connect to.
@@ -393,7 +399,15 @@ namespace VX {
      * @~german
      * @brief Interner Serverpfad für das Signalling.
      */
-    QString m_serverFilePath = QString();
+    QString m_serverFilePath = {};
+
+    QString m_username = {};
+    QString m_password = {};
+
+    QString m_realm = {};
+    QString m_domain = {};
+    QString m_nonce = {};
+    QString m_cnonce = {};
 
     /**
      * @~english

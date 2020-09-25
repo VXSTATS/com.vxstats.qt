@@ -19,6 +19,7 @@
 #else
   #include <QCoreApplication>
 #endif
+#include <QTimer>
 
 /* local header */
 #include "App.h"
@@ -38,7 +39,17 @@ int main( int argc, char *argv[] ) {
   VX::App::instance().setBuild( QStringLiteral( "100" ) );
 
   VX::Statistics::instance().setServerFilePath( QStringLiteral( "https://sandbox.vxstats.com/" ) );
-  VX::Statistics::instance().page( QStringLiteral( "Demo" ) );
+  VX::Statistics::instance().setUsername( QStringLiteral( "sandbox" ) );
+  VX::Statistics::instance().setPassword( QStringLiteral( "^pm3(K=o#g^n8-&-*FLv1$#682Bs=Gj6PM9u" ) );
+
+  VX::Statistics::instance().page( QStringLiteral( "Start" ) );
+
+  QTimer *timer = new QTimer;
+  QObject::connect( timer, &QTimer::timeout, []() {
+
+    VX::Statistics::instance().page( QStringLiteral( "Demo" ) );
+  } );
+  timer->start( 1000 );
 
 #ifdef QT_GUI_LIB
   return QGuiApplication::exec();

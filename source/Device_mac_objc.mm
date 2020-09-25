@@ -18,8 +18,10 @@
   #include <QDebug>
 #endif
 
-/* system header */
+/* c header */
 #include <cstdio>
+
+/* system header */
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <sys/sysctl.h>

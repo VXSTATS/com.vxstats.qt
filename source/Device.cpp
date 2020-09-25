@@ -104,7 +104,7 @@ namespace VX {
 #ifdef DEBUG
       qDebug() << Q_FUNC_INFO << __LINE__ << "Hardware Address" << hardwareAddress;
 #endif
-      QString hash = QString::fromLatin1( QCryptographicHash::hash( hardwareAddress.toUtf8(), QCryptographicHash::Md5 ) .toHex() );
+      QString hash = QString::fromLatin1( QCryptographicHash::hash( hardwareAddress.toUtf8(), QCryptographicHash::Md5 ).toHex() );
       /* UUID struct: time-version-clock_seq_hi-clock_seq_lo-node */
       m_uniqueIdentifier = QString( "%1-%2-%3-%4-%5" ).arg( hash.mid( timeStart, timeLength ), hash.mid( versionStart, versionLength ), hash.mid( clockSequenceHighStart, clockSequenceHighLength ), hash.mid( clockSequenceLowStart, clockSequenceLowLength ), hash.mid( nodeStart, nodeLength ) );
     }
