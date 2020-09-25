@@ -172,7 +172,7 @@ VX::Statistics::instance().touch( "$action" );
 ## Windows
 - Windows 10
 - Windows 8.1
-- Windows 8 (support ended, extended support ends 10.01.2023)
+- Windows 8 (support ended, extended support ends 01/10/2023)
 - Windows 7 (support ended)
 
 ## macOS
@@ -188,8 +188,8 @@ VX::Statistics::instance().touch( "$action" );
 - Red Hat 8.2
 - Ubuntu 20.04
 - Ubuntu 18.04
-- Ubuntu 16.04 (support ended, extended support ends 30.04.2021)
-- Every combination of supported Qt Version on a linux system should work nicely
+- Ubuntu 16.04 (support ended, extended support ends 04/30/2021)
+- Every combination of supported Qt Version on a Linux system should work nicely
 
 ## iOS
 - *iOS 14 - (not yet supported)*
