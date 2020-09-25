@@ -1,15 +1,15 @@
 /*
  * Copyright (C) 01/10/2020 VX APPS <sales@vxapps.com>
  *
- * This document is property of VX APPS. It is
- * strictly prohibited to modify, sell or publish it in any way. In case
- * you have access to this document, you are obligated to ensure its
- * nondisclosure. Noncompliances will be prosecuted.
+ * This document is property of VX APPS. It is strictly prohibited
+ * to modify, sell or publish it in any way. In case you have access
+ * to this document, you are obligated to ensure its nondisclosure.
+ * Noncompliances will be prosecuted.
  *
- * Diese Datei ist Eigentum der VX APPS. Jegliche Änderung, Verkauf oder
- * andere Verbreitung und Veröffentlichung ist strikt
- * untersagt. Falls Sie Zugang zu dieser Datei haben, sind Sie
- * verpflichtet, alles in Ihrer Macht stehende für deren Geheimhaltung zu tun.
+ * Diese Datei ist Eigentum der VX APPS. Jegliche Änderung, Verkauf
+ * oder andere Verbreitung und Veröffentlichung ist strikt untersagt.
+ * Falls Sie Zugang zu dieser Datei haben, sind Sie verpflichtet,
+ * alles in Ihrer Macht stehende für deren Geheimhaltung zu tun.
  * Zuwiderhandlungen werden strafrechtlich verfolgt.
  */
 
@@ -110,9 +110,9 @@ namespace VX {
     void setServerFilePath( const QString &_serverFilePath );
 
     /**
-	 * @~english
+   * @~english
      * @brief Request a page with the name pageName in order to transfer it to the statistics server.
-	 *
+   *
      * @~german
      * @brief Aufruf einer Seite mit dem Namen pageName um es an den Statistikserver zu übermitteln.
      *
@@ -334,7 +334,7 @@ namespace VX {
      * @endcode
      *
      * @~
-     * @param _text @~english The searched text. Limited to 255 characters.  @~german Der gesuchte Text. Auf 255 Zeichen begrenzt. 
+     * @param _text @~english The searched text. Limited to 255 characters.  @~german Der gesuchte Text. Auf 255 Zeichen begrenzt.
      */
     void search( const QString &_text );
 
