@@ -32,7 +32,7 @@
 # Preparation
 Checkout and create environment.
 ```bash
-git clone --depth=1 --branch 1.0 --single-branch https://github.com/VXAPPS/com.vxstats.qt.git
+git clone --depth 1 --branch 1.0 --single-branch https://github.com/VXAPPS/com.vxstats.qt.git
 cd com.vxstats.qt
 mkdir build
 cd build
