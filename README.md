@@ -56,7 +56,7 @@ make -j`nproc`
 Inside cmake/env.cmake you will find some user-defined build variables for special purposes.
 
 ### Debugging
-You can log the verbose build output of 
+You can log the verbose build output.
 ```bash
 # Debugging of build steps
 set(CMAKE_VERBOSE_MAKEFILE ON)
