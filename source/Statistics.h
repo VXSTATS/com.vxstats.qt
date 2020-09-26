@@ -420,6 +420,11 @@ namespace VX {
      */
     QString m_password = {};
 
+    QString m_domain = {};
+    QString m_realm = {};
+    QString m_nonce = {};
+    QString m_cnonce = {};
+
     /**
      * @~english
      * @brief Current network status.

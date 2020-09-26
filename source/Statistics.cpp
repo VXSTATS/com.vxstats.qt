@@ -381,7 +381,7 @@ namespace VX {
     if ( m_serverFilePath.isEmpty() ) {
 
       qDebug() << Q_FUNC_INFO << __LINE__ << "Bad implementation - 'serverFilePath' is empty - using: 'https://sandbox.vxstats.com'";
-      m_serverFilePath = "https://sandbox.vxstats.com";
+      m_serverFilePath = QStringLiteral( "https://sandbox.vxstats.com" );
     }
 
 #ifdef DEBUG
@@ -395,7 +395,25 @@ namespace VX {
       m_lastMessage = _message;
 
       QNetworkRequest request( m_serverFilePath );
+      request.setAttribute( QNetworkRequest::Http2AllowedAttribute, true );
       request.setHeader( QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded" );
+
+      /* we need to make a challenge first */
+      if ( !m_realm.isEmpty() && !m_domain.isEmpty() && !m_nonce.isEmpty() && !m_cnonce.isEmpty() ) {
+
+        m_cnonce = QCryptographicHash::hash( QString( "%1" ).arg( m_cnonce ).toUtf8(), QCryptographicHash::Md5 ).toHex();
+
+        QString hash1 = QCryptographicHash::hash( QString( "%1:%2:%3" ).arg( m_username ).arg( m_realm ).arg( m_password ).toUtf8(), QCryptographicHash::Md5 ).toHex();
+        QString hash2 = QCryptographicHash::hash( QString( "POST:%1" ).arg( m_domain ).toUtf8(), QCryptographicHash::Md5 ).toHex();
+        QString response = QCryptographicHash::hash( QString( "%1:%2:%3:%4:%5:%6" ).arg( hash1 ).arg( m_nonce ).arg( m_requestCounter, 8, 10, QLatin1Char( '0' ) ).arg( m_cnonce ).arg( "auth" ).arg( hash2 ).toUtf8(), QCryptographicHash::Md5 ).toHex();
+
+        QString digest = QString( "Digest username=\"%1\", realm=\"%2\", nonce=\"%3\", uri=\"%4\", response=\"%5\", algorithm=MD5, qop=auth, nc=%6, cnonce=\"%7\"" ).arg( m_username ).arg( m_realm ).arg( m_nonce ).arg( m_domain ).arg( response ).arg( m_requestCounter, 8, 10, QLatin1Char( '0' ) ).arg( m_cnonce );
+        qDebug() << "Digest direct " << digest;
+
+        request.setRawHeader( "Authorization", digest.toUtf8() );
+
+        m_requestCounter++;
+      }
 
       m_networkAccessManager->post( request, _message.query( QUrl::FullyEncoded ).toUtf8() );
     }
@@ -439,10 +457,52 @@ namespace VX {
     qDebug() << Q_FUNC_INFO << __LINE__ << "Network Error:" << _reply->error();
 #endif
 
+    /* Digest Challenge */
+    if ( _reply->error() == QNetworkReply::AuthenticationRequiredError && _reply->hasRawHeader( "WWW-Authenticate" ) ) {
+
+      QString authSession = _reply->rawHeader( "WWW-Authenticate" );
+      qDebug() << "Auth: " << authSession;
+
+      if ( authSession.startsWith( "Digest" ) ) {
+
+        m_requestCounter = 1;
+
+        authSession = authSession.right( authSession.size() - 6 );
+        authSession.remove( " " );
+        authSession.remove( "\"" );
+
+        QUrlQuery authData;
+        authData.setQueryDelimiters( '=', ',' );
+        authData.setQuery( authSession );
+
+        m_realm = authData.queryItemValue( "realm" );
+        m_domain = authData.queryItemValue( "domain" );
+        m_nonce = authData.queryItemValue( "nonce" );
+        m_cnonce = QCryptographicHash::hash( QString( "%1" ).arg( m_nonce ).toUtf8(), QCryptographicHash::Md5 ).toHex();
+
+        QString hash1 = QCryptographicHash::hash( QString( "%1:%2:%3" ).arg( m_username ).arg( m_realm ).arg( m_password ).toUtf8(), QCryptographicHash::Md5 ).toHex();
+        QString hash2 = QCryptographicHash::hash( QString( "POST:%1" ).arg( m_domain ).toUtf8(), QCryptographicHash::Md5 ).toHex();
+        QString response = QCryptographicHash::hash( QString( "%1:%2:%3:%4:%5:%6" ).arg( hash1 ).arg( m_nonce ).arg( m_requestCounter, 8, 10, QLatin1Char( '0' ) ).arg( m_cnonce ).arg( "auth" ).arg( hash2 ).toUtf8(), QCryptographicHash::Md5 ).toHex();
+
+        QString digest = QString( "Digest username=\"%1\", realm=\"%2\", nonce=\"%3\", uri=\"%4\", response=\"%5\", algorithm=MD5, qop=auth, nc=%6, cnonce=\"%7\"" ).arg( m_username ).arg( m_realm ).arg( m_nonce ).arg( m_domain ).arg( response ).arg( m_requestCounter, 8, 10, QLatin1Char( '0' ) ).arg( m_cnonce );
+        qDebug() << "Digest" << digest;
+
+        QNetworkRequest request( m_serverFilePath );
+        request.setAttribute( QNetworkRequest::Http2AllowedAttribute, true );
+        request.setHeader( QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded" );
+        request.setRawHeader( "Authorization", digest.toUtf8() );
+
+        m_networkAccessManager->post( request, m_lastMessage.query( QUrl::FullyEncoded ).toUtf8() );
+
+        m_requestCounter++;
+        return;
+      }
+    }
     addOutstandingMessage( m_lastMessage );
   }
 
-  void Statistics::slotAuthenticationRequired( QNetworkReply *, QAuthenticator *_authenticator ) {
+  void Statistics::slotAuthenticationRequired( QNetworkReply */*_reply*/,
+                                               QAuthenticator *_authenticator ) {
 
     if ( !m_username.isEmpty() && !m_password.isEmpty() ) {
 
