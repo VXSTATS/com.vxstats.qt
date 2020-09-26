@@ -98,11 +98,11 @@ namespace VX {
      * @brief Definiert den Pfad und Namen zum Statistikserver.
      *
      * @~english @b Example: @~german @b Beispiel:
-     * @~english <br>for the HTTPS address www.vxapps.com and the folder u/stats.php.
-     * @~german <br>Für die HTTPS Adresse www.vxapps.com und das Verzeichnis u/stats.php.
+     * @~english <br>for the HTTPS address sandbox.vxstats.com and the folder /.
+     * @~german <br>Für die HTTPS Adresse sandbox.vxstats.com und das Verzeichnis /.
      * @~
      * @code
-     * VX::Statistics::instance().setServerFilePath( "https://www.vxapps.com/u/stats.php" );
+     * VX::Statistics::instance().setServerFilePath( "https://sandbox.vxtats.com" );
      * @endcode
      *
      * @~
@@ -166,7 +166,7 @@ namespace VX {
      * @~
      * @code
      * VX::Statistics::instance().event( "open", urlOrName );
-     * VX::Statistics::instance().event( "open", "https://www.vxapps.com" );
+     * VX::Statistics::instance().event( "open", "https://www.vxstats.com" );
      * @endcode
      *
      * @see Statistics#open:
@@ -180,7 +180,7 @@ namespace VX {
      * @~
      * @code
      * VX::Statistics::instance().event( "play", urlOrName );
-     * VX::Statistics::instance().event( "play", "https://www.vxapps.com/movie.m4v" );
+     * VX::Statistics::instance().event( "play", "https://www.vxstats.com/movie.m4v" );
      * @endcode
      *
      * @see Statistics#play:
@@ -402,7 +402,22 @@ namespace VX {
      */
     QString m_serverFilePath = {};
 
+    /**
+     * @~english
+     * @brief Username for authentication.
+     *
+     * @~german
+     * @brief Benutzername für die Authorisierung.
+     */
     QString m_username = {};
+
+    /**
+     * @~english
+     * @brief Password for authentication.
+     *
+     * @~german
+     * @brief Passwort für die Authorisierung.
+     */
     QString m_password = {};
 
     /**

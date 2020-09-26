@@ -380,8 +380,8 @@ namespace VX {
 
     if ( m_serverFilePath.isEmpty() ) {
 
-      qDebug() << Q_FUNC_INFO << __LINE__ << "Bad implementation - 'serverFilePath' is empty - using: 'https://sandbox.vxapps.com'";
-      m_serverFilePath = "https://sandbox.vxapps.com";
+      qDebug() << Q_FUNC_INFO << __LINE__ << "Bad implementation - 'serverFilePath' is empty - using: 'https://sandbox.vxstats.com'";
+      m_serverFilePath = "https://sandbox.vxstats.com";
     }
 
 #ifdef DEBUG
@@ -407,7 +407,7 @@ namespace VX {
 
   void Statistics::addOutstandingMessage( const QUrlQuery &_message ) {
 
-    QSettings settings( QStringLiteral( "com.vxstats" ), QStringLiteral( "statistics" ) );
+    QSettings settings( QStringLiteral( "group.com.vxstats" ), QStringLiteral( "statistics" ) );
     settings.beginGroup( QStringLiteral( "statistics" ) );
     QStringList messages = settings.value( QStringLiteral( "offline" ) ).toStringList();
     messages.append( QString::fromUtf8( _message.query( QUrl::FullyEncoded ).toUtf8() ) );
@@ -417,7 +417,7 @@ namespace VX {
 
   void Statistics::sendOutstandingMessages() {
 
-    QSettings settings( QStringLiteral( "com.vxstats" ), QStringLiteral( "statistics" ) );
+    QSettings settings( QStringLiteral( "group.com.vxstats" ), QStringLiteral( "statistics" ) );
     settings.beginGroup( QStringLiteral( "statistics" ) );
     const QStringList messages = settings.value( QStringLiteral( "offline" ) ).toStringList();
     settings.remove( QStringLiteral( "offline" ) );
