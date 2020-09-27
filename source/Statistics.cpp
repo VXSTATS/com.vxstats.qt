@@ -401,13 +401,13 @@ namespace VX {
       /* we need to make a challenge first */
       if ( !m_realm.isEmpty() && !m_domain.isEmpty() && !m_nonce.isEmpty() && !m_cnonce.isEmpty() ) {
 
-        m_cnonce = QCryptographicHash::hash( QString( "%1" ).arg( m_cnonce ).toUtf8(), QCryptographicHash::Md5 ).toHex();
+        m_cnonce = QString::fromLatin1( QCryptographicHash::hash( QString( QStringLiteral( "%1" ) ).arg( m_cnonce ).toUtf8(), QCryptographicHash::Md5 ).toHex() );
 
-        QString hash1 = QCryptographicHash::hash( QString( "%1:%2:%3" ).arg( m_username ).arg( m_realm ).arg( m_password ).toUtf8(), QCryptographicHash::Md5 ).toHex();
-        QString hash2 = QCryptographicHash::hash( QString( "POST:%1" ).arg( m_domain ).toUtf8(), QCryptographicHash::Md5 ).toHex();
-        QString response = QCryptographicHash::hash( QString( "%1:%2:%3:%4:%5:%6" ).arg( hash1 ).arg( m_nonce ).arg( m_requestCounter, 8, 10, QLatin1Char( '0' ) ).arg( m_cnonce ).arg( "auth" ).arg( hash2 ).toUtf8(), QCryptographicHash::Md5 ).toHex();
+        QByteArray hash1 = QCryptographicHash::hash( QString( QStringLiteral( "%1:%2:%3" ) ).arg( m_username, m_realm, m_password ).toUtf8(), QCryptographicHash::Md5 ).toHex();
+        QByteArray hash2 = QCryptographicHash::hash( QString( QStringLiteral( "POST:%1" ) ).arg( m_domain ).toUtf8(), QCryptographicHash::Md5 ).toHex();
+        QByteArray response = QCryptographicHash::hash( QString( QStringLiteral( "%1:%2:%3:%4:%5:%6" ) ).arg( hash1, m_nonce ).arg( m_requestCounter, 8, 10, QLatin1Char( '0' ) ).arg( m_cnonce, "auth", hash2 ).toUtf8(), QCryptographicHash::Md5 ).toHex();
 
-        QString digest = QString( "Digest username=\"%1\", realm=\"%2\", nonce=\"%3\", uri=\"%4\", response=\"%5\", algorithm=MD5, qop=auth, nc=%6, cnonce=\"%7\"" ).arg( m_username ).arg( m_realm ).arg( m_nonce ).arg( m_domain ).arg( response ).arg( m_requestCounter, 8, 10, QLatin1Char( '0' ) ).arg( m_cnonce );
+        QString digest = QString( QStringLiteral( "Digest username=\"%1\", realm=\"%2\", nonce=\"%3\", uri=\"%4\", response=\"%5\", algorithm=MD5, qop=auth, nc=%6, cnonce=\"%7\"" ) ).arg( m_username, m_realm, m_nonce, m_domain, response ).arg( m_requestCounter, 8, 10, QLatin1Char( '0' ) ).arg( m_cnonce );
         qDebug() << "Digest direct " << digest;
 
         request.setRawHeader( "Authorization", digest.toUtf8() );
@@ -460,31 +460,31 @@ namespace VX {
     /* Digest Challenge */
     if ( _reply->error() == QNetworkReply::AuthenticationRequiredError && _reply->hasRawHeader( "WWW-Authenticate" ) ) {
 
-      QString authSession = _reply->rawHeader( "WWW-Authenticate" );
+      QString authSession = QString::fromLatin1( _reply->rawHeader( "WWW-Authenticate" ) );
       qDebug() << "Auth: " << authSession;
 
-      if ( authSession.startsWith( "Digest" ) ) {
+      if ( authSession.startsWith( QStringLiteral( "Digest" ) ) ) {
 
         m_requestCounter = 1;
 
         authSession = authSession.right( authSession.size() - 6 );
-        authSession.remove( " " );
-        authSession.remove( "\"" );
+        authSession.remove( QStringLiteral( " " ) );
+        authSession.remove( QStringLiteral( "\"" ) );
 
         QUrlQuery authData;
         authData.setQueryDelimiters( '=', ',' );
         authData.setQuery( authSession );
 
-        m_realm = authData.queryItemValue( "realm" );
-        m_domain = authData.queryItemValue( "domain" );
-        m_nonce = authData.queryItemValue( "nonce" );
-        m_cnonce = QCryptographicHash::hash( QString( "%1" ).arg( m_nonce ).toUtf8(), QCryptographicHash::Md5 ).toHex();
+        m_realm = authData.queryItemValue( QStringLiteral( "realm" ) );
+        m_domain = authData.queryItemValue( QStringLiteral( "domain" ) );
+        m_nonce = authData.queryItemValue( QStringLiteral( "nonce" ) );
+        m_cnonce = QString::fromLatin1( QCryptographicHash::hash( QString( QStringLiteral( "%1" ) ).arg( m_nonce ).toUtf8(), QCryptographicHash::Md5 ).toHex() );
 
-        QString hash1 = QCryptographicHash::hash( QString( "%1:%2:%3" ).arg( m_username ).arg( m_realm ).arg( m_password ).toUtf8(), QCryptographicHash::Md5 ).toHex();
-        QString hash2 = QCryptographicHash::hash( QString( "POST:%1" ).arg( m_domain ).toUtf8(), QCryptographicHash::Md5 ).toHex();
-        QString response = QCryptographicHash::hash( QString( "%1:%2:%3:%4:%5:%6" ).arg( hash1 ).arg( m_nonce ).arg( m_requestCounter, 8, 10, QLatin1Char( '0' ) ).arg( m_cnonce ).arg( "auth" ).arg( hash2 ).toUtf8(), QCryptographicHash::Md5 ).toHex();
+        QByteArray hash1 = QCryptographicHash::hash( QString( QStringLiteral( "%1:%2:%3" ) ).arg( m_username, m_realm, m_password ).toUtf8(), QCryptographicHash::Md5 ).toHex();
+        QByteArray hash2 = QCryptographicHash::hash( QString( QStringLiteral( "POST:%1" ) ).arg( m_domain ).toUtf8(), QCryptographicHash::Md5 ).toHex();
+        QByteArray response = QCryptographicHash::hash( QString( QStringLiteral( "%1:%2:%3:%4:%5:%6" ) ).arg( hash1, m_nonce ).arg( m_requestCounter, 8, 10, QLatin1Char( '0' ) ).arg( m_cnonce, QStringLiteral( "auth" ), hash2 ).toUtf8(), QCryptographicHash::Md5 ).toHex();
 
-        QString digest = QString( "Digest username=\"%1\", realm=\"%2\", nonce=\"%3\", uri=\"%4\", response=\"%5\", algorithm=MD5, qop=auth, nc=%6, cnonce=\"%7\"" ).arg( m_username ).arg( m_realm ).arg( m_nonce ).arg( m_domain ).arg( response ).arg( m_requestCounter, 8, 10, QLatin1Char( '0' ) ).arg( m_cnonce );
+        QString digest = QString( QStringLiteral( "Digest username=\"%1\", realm=\"%2\", nonce=\"%3\", uri=\"%4\", response=\"%5\", algorithm=MD5, qop=auth, nc=%6, cnonce=\"%7\"" ) ).arg( m_username, m_realm, m_nonce, m_domain, response ).arg( m_requestCounter, 8, 10, QLatin1Char( '0' ) ).arg( m_cnonce );
         qDebug() << "Digest" << digest;
 
         QNetworkRequest request( m_serverFilePath );

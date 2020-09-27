@@ -38,7 +38,7 @@ namespace VX {
     QFile vendorFile( QStringLiteral( "/sys/class/dmi/id/sys_vendor" ) );
     if ( vendorFile.exists() && vendorFile.open( QIODevice::ReadOnly ) ) {
 
-      QString vendor = vendorFile.readAll();
+      QString vendor = QString::fromLatin1( vendorFile.readAll() );
       vendor = vendor.simplified();
       setVendor( vendor );
       vendorFile.close();
@@ -47,7 +47,7 @@ namespace VX {
     QFile modelFile( QStringLiteral( "/sys/class/dmi/id/product_name" ) );
     if ( modelFile.exists() && modelFile.open( QIODevice::ReadOnly ) ) {
 
-      QString model = modelFile.readAll();
+      QString model = QString::fromLatin1( modelFile.readAll() );
       model = model.simplified();
       setModel( model );
       modelFile.close();
@@ -56,7 +56,7 @@ namespace VX {
     QFile versionFile( QStringLiteral( "/sys/class/dmi/id/product_version" ) );
     if ( versionFile.exists() && versionFile.open( QIODevice::ReadOnly ) ) {
 
-      QString version = versionFile.readAll();
+      QString version = QString::fromLatin1( versionFile.readAll() );
       version = version.simplified();
       if ( version != QStringLiteral( "None" ) ) {
 
