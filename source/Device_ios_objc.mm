@@ -23,8 +23,10 @@
   #include <QTouchDevice>
 #endif
 
+/* c header */
+#include <cstdio>
+
 /* system header */
-#include <stdio.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <sys/sysctl.h>
@@ -89,7 +91,6 @@ namespace VX {
 
         --versionBegin;
       }
-
       setVersion( hwmodel.right( hwmodel.length() - versionBegin ) );
       setModel( hwmodel.left( versionBegin ) );
     }

@@ -38,9 +38,9 @@ int main( int argc, char *argv[] ) {
 
   VX::App::instance().setBuild( QStringLiteral( "100" ) );
 
-  VX::Statistics::instance().setServerFilePath( QStringLiteral( "https://sandbox.vxstats.com/" ) );
   VX::Statistics::instance().setUsername( QStringLiteral( "sandbox" ) );
   VX::Statistics::instance().setPassword( QStringLiteral( "sandbox" ) );
+  VX::Statistics::instance().setServerFilePath( QStringLiteral( "https://sandbox.vxstats.com/" ) );
 
   VX::Statistics::instance().page( QStringLiteral( "Start" ) );
 
