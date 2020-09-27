@@ -102,7 +102,7 @@ namespace VX {
      * @~german <br>Für die HTTPS Adresse sandbox.vxstats.com und das Verzeichnis /.
      * @~
      * @code
-     * VX::Statistics::instance().setServerFilePath( "https://sandbox.vxtats.com" );
+     * VX::Statistics::instance().setServerFilePath( "https://sandbox.vxtats.com/" );
      * @endcode
      *
      * @~
@@ -390,7 +390,13 @@ namespace VX {
     Statistics( QObject *_parent = nullptr );
 
   private:
-
+    /**
+     * @~english
+     * @brief Session request counter.
+     *
+     * @~german
+     * @brief Hochzählender Wert der Session.
+     */
     int m_requestCounter = 1;
 
     /**
@@ -420,9 +426,40 @@ namespace VX {
      */
     QString m_password = {};
 
+    /**
+     * @~english
+     * @brief Domain for authentication.
+     *
+     * @~german
+     * @brief Domain für die Authorisierung.
+     */
     QString m_domain = {};
+
+    /**
+     * @~english
+     * @brief Realm for authentication.
+     *
+     * @~german
+     * @brief Realm für die Authorisierung.
+     */
     QString m_realm = {};
+
+    /**
+     * @~english
+     * @brief Nonce for authentication.
+     *
+     * @~german
+     * @brief Nonce für die Authorisierung.
+     */
     QString m_nonce = {};
+
+    /**
+     * @~english
+     * @brief Client nonce for authentication.
+     *
+     * @~german
+     * @brief Lokaler nonce für die Authorisierung.
+     */
     QString m_cnonce = {};
 
     /**
@@ -530,6 +567,17 @@ namespace VX {
      */
     void slotFinished( QNetworkReply *_reply );
 
+    /**
+     * @~english
+     * @brief Called when a reply want authentication.
+     * @param _reply   The received network reply.
+     * @param _authenticator   The useable authenticator.
+     *
+     * @~german
+     * @brief Wird aufgerufen, wenn eine Authorisierung verlangt wird.
+     * @param _reply   Das erhaltene Ergebnis des Versands.
+     * @param _authenticator   Zu nutzender Authentifizierer.
+     */
     void slotAuthenticationRequired( QNetworkReply *_reply,
                                      QAuthenticator *_authenticator );
 

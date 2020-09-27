@@ -98,9 +98,9 @@ VX::App::instance().setBuild( "$build" );
 ## Setup
 Set up your environment with your credentials. Please put your username, password and url here. For obfuscation please follow our best practice documentation.
 ```c++
-VX::Statistics::instance().setUsername( "$username" );
-VX::Statistics::instance().setPassword( "$password" );
-VX::Statistics::instance().setServerFilePath( "https://$url/" );
+VX::Statistics::instance().setUsername( "sandbox" );
+VX::Statistics::instance().setPassword( "sandbox" );
+VX::Statistics::instance().setServerFilePath( "https://sandbox.vxstats.com/" );
 ```
 
 ## Page

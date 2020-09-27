@@ -40,7 +40,7 @@ int main( int argc, char *argv[] ) {
 
   VX::Statistics::instance().setServerFilePath( QStringLiteral( "https://sandbox.vxstats.com/" ) );
   VX::Statistics::instance().setUsername( QStringLiteral( "sandbox" ) );
-  VX::Statistics::instance().setPassword( QStringLiteral( "^pm3(K=o#g^n8-&-*FLv1$#682Bs=Gj6PM9u" ) );
+  VX::Statistics::instance().setPassword( QStringLiteral( "sandbox" ) );
 
   VX::Statistics::instance().page( QStringLiteral( "Start" ) );
 
