@@ -21,10 +21,13 @@
 #endif
 #include <QTimer>
 
-/* local header */
-#include "App.h"
-#include "Device.h"
-#include "Statistics.h"
+/* com.vxstats.qt header */
+#include <App.h>
+#include <Device.h>
+#include <Statistics.h>
+
+/* com.vxstats.qt namespace */
+using namespace vx;
 
 int main( int argc, char *argv[] ) {
 
@@ -36,18 +39,18 @@ int main( int argc, char *argv[] ) {
   QCoreApplication::setApplicationName( QStringLiteral( "com.vxstats.sandbox" ) );
   QCoreApplication::setApplicationVersion( QStringLiteral( "1.0" ) );
 
-  VX::App::instance().setBuild( QStringLiteral( "100" ) );
+  App::instance().setBuild( QStringLiteral( "100" ) );
 
-  VX::Statistics::instance().setUsername( QStringLiteral( "sandbox" ) );
-  VX::Statistics::instance().setPassword( QStringLiteral( "sandbox" ) );
-  VX::Statistics::instance().setServerFilePath( QStringLiteral( "https://sandbox.vxstats.com/" ) );
+  Statistics::instance().setUsername( QStringLiteral( "sandbox" ) );
+  Statistics::instance().setPassword( QStringLiteral( "sandbox" ) );
+  Statistics::instance().setServerFilePath( QStringLiteral( "https://sandbox.vxstats.com/" ) );
 
-  VX::Statistics::instance().page( QStringLiteral( "Start" ) );
+  Statistics::instance().page( QStringLiteral( "Start" ) );
 
   QTimer *timer = new QTimer;
   QObject::connect( timer, &QTimer::timeout, []() {
 
-    VX::Statistics::instance().page( QStringLiteral( "Demo" ) );
+    Statistics::instance().page( QStringLiteral( "Demo" ) );
   } );
   timer->start( 1000 );
 

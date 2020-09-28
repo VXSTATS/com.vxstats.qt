@@ -45,7 +45,7 @@
 #include "Reachability.h"
 #include "Statistics.h"
 
-namespace VX {
+namespace vx {
 
   constexpr int baseLength = 255;
 

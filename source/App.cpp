@@ -19,7 +19,7 @@
 /* local header */
 #include "App.h"
 
-namespace VX {
+namespace vx {
 
   bool App::fairUse() const {
 

@@ -77,6 +77,10 @@ set(IOS ON)
 ```
 
 # Implementation
+```c++
+using namespace vx:
+```
+
 ## Pre-Setup
 Qt application name and version.
 ```c++
@@ -86,75 +90,75 @@ QCoreApplication::setApplicationVersion( "$version" );
 
 Alternatively, use direct setup without Qt meta system.
 ```c++
-VX::App::instance().setIdentifier( "$appid" );
-VX::App::instance().setVersion( "$version" );
+App::instance().setIdentifier( "$appid" );
+App::instance().setVersion( "$version" );
 ```
 
 Setting up your build id is only possible directly; Qt will not support such a value directly.
 ```c++
-VX::App::instance().setBuild( "$build" );
+App::instance().setBuild( "$build" );
 ```
 
 ## Setup
 Set up your environment with your credentials. Please put your username, password and url here. For obfuscation please follow our best practice documentation.
 ```c++
-VX::Statistics::instance().setUsername( "sandbox" );
-VX::Statistics::instance().setPassword( "sandbox" );
-VX::Statistics::instance().setServerFilePath( "https://sandbox.vxstats.com/" );
+Statistics::instance().setUsername( "sandbox" );
+Statistics::instance().setPassword( "sandbox" );
+Statistics::instance().setServerFilePath( "https://sandbox.vxstats.com/" );
 ```
 
 ## Page
 This is the global context that you are currently in in your application. Just give it a simple name with logical app structure to identify where the user stays.
 ```c++
-VX::Statistics::instance().page( "Main" );
+Statistics::instance().page( "Main" );
 ```
 
 ## Event
 If you want to request a page with dynamic content please use this function.
 ```c++
-VX::Statistics::instance().event( "$action", "$value" );
+Statistics::instance().event( "$action", "$value" );
 ```
 
 ### Ads
 To capture ads - correspondingly the shown ad.
 ```c++
-VX::Statistics::instance().ads( "$campain" );
+Statistics::instance().ads( "$campain" );
 ```
 
 ### Move
 To capture map shifts - correspondingly the new center.
 ```c++
-VX::Statistics::instance().move( "$latitude", "$longitude" );
+Statistics::instance().move( "$latitude", "$longitude" );
 ```
 
 ### Open
 To capture open websites or documents including the information which page or document has been requested.
 ```c++
-VX::Statistics::instance().open( "$urlOrName" );
+Statistics::instance().open( "$urlOrName" );
 ```
 
 ### Play
 To capture played files including the information which file/action has been played.
 ```c++
-VX::Statistics::instance().play( "$urlOrName" );
+Statistics::instance().play( "$urlOrName" );
 ```
 
 ### Search
 To capture searches including the information for what has been searched.
 ```c++
-VX::Statistics::instance().search( "$search" );
+Statistics::instance().search( "$search" );
 ```
 
 ### Shake
 To capture when the device was shaken.
 ```c++
-VX::Statistics::instance().shake();
+Statistics::instance().shake();
 ```
 
 ### Touch
 To capture typed/touched actions.
 ```c++
-VX::Statistics::instance().touch( "$action" );
+Statistics::instance().touch( "$action" );
 ```
 
 # Compatiblity

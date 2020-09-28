@@ -30,12 +30,12 @@ class QNetworkReply;
 
 /**
  * @~english
- * @brief The VX namespace.
+ * @brief The vx namespace.
  *
  * @~german
- * @brief Der VX Namensraum.
+ * @brief Der vx Namensraum.
  */
-namespace VX {
+namespace vx {
   /**
    * @~english
    * @brief The Statistics class.
@@ -102,7 +102,7 @@ namespace VX {
      * @~german <br>Für die HTTPS Adresse sandbox.vxstats.com und das Verzeichnis /.
      * @~
      * @code
-     * VX::Statistics::instance().setServerFilePath( "https://sandbox.vxtats.com/" );
+     * Statistics::instance().setServerFilePath( "https://sandbox.vxtats.com/" );
      * @endcode
      *
      * @~
@@ -137,97 +137,97 @@ namespace VX {
      * @~english @n Page with ads. @~german @n Seite mit Werbung.
      * @~
      * @code
-     * VX::Statistics::instance().event( "ads", campaign);
-     * VX::Statistics::instance().event( "ads", "Apple" );
+     * Statistics::instance().event( "ads", campaign);
+     * Statistics::instance().event( "ads", "Apple" );
      * @endcode
      *
      * @see Statistics#ads:
      *
      * @code
-     * VX::Statistics::instance().ads( campaign );
+     * Statistics::instance().ads( campaign );
      * @endcode
      *
      * @~english @b Example: @~german @b Beispiel:
      * @~english @n Move map to geo position. @~german @n Karte auf Geoposition verschieben.
      * @~
      * @code
-     * VX::Statistics::instance().event( "move", latitude,longitude );
-     * VX::Statistics::instance().event( "move", "52.523405,13.411400" );
+     * Statistics::instance().event( "move", latitude,longitude );
+     * Statistics::instance().event( "move", "52.523405,13.411400" );
      * @endcode
      *
      * @see Statistics#move:
      *
      * @code
-     * VX::Statistics::instance().move( latitude longitude:longitude );
+     * Statistics::instance().move( latitude longitude:longitude );
      * @endcode
      *
      * @~english @b Example: @~german @b Beispiel:
      * @~english @n Open browser with URL. @~german @n Browser mit URL öffnen.
      * @~
      * @code
-     * VX::Statistics::instance().event( "open", urlOrName );
-     * VX::Statistics::instance().event( "open", "https://www.vxstats.com" );
+     * Statistics::instance().event( "open", urlOrName );
+     * Statistics::instance().event( "open", "https://www.vxstats.com" );
      * @endcode
      *
      * @see Statistics#open:
      *
      * @code
-     * VX::Statistics::instance().open( urlOrName );
+     * Statistics::instance().open( urlOrName );
      * @endcode
      *
      * @~english @b Example: @~german @b Beispiel:
      * @~english @n Play video. @n @~german Video abspielen.
      * @~
      * @code
-     * VX::Statistics::instance().event( "play", urlOrName );
-     * VX::Statistics::instance().event( "play", "https://www.vxstats.com/movie.m4v" );
+     * Statistics::instance().event( "play", urlOrName );
+     * Statistics::instance().event( "play", "https://www.vxstats.com/movie.m4v" );
      * @endcode
      *
      * @see Statistics#play:
      *
      * @code
-     * VX::Statistics::instance().play( urlOrName );
+     * Statistics::instance().play( urlOrName );
      * @endcode
      *
      * @~english @b Example: @~german @b Beispiel:
      * @~english @n Search for 'asdf'. @~german @n Suchen nach 'asdf'.
      * @~
      * @code
-     * VX::Statistics::instance().event( "search", text );
-     * VX::Statistics::instance().event( "search", "asdf" );
+     * Statistics::instance().event( "search", text );
+     * Statistics::instance().event( "search", "asdf" );
      * @endcode
      *
      * @see Statistics#search:
      *
      * @code
-     * VX::Statistics::instance().search( text );
+     * Statistics::instance().search( text );
      * @endcode
      *
      * @~english @b Example: @~german @b Beispiel:
      * @~english @n Shake the device. @~german @n Gerät schütteln.
      * @~
      * @code
-     * VX::Statistics::instance().event( "shake", "" );
+     * Statistics::instance().event( "shake", "" );
      * @endcode
      *
      * @see Statistics#shake
      *
      * @code
-     * VX::Statistics::instance().shake();
+     * Statistics::instance().shake();
      * @endcode
      *
      * @~english @b Example: @~german @b Beispiel:
      * @~english @n Touch the button for navigation. @~german @n Button für Navitation drücken.
      * @~
      * @code
-     * VX::Statistics::instance().event( "touch", action );
-     * VX::Statistics::instance().event( "touch", "Navigation" );
+     * Statistics::instance().event( "touch", action );
+     * Statistics::instance().event( "touch", "Navigation" );
      * @endcode
      *
      * @see Statistics#touch:
      *
      * @code
-     * VX::Statistics::instance().touch( action );
+     * Statistics::instance().touch( action );
      * @endcode
      *
      * @~
@@ -255,7 +255,7 @@ namespace VX {
      * @see Statistics#event:withValue:
      *
      * @code
-     * VX::Statistics::instance().event( "ads", campaign );
+     * Statistics::instance().event( "ads", campaign );
      * @endcode
      *
      * @~
@@ -274,7 +274,7 @@ namespace VX {
      * @see event
      *
      * @code
-     * VX::Statistics::instance().event( "move", latitude,longitude);
+     * Statistics::instance().event( "move", latitude,longitude);
      * @endcode
      *
      * @~
@@ -296,7 +296,7 @@ namespace VX {
      * @see event
      *
      * @code
-     * VX::Statistics::instance().event( "open", urlOrName );
+     * Statistics::instance().event( "open", urlOrName );
      * @endcode
      *
      * @~
@@ -315,7 +315,7 @@ namespace VX {
      * @see Statistics#event:withValue:
      *
      * @code
-     * VX::Statistics::instance().event( "play", urlOrName );
+     * Statistics::instance().event( "play", urlOrName );
      * @endcode
      *
      * @~
@@ -334,7 +334,7 @@ namespace VX {
      * @see Statistics#event:withValue:
      *
      * @code
-     * VX::Statistics::instance().event( "search", text );
+     * Statistics::instance().event( "search", text );
      * @endcode
      *
      * @~
@@ -353,7 +353,7 @@ namespace VX {
      * @see Statistics#event:withValue:
      *
      * @code
-     * VX::Statistics::instance().event( "shake", "" );
+     * Statistics::instance().event( "shake", "" );
      * @endcode
      */
     void shake();
@@ -369,7 +369,7 @@ namespace VX {
      * @see Statistics#event:withValue:
      *
      * @code
-     * VX::Statistics::instance().event( "touch", action );
+     * Statistics::instance().event( "touch", action );
      * @endcode
      *
      * @~
