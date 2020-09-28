@@ -24,7 +24,7 @@
 /* local header */
 #include "Reachability.h"
 
-namespace vx {
+namespace vxstats {
 
   Reachability::Reachability( QObject *_parent )
     : QObject( _parent ) {

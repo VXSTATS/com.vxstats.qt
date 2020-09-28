@@ -37,7 +37,7 @@
 /* local header */
 #include "Device.h"
 
-namespace vx {
+namespace vxstats {
 
   class Device_mac : public Device {
 

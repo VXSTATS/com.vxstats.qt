@@ -19,7 +19,7 @@
 /* local header */
 #include "App.h"
 
-namespace vx {
+namespace vxstats {
 
   bool App::fairUse() const {
 

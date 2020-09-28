@@ -30,7 +30,7 @@
 /* local header */
 #include "Device.h"
 
-namespace vx {
+namespace vxstats {
 
   /* uuid struct: time-version-clock_seq_hi-clock_seq_lo-node */
   constexpr int timeStart = 0;

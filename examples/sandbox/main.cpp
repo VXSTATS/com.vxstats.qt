@@ -27,7 +27,7 @@
 #include <Statistics.h>
 
 /* com.vxstats.qt namespace */
-using namespace vx;
+using namespace vxstats;
 
 int main( int argc, char *argv[] ) {
 

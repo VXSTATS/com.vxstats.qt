@@ -29,7 +29,7 @@
 /* local header */
 #include "App.h"
 
-namespace vx {
+namespace vxstats {
 
   class App_mac : public App {
 

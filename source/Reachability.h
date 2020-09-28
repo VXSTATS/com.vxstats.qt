@@ -26,12 +26,12 @@ class QNetworkConfigurationManager;
 
 /**
  * @~english
- * @brief The vx namespace.
+ * @brief The vxstats namespace.
  *
  * @~german
- * @brief Der vx Namensraum.
+ * @brief Der vxstats Namensraum.
  */
-namespace vx {
+namespace vxstats {
   /**
    * @~english
    * @brief The Reachability class.
