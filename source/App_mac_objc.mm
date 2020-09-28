@@ -55,7 +55,7 @@ namespace VX {
     }
 
     /* Load the receipt file */
-    NSData *receiptData = [NSData dataWithContentsOfURL:receiptURL];
+    const NSData *receiptData = [NSData dataWithContentsOfURL:receiptURL];
 
     /* Create a memory buffer to extract the PKCS #7 container */
     BIO *receiptBIO = BIO_new( BIO_s_mem() );

@@ -112,7 +112,7 @@ namespace VX {
       for ( interface = allInterfaces; interface != nullptr; interface = interface->ifa_next ) {
 
         unsigned int flags = interface->ifa_flags;
-        struct sockaddr *addr = interface->ifa_addr;
+        const struct sockaddr *addr = interface->ifa_addr;
 
         /* Check for running IPv4, IPv6 interfaces. Skip the loopback interface. */
         if ( ( flags & ( IFF_UP | IFF_RUNNING | IFF_LOOPBACK ) ) == ( IFF_UP | IFF_RUNNING ) ) {

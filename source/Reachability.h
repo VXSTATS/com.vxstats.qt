@@ -55,7 +55,7 @@ namespace VX {
      * @brief Standardkonstruktor für Reachability.
      * @param _parent   Übergeordnetes Objekt.
      */
-    Reachability( QObject *_parent = nullptr );
+    explicit Reachability( QObject *_parent = nullptr );
 
   public Q_SLOTS:
     /**

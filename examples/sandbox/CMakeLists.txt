@@ -13,15 +13,30 @@
 # Zuwiderhandlungen werden strafrechtlich verfolgt.
 #
 
-project(sandbox)
+project(sandbox LANGUAGES CXX)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-add_executable(${PROJECT_NAME}
-  main.cpp
-)
+if(ANDROID)
+  set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
+  if (ANDROID_ABI STREQUAL "armeabi-v7a")
+    set(ANDROID_EXTRA_LIBS
+    ${CMAKE_CURRENT_SOURCE_DIR}/path/to/libcrypto.so
+    ${CMAKE_CURRENT_SOURCE_DIR}/path/to/libssl.so)
+  endif()
+endif()
+
+if(ANDROID)
+  add_library(${PROJECT_NAME} SHARED
+    main.cpp
+  )
+else()
+  add_executable(${PROJECT_NAME}
+    main.cpp
+  )
+endif()
 
 if(GUI)
   set(${PROJECT_NAME}_libs Qt5::Gui)

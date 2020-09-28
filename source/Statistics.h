@@ -387,7 +387,7 @@ namespace VX {
      * @brief Standardkonstruktor für Statistics.
      * @param _parent   Übergeordnetes Objekt.
      */
-    Statistics( QObject *_parent = nullptr );
+    explicit Statistics( QObject *_parent = nullptr );
 
   private:
     /**
@@ -540,7 +540,7 @@ namespace VX {
      * weiterzusenden.
      * @param _message   Die zu verschickende Nachricht.
      */
-    void addOutstandingMessage( const QUrlQuery &_message );
+    void addOutstandingMessage( const QUrlQuery &_message ) const;
 
     /**
      * @~english
@@ -565,7 +565,7 @@ namespace VX {
      * zwischenzuspeichern.
      * @param _reply   Das erhaltene Ergebnis des Versands.
      */
-    void slotFinished( QNetworkReply *_reply );
+    void slotFinished( const QNetworkReply *_reply );
 
     /**
      * @~english
@@ -578,8 +578,8 @@ namespace VX {
      * @param _reply   Das erhaltene Ergebnis des Versands.
      * @param _authenticator   Zu nutzender Authentifizierer.
      */
-    void slotAuthenticationRequired( QNetworkReply *_reply,
-                                     QAuthenticator *_authenticator );
+    void slotAuthenticationRequired( const QNetworkReply *_reply,
+                                     QAuthenticator *_authenticator ) const;
 
     /**
      * @~english

@@ -340,7 +340,7 @@ namespace VX {
     }
 
 #ifdef QT_GUI_LIB
-    QScreen *screen = QGuiApplication::primaryScreen();
+    const QScreen *screen = QGuiApplication::primaryScreen();
     /* Screen Resolution */
     core.addQueryItem( QStringLiteral( "width" ), QStringLiteral( "%1" ).arg( screen->size().width() ) );
     core.addQueryItem( QStringLiteral( "height" ), QStringLiteral( "%1" ).arg( screen->size().height() ) );
@@ -423,7 +423,7 @@ namespace VX {
     }
   }
 
-  void Statistics::addOutstandingMessage( const QUrlQuery &_message ) {
+  void Statistics::addOutstandingMessage( const QUrlQuery &_message ) const {
 
     QSettings settings( QStringLiteral( "group.com.vxstats" ), QStringLiteral( "statistics" ) );
     settings.beginGroup( QStringLiteral( "statistics" ) );
@@ -446,7 +446,7 @@ namespace VX {
     }
   }
 
-  void Statistics::slotFinished( QNetworkReply *_reply ) {
+  void Statistics::slotFinished( const QNetworkReply *_reply ) {
 
     if ( _reply->error() == QNetworkReply::NoError ) {
 
@@ -501,8 +501,8 @@ namespace VX {
     addOutstandingMessage( m_lastMessage );
   }
 
-  void Statistics::slotAuthenticationRequired( QNetworkReply */*_reply*/,
-                                               QAuthenticator *_authenticator ) {
+  void Statistics::slotAuthenticationRequired( const QNetworkReply */*_reply*/,
+                                               QAuthenticator *_authenticator ) const {
 
     if ( !m_username.isEmpty() && !m_password.isEmpty() ) {
 
