@@ -16,7 +16,7 @@
 /* local header */
 #include "App.h"
 
-namespace VX {
+namespace vxstats {
 
   App &App::instance() {
 

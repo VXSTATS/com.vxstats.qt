@@ -13,7 +13,7 @@
 # Zuwiderhandlungen werden strafrechtlich verfolgt.
 #
 
-project(com.vxstats.qt)
+project(com.vxstats.qt LANGUAGES CXX)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -24,13 +24,16 @@ if(WIN32)
   set(${PROJECT_NAME}_os_src App_default.cpp Device_win.cpp)
 endif()
 if(APPLE AND NOT IOS)
-  set(${PROJECT_NAME}_os_src App_mac_objc.mm Device_mac_objc.mm statistics.qrc)
+  set(${PROJECT_NAME}_os_src App_mac.mm Device_mac.mm statistics.qrc)
 endif()
 if (IOS)
-  set(${PROJECT_NAME}_os_src App_default.cpp Device_ios_objc.mm statistics.qrc)
+  set(${PROJECT_NAME}_os_src App_default.cpp Device_ios.mm statistics.qrc)
 endif()
-if(UNIX AND NOT APPLE)
+if(UNIX AND NOT APPLE AND NOT ANDROID)
   set(${PROJECT_NAME}_os_src App_default.cpp Device_linux.cpp)
+endif()
+if(ANDROID)
+  set(${PROJECT_NAME}_os_src App_default.cpp Device_android.cpp)
 endif()
 
 add_library(${PROJECT_NAME}
@@ -54,6 +57,9 @@ if(IOS)
 endif()
 if(WIN32)
   set(${PROJECT_NAME}_os_libs gdi32.lib)
+endif()
+if(ANDROID)
+  set(${PROJECT_NAME}_os_libs Qt5::AndroidExtras)
 endif()
 if(GUI)
   set(${PROJECT_NAME}_os_libs ${${PROJECT_NAME}_os_libs} Qt5::Gui)

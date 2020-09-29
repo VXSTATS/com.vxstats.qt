@@ -31,7 +31,7 @@
 #define MALLOC(x) HeapAlloc(GetProcessHeap(), 0, (x))
 #define FREE(x) HeapFree(GetProcessHeap(), 0, (x))
 
-namespace VX {
+namespace vxstats {
 
   class Device_win : public Device {
 

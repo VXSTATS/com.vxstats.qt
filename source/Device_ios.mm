@@ -40,7 +40,7 @@
 /* local header */
 #include "Device.h"
 
-namespace VX {
+namespace vxstats {
 
   class Device_ios : public Device {
 
