@@ -67,26 +67,7 @@ namespace vxstats {
 
     if ( version().isEmpty() ) {
 
-      /* Do we find space and only numbers from behind - this could be the version */
-      int pos = model().lastIndexOf( QChar::Space );
-      if ( pos != -1 ) {
-
-        bool isVersion = true;
-        QString maybeVersion = model().mid( pos + 1, model().size() - ( pos + 1 ) );
-        for ( QChar chr : maybeVersion ) {
-
-          if ( !chr.isDigit() && !chr.isPunct() ) {
-
-            isVersion = false;
-            break;
-          }
-        }
-        if ( isVersion ) {
-
-          setModel( model().left( pos ) );
-          setVersion( maybeVersion );
-        }
-      }
+      tryToSplitVersionFromModel();
     }
   }
 }

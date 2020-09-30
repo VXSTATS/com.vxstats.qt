@@ -34,7 +34,7 @@ namespace vxstats {
   class App_mac : public App {
 
   public:
-    bool fairUse() const final;
+    [[nodiscard]] bool fairUse() const final;
   };
 
   App &App::instance() {

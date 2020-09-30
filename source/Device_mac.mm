@@ -43,7 +43,7 @@ namespace vxstats {
 
   public:
     Device_mac();
-    bool isVoiceOverActive() const final;
+    [[nodiscard]] bool isVoiceOverActive() const final;
 #if QT_VERSION < 0x050900
     QString osVersion() const final;
 #endif
@@ -93,8 +93,15 @@ namespace vxstats {
 
   bool Device_mac::isVoiceOverActive() const {
 
+    CFStringRef voiceOverOnOffKey = CFStringCreateWithCString( nullptr, "voiceOverOnOffKey", kCFStringEncodingASCII );
+    CFStringRef universalaccess = CFStringCreateWithCString( nullptr, "com.apple.universalaccess", kCFStringEncodingASCII );
+
     Boolean value = false;
-    Boolean result = CFPreferencesGetAppBooleanValue( CFSTR( "voiceOverOnOffKey" ), CFSTR( "com.apple.universalaccess" ), &value );
+    Boolean result = CFPreferencesGetAppBooleanValue( voiceOverOnOffKey, universalaccess, &value );
+
+    CFRelease( universalaccess );
+    CFRelease( voiceOverOnOffKey );
+
     return value ? result : value;
   }
 

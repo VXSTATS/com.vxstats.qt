@@ -29,6 +29,8 @@
 /* com.vxstats.qt namespace */
 using namespace vxstats;
 
+constexpr int createPageMilliseconds = 1000;
+
 int main( int argc, char *argv[] ) {
 
 #ifdef QT_GUI_LIB
@@ -52,7 +54,7 @@ int main( int argc, char *argv[] ) {
 
     Statistics::instance().page( QStringLiteral( "Demo" ) );
   } );
-  timer->start( 1000 );
+  timer->start( createPageMilliseconds );
 
 #ifdef QT_GUI_LIB
   return QGuiApplication::exec();

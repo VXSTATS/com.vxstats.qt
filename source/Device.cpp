@@ -184,15 +184,37 @@ namespace vxstats {
     return version;
   }
 
-  Device::Connection Device::typeOfNetwork( const QString &_interface ) {
+  Device::Connection Device::typeOfNetwork( const QString & /*_interface*/ ) {
 
-    Q_UNUSED( _interface )
     return Device::Connection::Unknown;
   }
 
-  bool Device::isPhysical( const QString &_hardwareAddress ) const {
+  void Device::tryToSplitVersionFromModel() {
 
-    Q_UNUSED( _hardwareAddress )
+    /* Do we find space and only numbers from behind - this could be the version */
+    int pos = model().lastIndexOf( QChar::Space );
+    if ( pos != -1 ) {
+
+      bool isVersion = true;
+      QString maybeVersion = model().mid( pos + 1, model().size() - ( pos + 1 ) );
+      for ( QChar chr : maybeVersion ) {
+
+        if ( !chr.isDigit() && !chr.isPunct() ) {
+
+          isVersion = false;
+          break;
+        }
+      }
+      if ( isVersion ) {
+
+        setModel( model().left( pos ) );
+        setVersion( maybeVersion );
+      }
+    }
+  }
+
+  bool Device::isPhysical( const QString & /*_hardwareAddress*/ ) const {
+
     return true;
   }
 }

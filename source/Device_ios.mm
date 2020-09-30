@@ -46,10 +46,10 @@ namespace vxstats {
 
   public:
     Device_ios();
-    bool isJailbroken() const final;
-    bool isTabletMode() const final;
-    bool hasTouchScreen() const final;
-    bool isVoiceOverActive() const final;
+    [[nodiscard]] bool isJailbroken() const final;
+    [[nodiscard]] bool isTabletMode() const final;
+    [[nodiscard]] bool hasTouchScreen() const final;
+    [[nodiscard]] bool isVoiceOverActive() const final;
 #if QT_VERSION < 0x050900
     QString osVersion() const final;
 #endif
@@ -170,7 +170,7 @@ namespace vxstats {
       for ( interface = allInterfaces; interface != nullptr; interface = interface->ifa_next ) {
 
         unsigned int flags = interface->ifa_flags;
-        struct sockaddr *addr = interface->ifa_addr;
+        const struct sockaddr *addr = interface->ifa_addr;
 
         /* Check for running IPv4, IPv6 interfaces. Skip the loopback interface. */
         if ( ( flags & ( IFF_UP | IFF_RUNNING | IFF_LOOPBACK ) ) == ( IFF_UP | IFF_RUNNING ) ) {

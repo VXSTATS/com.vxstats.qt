@@ -37,13 +37,13 @@ namespace vxstats {
 
   public:
     Device_win();
-    bool isTabletMode() const final;
-    bool hasTouchScreen() const final;
-    bool isVoiceOverActive() const final;
+    [[nodiscard]] bool isTabletMode() const final;
+    [[nodiscard]] bool hasTouchScreen() const final;
+    [[nodiscard]] bool isVoiceOverActive() const final;
     Connection typeOfNetwork( const QString &_interface ) final;
 
   private:
-    bool isPhysical( const QString &_hardwareAddress ) const final;
+    [[nodiscard]] bool isPhysical( const QString &_hardwareAddress ) const final;
   };
 
   Device &Device::instance() {
@@ -59,29 +59,9 @@ namespace vxstats {
     setVendor( settings.value( "SystemManufacturer", {} ).toString() );
     setModel( settings.value( "SystemProductName", {} ).toString() );
 
-    setVersion( QString() );
-    /* Do we find space and only numbers from behind - this could be the version */
-    int pos = model().lastIndexOf( QChar::Space );
-    if ( pos != -1 ) {
-
-      bool isVersion = true;
-      QString maybeVersion = model().mid( pos + 1, model().size() - ( pos + 1 ) );
-      for ( QChar chr : maybeVersion ) {
-
-        if ( !chr.isDigit() && !chr.isPunct() ) {
-
-          isVersion = false;
-          break;
-        }
-      }
-      if ( isVersion ) {
-
-        setModel( model().left( pos ) );
-        setVersion( maybeVersion );
-      }
-    }
+    tryToSplitVersionFromModel();
   }
-  
+
   bool Device_win::isTabletMode() const {
 
     QSettings settings( QStringLiteral( "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ImmersiveShell" ), QSettings::NativeFormat );

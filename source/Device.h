@@ -302,6 +302,8 @@ namespace vxstats {
      */
     virtual ~Device() = default;
 
+    void tryToSplitVersionFromModel();
+
   private:
     /**
      * @~english

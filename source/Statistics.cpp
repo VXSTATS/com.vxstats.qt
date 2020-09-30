@@ -48,6 +48,8 @@
 namespace vxstats {
 
   constexpr int baseLength = 255;
+  constexpr int defaultFieldWidth = 8;
+  constexpr int defaultBase = 10;
 
   Statistics::Statistics( QObject *_parent )
     : QObject( _parent ) {
@@ -349,8 +351,6 @@ namespace vxstats {
     /* NOTE: This is last value, without not logged out! See known problems. */
     HDC deviceContext = GetDC( 0 );
     int dpiX = GetDeviceCaps( deviceContext, LOGPIXELSX );
-    int dpiY = GetDeviceCaps( deviceContext, LOGPIXELSY );
-    Q_UNUSED( dpiY );
     ReleaseDC( 0, deviceContext );
     double ratio = dpiX / 96.0;
 #else
@@ -405,9 +405,9 @@ namespace vxstats {
 
         QByteArray hash1 = QCryptographicHash::hash( QString( QStringLiteral( "%1:%2:%3" ) ).arg( m_username, m_realm, m_password ).toUtf8(), QCryptographicHash::Md5 ).toHex();
         QByteArray hash2 = QCryptographicHash::hash( QString( QStringLiteral( "POST:%1" ) ).arg( m_domain ).toUtf8(), QCryptographicHash::Md5 ).toHex();
-        QByteArray response = QCryptographicHash::hash( QString( QStringLiteral( "%1:%2:%3:%4:%5:%6" ) ).arg( hash1, m_nonce ).arg( m_requestCounter, 8, 10, QLatin1Char( '0' ) ).arg( m_cnonce, "auth", hash2 ).toUtf8(), QCryptographicHash::Md5 ).toHex();
+        QByteArray response = QCryptographicHash::hash( QString( QStringLiteral( "%1:%2:%3:%4:%5:%6" ) ).arg( hash1, m_nonce ).arg( m_requestCounter, defaultFieldWidth, defaultBase, QLatin1Char( '0' ) ).arg( m_cnonce, "auth", hash2 ).toUtf8(), QCryptographicHash::Md5 ).toHex();
 
-        QString digest = QString( QStringLiteral( "Digest username=\"%1\", realm=\"%2\", nonce=\"%3\", uri=\"%4\", response=\"%5\", algorithm=MD5, qop=auth, nc=%6, cnonce=\"%7\"" ) ).arg( m_username, m_realm, m_nonce, m_domain, response ).arg( m_requestCounter, 8, 10, QLatin1Char( '0' ) ).arg( m_cnonce );
+        QString digest = QString( QStringLiteral( "Digest username=\"%1\", realm=\"%2\", nonce=\"%3\", uri=\"%4\", response=\"%5\", algorithm=MD5, qop=auth, nc=%6, cnonce=\"%7\"" ) ).arg( m_username, m_realm, m_nonce, m_domain, response ).arg( m_requestCounter, defaultFieldWidth, defaultBase, QLatin1Char( '0' ) ).arg( m_cnonce );
         request.setRawHeader( "Authorization", digest.toUtf8() );
 
         m_requestCounter++;
@@ -451,15 +451,15 @@ namespace vxstats {
 #ifdef DEBUG
       if ( _reply->hasRawHeader( "Authentication-Info" ) ) {
 
-        QString authSession = _reply->rawHeader( "Authentication-Info" );
-        authSession.remove( " " );
-        authSession.remove( "\"" );
+        QString authSession = QString::fromLatin1( _reply->rawHeader( "Authentication-Info" ) );
+        authSession.remove( QStringLiteral( " " ) );
+        authSession.remove( QStringLiteral( "\"" ) );
 
         QUrlQuery authData;
         authData.setQueryDelimiters( '=', ',' );
         authData.setQuery( authSession );
 
-        if ( authData.queryItemValue( "nc" ).toInt() == m_requestCounter - 1 ) {
+        if ( authData.queryItemValue( QStringLiteral( "nc" ) ).toInt() == m_requestCounter - 1 ) {
 
           qDebug() << "Request vaild:" << m_requestCounter;
         }
@@ -467,7 +467,7 @@ namespace vxstats {
 
           qDebug() << "ERROR: Request NOT vaild:" << m_requestCounter;
         }
-        if ( authData.queryItemValue( "cnonce" ) == m_cnonce ) {
+        if ( authData.queryItemValue( QStringLiteral( "cnonce" ) ) == m_cnonce ) {
 
           qDebug() << "Nonce vaild:" << m_cnonce;
         }
@@ -475,10 +475,10 @@ namespace vxstats {
 
           qDebug() << "ERROR: Nonce NOT vaild:" << m_cnonce;
         }
-        QString hash1 = QCryptographicHash::hash( QString( "%1:%2:%3" ).arg( m_username, m_realm, m_password ).toUtf8(), QCryptographicHash::Md5 ).toHex();
-        QString hash2 = QCryptographicHash::hash( QString( ":%1" ).arg( m_domain ).toUtf8(), QCryptographicHash::Md5 ).toHex();
-        QString response = QCryptographicHash::hash( QString( "%1:%2:%3:%4:%5:%6" ).arg( hash1, m_nonce ).arg( m_requestCounter - 1, 8, 10, QLatin1Char( '0' ) ).arg( m_cnonce, "auth", hash2 ).toUtf8(), QCryptographicHash::Md5 ).toHex();
-        if ( authData.queryItemValue( "rspauth" ) == response ) {
+        QByteArray hash1 = QCryptographicHash::hash( QString( QStringLiteral( "%1:%2:%3" ) ).arg( m_username, m_realm, m_password ).toUtf8(), QCryptographicHash::Md5 ).toHex();
+        QByteArray hash2 = QCryptographicHash::hash( QString( QStringLiteral( ":%1" ) ).arg( m_domain ).toUtf8(), QCryptographicHash::Md5 ).toHex();
+        QString response = QString::fromLatin1( QCryptographicHash::hash( QString( QStringLiteral( "%1:%2:%3:%4:%5:%6" ) ).arg( hash1, m_nonce ).arg( m_requestCounter - 1, defaultFieldWidth, defaultBase, QLatin1Char( '0' ) ).arg( m_cnonce, "auth", hash2 ).toUtf8(), QCryptographicHash::Md5 ).toHex() );
+        if ( authData.queryItemValue( QStringLiteral( "rspauth" ) ) == response ) {
 
           qDebug() << "Response is vailid:" << response;
         }
@@ -498,12 +498,13 @@ namespace vxstats {
     /* Digest Challenge */
     if ( _reply->error() == QNetworkReply::AuthenticationRequiredError && _reply->hasRawHeader( "WWW-Authenticate" ) ) {
 
+      QString digestPrefix( QStringLiteral( "Digest" ) );
       QString authSession = QString::fromLatin1( _reply->rawHeader( "WWW-Authenticate" ) );
-      if ( authSession.startsWith( QStringLiteral( "Digest" ) ) ) {
+      if ( authSession.startsWith( digestPrefix ) ) {
 
         m_requestCounter = 1;
 
-        authSession = authSession.right( authSession.size() - 6 );
+        authSession = authSession.right( authSession.size() - digestPrefix.length() );
         authSession.remove( QStringLiteral( " " ) );
         authSession.remove( QStringLiteral( "\"" ) );
 
@@ -518,9 +519,9 @@ namespace vxstats {
 
         QByteArray hash1 = QCryptographicHash::hash( QString( QStringLiteral( "%1:%2:%3" ) ).arg( m_username, m_realm, m_password ).toUtf8(), QCryptographicHash::Md5 ).toHex();
         QByteArray hash2 = QCryptographicHash::hash( QString( QStringLiteral( "POST:%1" ) ).arg( m_domain ).toUtf8(), QCryptographicHash::Md5 ).toHex();
-        QByteArray response = QCryptographicHash::hash( QString( QStringLiteral( "%1:%2:%3:%4:%5:%6" ) ).arg( hash1, m_nonce ).arg( m_requestCounter, 8, 10, QLatin1Char( '0' ) ).arg( m_cnonce, QStringLiteral( "auth" ), hash2 ).toUtf8(), QCryptographicHash::Md5 ).toHex();
+        QByteArray response = QCryptographicHash::hash( QString( QStringLiteral( "%1:%2:%3:%4:%5:%6" ) ).arg( hash1, m_nonce ).arg( m_requestCounter, defaultFieldWidth, defaultBase, QLatin1Char( '0' ) ).arg( m_cnonce, QStringLiteral( "auth" ), hash2 ).toUtf8(), QCryptographicHash::Md5 ).toHex();
 
-        QString digest = QString( QStringLiteral( "Digest username=\"%1\", realm=\"%2\", nonce=\"%3\", uri=\"%4\", response=\"%5\", algorithm=MD5, qop=auth, nc=%6, cnonce=\"%7\"" ) ).arg( m_username, m_realm, m_nonce, m_domain, response ).arg( m_requestCounter, 8, 10, QLatin1Char( '0' ) ).arg( m_cnonce );
+        QString digest = QString( QStringLiteral( "Digest username=\"%1\", realm=\"%2\", nonce=\"%3\", uri=\"%4\", response=\"%5\", algorithm=MD5, qop=auth, nc=%6, cnonce=\"%7\"" ) ).arg( m_username, m_realm, m_nonce, m_domain, response ).arg( m_requestCounter, defaultFieldWidth, defaultBase, QLatin1Char( '0' ) ).arg( m_cnonce );
 
         QNetworkRequest request( m_serverFilePath );
         request.setAttribute( QNetworkRequest::Http2AllowedAttribute, true );
