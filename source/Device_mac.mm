@@ -127,7 +127,7 @@ namespace vxstats {
           if ( addr->sa_family == AF_INET || addr->sa_family == AF_INET6 ) {
 
             /* Convert interface address to a human readable string: */
-            std::array<char, NI_MAXHOST> host{};
+            std::array<char, NI_MAXHOST> host {};
             getnameinfo( addr, addr->sa_len, host.data(), host.size(), nullptr, 0, NI_NUMERICHOST );
 
             QString interfaceName = interface->ifa_name;
