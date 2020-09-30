@@ -408,8 +408,6 @@ namespace vxstats {
         QByteArray response = QCryptographicHash::hash( QString( QStringLiteral( "%1:%2:%3:%4:%5:%6" ) ).arg( hash1, m_nonce ).arg( m_requestCounter, 8, 10, QLatin1Char( '0' ) ).arg( m_cnonce, "auth", hash2 ).toUtf8(), QCryptographicHash::Md5 ).toHex();
 
         QString digest = QString( QStringLiteral( "Digest username=\"%1\", realm=\"%2\", nonce=\"%3\", uri=\"%4\", response=\"%5\", algorithm=MD5, qop=auth, nc=%6, cnonce=\"%7\"" ) ).arg( m_username, m_realm, m_nonce, m_domain, response ).arg( m_requestCounter, 8, 10, QLatin1Char( '0' ) ).arg( m_cnonce );
-        qDebug() << "Digest direct " << digest;
-
         request.setRawHeader( "Authorization", digest.toUtf8() );
 
         m_requestCounter++;
@@ -450,6 +448,46 @@ namespace vxstats {
 
     if ( _reply->error() == QNetworkReply::NoError ) {
 
+#ifdef DEBUG
+      if ( _reply->hasRawHeader( "Authentication-Info" ) ) {
+
+        QString authSession = _reply->rawHeader( "Authentication-Info" );
+        authSession.remove( " " );
+        authSession.remove( "\"" );
+
+        QUrlQuery authData;
+        authData.setQueryDelimiters( '=', ',' );
+        authData.setQuery( authSession );
+
+        if ( authData.queryItemValue( "nc" ).toInt() == m_requestCounter - 1 ) {
+
+          qDebug() << "Request vaild:" << m_requestCounter;
+        }
+        else {
+
+          qDebug() << "ERROR: Request NOT vaild:" << m_requestCounter;
+        }
+        if ( authData.queryItemValue( "cnonce" ) == m_cnonce ) {
+
+          qDebug() << "Nonce vaild:" << m_cnonce;
+        }
+        else {
+
+          qDebug() << "ERROR: Nonce NOT vaild:" << m_cnonce;
+        }
+        QString hash1 = QCryptographicHash::hash( QString( "%1:%2:%3" ).arg( m_username, m_realm, m_password ).toUtf8(), QCryptographicHash::Md5 ).toHex();
+        QString hash2 = QCryptographicHash::hash( QString( ":%1" ).arg( m_domain ).toUtf8(), QCryptographicHash::Md5 ).toHex();
+        QString response = QCryptographicHash::hash( QString( "%1:%2:%3:%4:%5:%6" ).arg( hash1, m_nonce ).arg( m_requestCounter - 1, 8, 10, QLatin1Char( '0' ) ).arg( m_cnonce, "auth", hash2 ).toUtf8(), QCryptographicHash::Md5 ).toHex();
+        if ( authData.queryItemValue( "rspauth" ) == response ) {
+
+          qDebug() << "Response is vailid:" << response;
+        }
+        else {
+
+          qDebug() << "ERROR: Response NOT vailid:" << response;
+        }
+      }
+#endif
       return;
     }
 
@@ -461,8 +499,6 @@ namespace vxstats {
     if ( _reply->error() == QNetworkReply::AuthenticationRequiredError && _reply->hasRawHeader( "WWW-Authenticate" ) ) {
 
       QString authSession = QString::fromLatin1( _reply->rawHeader( "WWW-Authenticate" ) );
-      qDebug() << "Auth: " << authSession;
-
       if ( authSession.startsWith( QStringLiteral( "Digest" ) ) ) {
 
         m_requestCounter = 1;
@@ -485,7 +521,6 @@ namespace vxstats {
         QByteArray response = QCryptographicHash::hash( QString( QStringLiteral( "%1:%2:%3:%4:%5:%6" ) ).arg( hash1, m_nonce ).arg( m_requestCounter, 8, 10, QLatin1Char( '0' ) ).arg( m_cnonce, QStringLiteral( "auth" ), hash2 ).toUtf8(), QCryptographicHash::Md5 ).toHex();
 
         QString digest = QString( QStringLiteral( "Digest username=\"%1\", realm=\"%2\", nonce=\"%3\", uri=\"%4\", response=\"%5\", algorithm=MD5, qop=auth, nc=%6, cnonce=\"%7\"" ) ).arg( m_username, m_realm, m_nonce, m_domain, response ).arg( m_requestCounter, 8, 10, QLatin1Char( '0' ) ).arg( m_cnonce );
-        qDebug() << "Digest" << digest;
 
         QNetworkRequest request( m_serverFilePath );
         request.setAttribute( QNetworkRequest::Http2AllowedAttribute, true );
