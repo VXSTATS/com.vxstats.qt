@@ -55,6 +55,7 @@ namespace vxstats {
     : QObject( _parent ) {
 
     m_networkAccessManager = new QNetworkAccessManager( this );
+    m_networkAccessManager->setStrictTransportSecurityEnabled( true );
     connect( m_networkAccessManager, &QNetworkAccessManager::authenticationRequired, this, &Statistics::slotAuthenticationRequired );
     connect( m_networkAccessManager, &QNetworkAccessManager::finished, this, &Statistics::slotFinished );
 
