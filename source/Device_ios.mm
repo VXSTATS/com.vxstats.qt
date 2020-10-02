@@ -35,6 +35,7 @@
 #include <netdb.h>
 
 /* objc header */
+#include <Foundation/Foundation.h>
 #include <UIKit/UIKit.h>
 
 /* local header */
@@ -46,6 +47,7 @@ namespace vxstats {
 
   public:
     Device_ios();
+    [[nodiscard]] bool useDarkMode() const final;
     [[nodiscard]] bool isJailbroken() const final;
     [[nodiscard]] bool isTabletMode() const final;
     [[nodiscard]] bool hasTouchScreen() const final;
@@ -94,6 +96,11 @@ namespace vxstats {
       setVersion( hwmodel.right( hwmodel.length() - versionBegin ) );
       setModel( hwmodel.left( versionBegin ) );
     }
+  }
+
+  bool Device_ios::useDarkMode() const {
+
+    return [[[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"] length] > 0;
   }
 
   bool Device_ios::isJailbroken() const {

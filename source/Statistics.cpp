@@ -312,6 +312,11 @@ namespace vxstats {
 
       core.addQueryItem( QStringLiteral( "appbuild" ), App::instance().build() );
     }
+    /* is this device uses dark mode? */
+    if ( Device::instance().useDarkMode() ) {
+
+      core.addQueryItem( QStringLiteral( "dark" ), QStringLiteral( "1" ) );
+    }
     /* is this app fairly used? */
     if ( App::instance().fairUse() ) {
 

@@ -37,6 +37,7 @@ namespace vxstats {
 
   public:
     Device_win();
+    [[nodiscard]] bool useDarkMode() const final;
     [[nodiscard]] bool isTabletMode() const final;
     [[nodiscard]] bool hasTouchScreen() const final;
     [[nodiscard]] bool isVoiceOverActive() const final;
@@ -60,6 +61,12 @@ namespace vxstats {
     setModel( settings.value( "SystemProductName", {} ).toString() );
 
     tryToSplitVersionFromModel();
+  }
+
+  bool Device_win::useDarkMode() const {
+
+    QSettings settings( QSettings::UserScope, "Microsoft", "Windows" );
+    return !settings.value( "CurrentVersion/Themes/Personalize/AppsUseLightTheme", true ).toBool();
   }
 
   bool Device_win::isTabletMode() const {

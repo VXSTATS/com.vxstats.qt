@@ -43,6 +43,7 @@ namespace vxstats {
 
   public:
     Device_mac();
+    [[nodiscard]] bool useDarkMode() const final;
     [[nodiscard]] bool isVoiceOverActive() const final;
 #if QT_VERSION < 0x050900
     QString osVersion() const final;
@@ -90,6 +91,11 @@ namespace vxstats {
     return QString::fromNSString( [NSString stringWithFormat:@"%zd.%zd.%zd", version.majorVersion, version.minorVersion, version.patchVersion] );
   }
 #endif
+
+  bool Device_mac::useDarkMode() const {
+
+    return [[[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"] length] > 0;
+  }
 
   bool Device_mac::isVoiceOverActive() const {
 

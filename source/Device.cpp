@@ -110,6 +110,11 @@ namespace vxstats {
     }
   }
 
+  bool Device::useDarkMode() const {
+
+    return false;
+  }
+
   bool Device::isJailbroken() const {
 
     return false;

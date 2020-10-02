@@ -132,6 +132,17 @@ namespace vxstats {
 
     /**
      * @~english
+     * @brief Returns true, if the device run in darkmode.
+     * @return True, if the device run in darkmode - otherwise false.
+     *
+     * @~german
+     * @brief Gibt wahr zurück, wenn die Plattform den Darkmode verwendet.
+     * @return Wahr, wenn die Plattform den Darkmode verwendet - sonst falsch.
+     */
+    virtual bool useDarkMode() const;
+
+    /**
+     * @~english
      * @brief Returns true, if the device is jailbroken - otherwiese false.
      * @return True, if the device is jailbroken - otherweise false.
      *
