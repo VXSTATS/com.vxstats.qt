@@ -48,7 +48,12 @@ namespace vxstats {
   constexpr int nodeStart = 20;
   constexpr int nodeLength = 12;
 
-  Device::Device() {
+  void Device::initialize() {
+
+    if ( m_initialized ) {
+
+      return;
+    }
 
     QString hardwareAddress;
     const QList<QNetworkInterface> interfaces = QNetworkInterface::allInterfaces();
@@ -89,8 +94,7 @@ namespace vxstats {
 
     if ( hardwareAddress.isEmpty() ) {
 
-      QSettings settings( QStringLiteral( "com.vxstats" ), QStringLiteral( "statistics" ) );
-      settings.beginGroup( QStringLiteral( "statistics" ) );
+      QSettings settings( QStringLiteral( "group.com.vxstats.statistics" ) );
       if ( !settings.contains( QStringLiteral( "uuid" ) ) ) {
 
         QUuid uuid = QUuid::createUuid();
@@ -108,6 +112,7 @@ namespace vxstats {
       /* UUID struct: time-version-clock_seq_hi-clock_seq_lo-node */
       m_uniqueIdentifier = QString( QStringLiteral( "%1-%2-%3-%4-%5" ) ).arg( hash.mid( timeStart, timeLength ), hash.mid( versionStart, versionLength ), hash.mid( clockSequenceHighStart, clockSequenceHighLength ), hash.mid( clockSequenceLowStart, clockSequenceLowLength ), hash.mid( nodeStart, nodeLength ) );
     }
+    m_initialized = true;
   }
 
   bool Device::useDarkMode() const {

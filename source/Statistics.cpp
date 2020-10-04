@@ -238,6 +238,7 @@ namespace vxstats {
 
     QUrlQuery core;
 
+    Device::instance().initialize();
     /* device block */
     core.addQueryItem( QStringLiteral( "uuid" ), Device::instance().uniqueIdentifier() );
 #if QT_VERSION >= 0x050900
@@ -429,8 +430,7 @@ namespace vxstats {
 
   void Statistics::addOutstandingMessage( const QUrlQuery &_message ) const {
 
-    QSettings settings( QStringLiteral( "group.com.vxstats" ), QStringLiteral( "statistics" ) );
-    settings.beginGroup( QStringLiteral( "statistics" ) );
+    QSettings settings( QStringLiteral( "group.com.vxstats.statistics" ) );
     QStringList messages = settings.value( QStringLiteral( "offline" ) ).toStringList();
     messages.append( QString::fromUtf8( _message.query( QUrl::FullyEncoded ).toUtf8() ) );
     settings.setValue( QStringLiteral( "offline" ), messages );
@@ -439,8 +439,7 @@ namespace vxstats {
 
   void Statistics::sendOutstandingMessages() {
 
-    QSettings settings( QStringLiteral( "group.com.vxstats" ), QStringLiteral( "statistics" ) );
-    settings.beginGroup( QStringLiteral( "statistics" ) );
+    QSettings settings( QStringLiteral( "group.com.vxstats.statistics" ) );
     const QStringList messages = settings.value( QStringLiteral( "offline" ) ).toStringList();
     settings.remove( QStringLiteral( "offline" ) );
     settings.sync();

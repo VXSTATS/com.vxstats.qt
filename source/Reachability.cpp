@@ -111,6 +111,7 @@ namespace vxstats {
 #ifdef DEBUG
       qDebug() << "typeOfNetwork" << configuration.name();
 #endif
+      Device::instance().initialize();
       connection = Device::instance().typeOfNetwork( configuration.name() );
     }
     Q_EMIT reachabilityChanged( connection, radio );

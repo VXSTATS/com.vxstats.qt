@@ -130,6 +130,8 @@ namespace vxstats {
      */
     Device &operator=( Device && ) = delete;
 
+    void initialize();
+
     /**
      * @~english
      * @brief Returns true, if the device run in darkmode.
@@ -302,7 +304,7 @@ namespace vxstats {
      * @~german
      * @brief Standardkonstruktor für Device.
      */
-    Device();
+    Device() = default;
 
     /**
      * @~english
@@ -316,6 +318,8 @@ namespace vxstats {
     void tryToSplitVersionFromModel();
 
   private:
+    bool m_initialized = false;
+
     /**
      * @~english
      * @brief The device model.
