@@ -215,4 +215,4 @@ Statistics::instance().touch( "$action" );
 
 # Pending Issues
 ## App Store
-Maybe it is not possible to leave an App Store review for certain Qt versions, because we are using some settings not in regular app context. This has to be changed. If you have problems with the review process, please let us know and ask for support@vxapps.com to solve the issue.
+We have already successfully passed the review process. If you have issues of the review process, please let us know and ask for support@vxapps.com to solve your needs.

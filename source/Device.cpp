@@ -71,16 +71,16 @@ namespace vxstats {
 
         continue;
       }
-      if ( interface.hardwareAddress() == QLatin1String( "00:00:00:00:00:00" ) ) {
+      if ( interface.hardwareAddress() == QStringLiteral( "00:00:00:00:00:00" ) ) {
 
         continue;
       }
       /* iOS will print that value above 7.0, which is not helpful */
-      if ( interface.hardwareAddress() == QLatin1String( "02:00:00:00:00:00" ) ) {
+      if ( interface.hardwareAddress() == QStringLiteral( "02:00:00:00:00:00" ) ) {
 
         continue;
       }
-      if ( interface.humanReadableName().startsWith( QLatin1String( "vm" ) ) ) {
+      if ( interface.humanReadableName().startsWith( QStringLiteral( "vm" ) ) ) {
 
         continue;
       }
@@ -94,6 +94,9 @@ namespace vxstats {
 
     if ( hardwareAddress.isEmpty() ) {
 
+#if defined Q_OS_OSX || defined Q_OS_IOS
+      m_uniqueIdentifier = uniqueId();
+#else
       QSettings settings( QStringLiteral( "group.com.vxstats.statistics" ) );
       if ( !settings.contains( QStringLiteral( "uuid" ) ) ) {
 
@@ -102,6 +105,7 @@ namespace vxstats {
         settings.sync();
       }
       m_uniqueIdentifier = settings.value( QStringLiteral( "uuid" ) ).toString();
+#endif
     }
     else {
 
@@ -181,11 +185,11 @@ namespace vxstats {
       version = QString::number( current.majorVersion() );
       if ( current.minorVersion() != -1 ) {
 
-        version += QLatin1String( "." );
+        version += QStringLiteral( "." );
         version += QString::number( current.minorVersion() );
         if ( current.microVersion() != -1 ) {
 
-          version += QLatin1String( "." );
+          version += QStringLiteral( "." );
           version += QString::number( current.microVersion() );
         }
       }
@@ -197,6 +201,13 @@ namespace vxstats {
   Device::Connection Device::typeOfNetwork( const QString & /*_interface*/ ) {
 
     return Device::Connection::Unknown;
+  }
+
+  void Device::addOutstandingMessage( const QString & /*_message*/ ) const {}
+
+  QStringList Device::sendOutstandingMessages() const {
+
+    return {};
   }
 
   void Device::tryToSplitVersionFromModel() {
@@ -226,5 +237,10 @@ namespace vxstats {
   bool Device::isPhysical( const QString & /*_hardwareAddress*/ ) const {
 
     return true;
+  }
+
+  QString Device::uniqueId() const {
+
+    return {};
   }
 }

@@ -430,19 +430,27 @@ namespace vxstats {
 
   void Statistics::addOutstandingMessage( const QUrlQuery &_message ) const {
 
+#if defined Q_OS_OSX || defined Q_OS_IOS
+    Device::instance().addOutstandingMessage( QString::fromUtf8( _message.query( QUrl::FullyEncoded ).toUtf8() ) );
+#else
     QSettings settings( QStringLiteral( "group.com.vxstats.statistics" ) );
     QStringList messages = settings.value( QStringLiteral( "offline" ) ).toStringList();
     messages.append( QString::fromUtf8( _message.query( QUrl::FullyEncoded ).toUtf8() ) );
     settings.setValue( QStringLiteral( "offline" ), messages );
     settings.sync();
+#endif
   }
 
   void Statistics::sendOutstandingMessages() {
 
+#if defined Q_OS_OSX || defined Q_OS_IOS
+    QStringList messages = Device::instance().sendOutstandingMessages();
+#else
     QSettings settings( QStringLiteral( "group.com.vxstats.statistics" ) );
     const QStringList messages = settings.value( QStringLiteral( "offline" ) ).toStringList();
     settings.remove( QStringLiteral( "offline" ) );
     settings.sync();
+#endif
     for ( const QString &message : messages ) {
 
       sendMessage( QUrlQuery( message ) );

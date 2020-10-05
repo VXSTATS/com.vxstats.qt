@@ -296,6 +296,9 @@ namespace vxstats {
      */
     virtual Connection typeOfNetwork( const QString &_interface );
 
+    virtual void addOutstandingMessage( const QString &_message ) const;
+    virtual QStringList sendOutstandingMessages() const;
+
   protected:
     /**
      * @~english
@@ -372,5 +375,7 @@ namespace vxstats {
      * @return Wahr, wenn es ein physischer Adapter ist - sonst falsch.
      */
     virtual bool isPhysical( const QString &_hardwareAddress ) const;
+
+    virtual QString uniqueId() const;
   };
 }

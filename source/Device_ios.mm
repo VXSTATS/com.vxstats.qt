@@ -56,6 +56,9 @@ namespace vxstats {
     QString osVersion() const final;
 #endif
     Connection typeOfNetwork( const QString &_interface ) final;
+    void addOutstandingMessage( const QString &_message ) const final;
+    [[nodiscard]] QStringList sendOutstandingMessages() const final;
+    [[nodiscard]] QString uniqueId() const final;
   };
 
   Device &Device::instance() {
@@ -197,5 +200,48 @@ namespace vxstats {
       freeifaddrs( allInterfaces );
     }
     return result;
+  }
+
+  void Device_ios::addOutstandingMessage( const QString &_message ) const {
+
+    NSUserDefaults *userDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.vxstats.statistics"];
+    /* add to queue */
+    NSArray *existingMessages = [userDefaults objectForKey:@"offline"];
+    NSMutableArray *messages = [NSMutableArray alloc];
+    if ( existingMessages != nullptr ) {
+
+      [messages addObjectsFromArray:existingMessages];
+    }
+    const NSString *message = _message.toNSString();
+    [messages addObject:message];
+    [userDefaults setObject:messages forKey:@"offline"];
+    [userDefaults synchronize];
+  }
+
+  QStringList Device_ios::sendOutstandingMessages() const {
+
+    QStringList result;
+    NSUserDefaults *userDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.vxstats.statistics"];
+    NSArray *messages = [userDefaults objectForKey:@"offline"];
+    [userDefaults removeObjectForKey:@"offline"];
+    [userDefaults synchronize];
+    for ( NSUInteger x = 0; x < [messages count]; ++x ) {
+
+      result += QString::fromNSString( [messages objectAtIndex:x] );
+    }
+    return result;
+  }
+
+  QString Device_ios::uniqueId() const {
+
+    NSUserDefaults *userDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.vxstat.statistics"];
+    NSString *uuid = [userDefaults objectForKey:@"uuid"];
+    if ( uuid == nullptr ) {
+
+      uuid = [[NSUUID UUID] UUIDString];
+      [userDefaults setObject:uuid forKey:@"uuid"];
+      [userDefaults synchronize];
+    }
+    return QString::fromNSString( uuid );
   }
 }
