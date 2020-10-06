@@ -19,7 +19,7 @@
 #include <QSettings>
 #include <QUuid>
 
-#if QT_VERSION >= 0x050900
+#if QT_VERSION >= QT_VERSION_CHECK( 5, 9, 0 )
   #include <QOperatingSystemVersion>
 #endif
 
@@ -178,7 +178,7 @@ namespace vxstats {
   QString Device::osVersion() const {
 
     QString version = QSysInfo::productVersion();
-#if QT_VERSION >= 0x050900
+#if QT_VERSION >= QT_VERSION_CHECK( 5, 9, 0 )
     QOperatingSystemVersion current = QOperatingSystemVersion::current();
     if ( current.majorVersion() != -1 ) {
 

@@ -52,7 +52,7 @@ namespace vxstats {
     [[nodiscard]] bool isTabletMode() const final;
     [[nodiscard]] bool hasTouchScreen() const final;
     [[nodiscard]] bool isVoiceOverActive() const final;
-#if QT_VERSION < 0x050900
+#if QT_VERSION < QT_VERSION_CHECK( 5, 9, 0 )
     QString osVersion() const final;
 #endif
     Connection typeOfNetwork( const QString &_interface ) final;
@@ -158,7 +158,7 @@ namespace vxstats {
     return UIAccessibilityIsVoiceOverRunning();
   }
 
-#if QT_VERSION < 0x050900
+#if QT_VERSION < QT_VERSION_CHECK( 5, 9, 0 )
   QString Device_ios::osVersion() const {
 
     NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];

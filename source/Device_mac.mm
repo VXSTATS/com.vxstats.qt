@@ -45,7 +45,7 @@ namespace vxstats {
     Device_mac();
     [[nodiscard]] bool useDarkMode() const final;
     [[nodiscard]] bool isVoiceOverActive() const final;
-#if QT_VERSION < 0x050900
+#if QT_VERSION < QT_VERSION_CHECK( 5, 9, 0 )
     QString osVersion() const final;
 #endif
     Connection typeOfNetwork( const QString &_interface ) final;
@@ -87,7 +87,7 @@ namespace vxstats {
     setModel( hwmodel.left( versionBegin ) );
   }
 
-#if QT_VERSION < 0x050900
+#if QT_VERSION < QT_VERSION_CHECK( 5, 9, 0 )
   QString Device_mac::osVersion() const {
 
     NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];

@@ -30,7 +30,7 @@
 #include <QSettings>
 #include <QtGlobal>
 
-#if QT_VERSION >= 0x050900
+#if QT_VERSION >= QT_VERSION_CHECK( 5, 9, 0 )
   #include <QOperatingSystemVersion>
 #endif
 
@@ -241,7 +241,7 @@ namespace vxstats {
     Device::instance().initialize();
     /* device block */
     core.addQueryItem( QStringLiteral( "uuid" ), Device::instance().uniqueIdentifier() );
-#if QT_VERSION >= 0x050900
+#if QT_VERSION >= QT_VERSION_CHECK( 5, 9, 0 )
     QOperatingSystemVersion current = QOperatingSystemVersion::current();
     QString os = current.name();
     if ( current.type() == QOperatingSystemVersion::IOS || current.type() == QOperatingSystemVersion::MacOS || current.type() == QOperatingSystemVersion::TvOS || current.type() == QOperatingSystemVersion::WatchOS ) {
@@ -402,7 +402,11 @@ namespace vxstats {
       m_lastMessage = _message;
 
       QNetworkRequest request( m_serverFilePath );
+#if QT_VERSION >= QT_VERSION_CHECK( 5, 15, 0 )
       request.setAttribute( QNetworkRequest::Http2AllowedAttribute, true );
+#else
+      request.setAttribute( QNetworkRequest::HTTP2AllowedAttribute, true );
+#endif
       request.setHeader( QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded" );
 
       /* we need to make a challenge first */
@@ -537,7 +541,11 @@ namespace vxstats {
         QString digest = QString( QStringLiteral( "Digest username=\"%1\", realm=\"%2\", nonce=\"%3\", uri=\"%4\", response=\"%5\", algorithm=MD5, qop=auth, nc=%6, cnonce=\"%7\"" ) ).arg( m_username, m_realm, m_nonce, m_domain, response ).arg( m_requestCounter, defaultFieldWidth, defaultBase, QLatin1Char( '0' ) ).arg( m_cnonce );
 
         QNetworkRequest request( m_serverFilePath );
-        request.setAttribute( QNetworkRequest::Http2AllowedAttribute, true );
+#if QT_VERSION >= QT_VERSION_CHECK( 5, 15, 0 )
+      request.setAttribute( QNetworkRequest::Http2AllowedAttribute, true );
+#else
+      request.setAttribute( QNetworkRequest::HTTP2AllowedAttribute, true );
+#endif
         request.setHeader( QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded" );
         request.setRawHeader( "Authorization", digest.toUtf8() );
 
