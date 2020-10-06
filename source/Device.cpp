@@ -203,7 +203,10 @@ namespace vxstats {
     return Device::Connection::Unknown;
   }
 
-  void Device::addOutstandingMessage( const QString & /*_message*/ ) const {}
+  void Device::addOutstandingMessage( const QString & /*_message*/ ) const {
+
+    /* Virtual function */
+  }
 
   QStringList Device::sendOutstandingMessages() const {
 
