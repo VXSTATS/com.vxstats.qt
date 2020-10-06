@@ -51,10 +51,11 @@ namespace vxstats {
 
       QDir dir( QStringLiteral( "/sys/bus/pci/devices" ) );
       QStringList folders = dir.entryList( {}, QDir::NoDot | QDir::NoDotDot | QDir::Dirs );
-      QFile vendorFileAlternative( folders.at( 0 ) + QStringLiteral( "vendor" ) );
+      QFile vendorFileAlternative( QStringLiteral( "/sys/bus/pci/devices/" ) + folders.at( 0 ) + QStringLiteral( "/vendor" ) );
       if ( vendorFileAlternative.exists() && vendorFileAlternative.open( QIODevice::ReadOnly ) ) {
 
         QString hexVendor = vendorFileAlternative.readAll();
+        hexVendor = hexVendor.simplified();
         hexVendor = hexVendor.right( hexVendor.size() - 2 );
         vendorFileAlternative.close();
 
