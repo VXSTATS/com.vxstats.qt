@@ -82,11 +82,38 @@ namespace vxstats {
 
   bool Device_win::isVoiceOverActive() const {
 
-    // Visual Studio 2019, will hate this implementation and report crash around bActive.
-//    bool bActive = false;
-//    bool bReturn = SystemParametersInfo( SPI_GETSCREENREADER, 0, &bActive, 0 );
-//    return bReturn && bActive;
-    return false;
+    std::string narratorMutex = "NarratorRunning";
+
+    /* security attributes are part of windows API for CreateMutex */
+    LPSECURITY_ATTRIBUTES securityAttributes = new _SECURITY_ATTRIBUTES();
+    securityAttributes->bInheritHandle = false;
+    securityAttributes->lpSecurityDescriptor = nullptr;
+    securityAttributes->nLength = sizeof( LPSECURITY_ATTRIBUTES );
+
+    /* initialize values */
+    bool narratorRunning = false;
+
+    /* CreateMutex returns a windows application HANDLE */
+    HANDLE applicationHandle = CreateMutex( securityAttributes, false, narratorMutex.c_str() );
+
+    /* This should never happen */
+    if ( applicationHandle == nullptr ) {
+
+      qDebug() << Q_FUNC_INFO << __LINE__ << "Narrator application handle is nullptr";
+      narratorRunning = false;
+    }
+    /* this condition indicates that narrator is running. */
+    else if ( GetLastError() == ERROR_ALREADY_EXISTS ) {
+
+      narratorRunning = true;
+    }
+    delete ( securityAttributes );
+
+    /* Visual Studio 2019, will hate this implementation and report crash around active. */
+//    bool active = false;
+//    bool result = SystemParametersInfo( SPI_GETSCREENREADER, 0, &active, 0 );
+//    return result && active;
+    return narratorRunning;
   }
 
   Device::Connection Device_win::typeOfNetwork( const QString &_interface ) {
@@ -108,51 +135,51 @@ namespace vxstats {
 
   bool Device_win::isPhysical( const QString &_hardwareAddress ) const {
 
-    PIP_ADAPTER_INFO pAdapterInfo;
-    PIP_ADAPTER_INFO pAdapter = nullptr;
-    DWORD dwRetVal = 0;
+    PIP_ADAPTER_INFO adapterInfo;
+    PIP_ADAPTER_INFO adapter = nullptr;
+    DWORD result = 0;
     UINT i;
 
-    ULONG ulOutBufLen = sizeof( IP_ADAPTER_INFO );
-    pAdapterInfo = ( IP_ADAPTER_INFO * ) MALLOC( sizeof( IP_ADAPTER_INFO ) );
-    if ( pAdapterInfo == nullptr ) {
+    ULONG outLen = sizeof( IP_ADAPTER_INFO );
+    adapterInfo = ( IP_ADAPTER_INFO * ) MALLOC( sizeof( IP_ADAPTER_INFO ) );
+    if ( adapterInfo == nullptr ) {
 
       qDebug() << Q_FUNC_INFO << __LINE__ << "Error allocating memory needed to call GetAdaptersinfo";
       return false;
     }
 
-    if ( GetAdaptersInfo( pAdapterInfo, &ulOutBufLen ) == ERROR_BUFFER_OVERFLOW ) {
+    if ( GetAdaptersInfo( adapterInfo, &outLen ) == ERROR_BUFFER_OVERFLOW ) {
 
-      FREE( pAdapterInfo );
-      pAdapterInfo = ( IP_ADAPTER_INFO * ) MALLOC( ulOutBufLen );
-      if ( pAdapterInfo == nullptr ) {
+      FREE( adapterInfo );
+      adapterInfo = ( IP_ADAPTER_INFO * ) MALLOC( outLen );
+      if ( adapterInfo == nullptr ) {
 
         qDebug() << Q_FUNC_INFO << __LINE__ << "Error allocating memory needed to call GetAdaptersinfo";
         return false;
       }
     }
 
-    if ( ( dwRetVal = GetAdaptersInfo( pAdapterInfo, &ulOutBufLen ) ) == NO_ERROR ) {
+    if ( ( result = GetAdaptersInfo( adapterInfo, &outLen ) ) == NO_ERROR ) {
 
-      pAdapter = pAdapterInfo;
-      while ( pAdapter ) {
+      adapter = adapterInfo;
+      while ( adapter ) {
 
-        QString description = pAdapter->Description;
+        QString description = adapter->Description;
         QString hardwareAddress;
-        for ( i = 0; i < pAdapter->AddressLength; i++ ) {
+        for ( i = 0; i < adapter->AddressLength; i++ ) {
 
           if ( !hardwareAddress.isEmpty() ) {
 
             hardwareAddress += ":";
           }
-          hardwareAddress += QString( "%1" ).arg( pAdapter->Address[i], 2, 16, QLatin1Char( '0' ) );
+          hardwareAddress += QString( "%1" ).arg( adapter->Address[i], 2, 16, QLatin1Char( '0' ) );
         }
         hardwareAddress = hardwareAddress.toUpper();
         if ( hardwareAddress == _hardwareAddress ) {
 
-          if ( pAdapterInfo ) {
+          if ( adapterInfo ) {
 
-            FREE( pAdapterInfo );
+            FREE( adapterInfo );
           }
 
           if ( description.contains( QStringLiteral( "Virtual Adapter" ) ) ) {
@@ -161,17 +188,17 @@ namespace vxstats {
           }
           return true;
         }
-        pAdapter = pAdapter->Next;
+        adapter = adapter->Next;
       }
     }
     else {
 
-      qDebug() << Q_FUNC_INFO << __LINE__ << "GetAdaptersInfo failed with error:" << dwRetVal;
+      qDebug() << Q_FUNC_INFO << __LINE__ << "GetAdaptersInfo failed with error:" << result;
     }
 
-    if ( pAdapterInfo ) {
+    if ( adapterInfo ) {
 
-      FREE( pAdapterInfo );
+      FREE( adapterInfo );
     }
     return false;
   }

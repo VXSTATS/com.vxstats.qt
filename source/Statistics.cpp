@@ -558,7 +558,7 @@ namespace vxstats {
     addOutstandingMessage( m_lastMessage );
   }
 
-  void Statistics::slotAuthenticationRequired( const QNetworkReply */*_reply*/,
+  void Statistics::slotAuthenticationRequired( const QNetworkReply * /*_reply*/,
                                                QAuthenticator *_authenticator ) const {
 
     if ( !m_username.isEmpty() && !m_password.isEmpty() ) {
