@@ -27,6 +27,7 @@
  * @brief Der vxstats Namensraum.
  */
 namespace vxstats {
+
   /**
    * @~english
    * @brief The Device class.
@@ -130,6 +131,13 @@ namespace vxstats {
      */
     Device &operator=( Device && ) = delete;
 
+    /**
+     * @~english
+     * @brief Initialize the current device.
+     *
+     * @~german
+     * @brief Initialisieren des aktuellen Geräts.
+     */
     void initialize();
 
     /**
@@ -318,9 +326,23 @@ namespace vxstats {
      */
     virtual ~Device() = default;
 
+    /**
+     * @~english
+     * @brief Try to split a version from the model string.
+     *
+     * @~german
+     * @brief Versuch eine Version aus dem Gerätemodell zu extrahieren.
+     */
     void tryToSplitVersionFromModel();
 
   private:
+    /**
+     * @~english
+     * @brief Is the current devie initialized?
+     *
+     * @~german
+     * @brief Wurde das aktuelle Gerät initialisiert?
+     */
     bool m_initialized = false;
 
     /**
@@ -376,6 +398,15 @@ namespace vxstats {
      */
     virtual bool isPhysical( const QString &_hardwareAddress ) const;
 
+    /**
+     * @~english
+     * @brief Returns the device unique identifier.
+     * @return The device unique identifier.
+     *
+     * @~german
+     * @brief Gibt die eindeutige Id des Geräts zurück.
+     * @return Die eindeutige Id des Geräts.
+     */
     virtual QString uniqueId() const;
   };
 }

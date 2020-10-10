@@ -204,6 +204,11 @@ namespace vxstats {
 
   void Device_mac::addOutstandingMessage( const QString &_message ) const {
 
+    if ( _message.isEmpty() ) {
+
+      return;
+    }
+
     NSUserDefaults *userDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.vxstats.statistics"];
     /* add to queue */
     NSArray *existingMessages = [userDefaults objectForKey:@"offline"];

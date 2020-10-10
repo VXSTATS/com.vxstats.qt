@@ -32,6 +32,7 @@ class QNetworkConfigurationManager;
  * @brief Der vxstats Namensraum.
  */
 namespace vxstats {
+
   /**
    * @~english
    * @brief The Reachability class.

@@ -26,6 +26,7 @@
  * @brief Der vxstats Namensraum.
  */
 namespace vxstats {
+
   /**
    * @~english
    * @brief The App class.

@@ -36,6 +36,7 @@ class QNetworkReply;
  * @brief Der vxstats Namensraum.
  */
 namespace vxstats {
+
   /**
    * @~english
    * @brief The Statistics class.
@@ -110,7 +111,36 @@ namespace vxstats {
      */
     void setServerFilePath( const QString &_serverFilePath );
 
+    /**
+     * @~english
+     * @brief Defines the username to the statistics server.
+     * @param _username   The username to the statistics server.
+     *
+     * @~german
+     * @brief Definiert den Benutzernamen zum Statistikserver.
+     * @param _username   Der Benutzername zum Statistikserver.
+     *
+     * @~
+     * @code
+     * Statistics instance().setUsername( "sandbox" );
+     * @endcode
+     */
     void setUsername( const QString &_username );
+
+    /**
+     * @~english
+     * @brief Defines the password to the statistics server.
+     * @param _password   The password to the statistics server.
+     *
+     * @~german
+     * @brief Definiert das Passwort zum Statistikserver.
+     * @param _password   Das Passwoort zum Statistikserver.
+     *
+     * @~
+     * @code
+     * Statistics instance().setPassword( "sandbox" );
+     * @endcode
+     */
     void setPassword( const QString &_password );
 
     /**
