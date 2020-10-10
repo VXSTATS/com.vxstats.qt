@@ -47,6 +47,8 @@ namespace vxstats {
 
   public:
     Device_ios();
+
+  private:
     [[nodiscard]] bool useDarkMode() const final;
     [[nodiscard]] bool isJailbroken() const final;
     [[nodiscard]] bool isTabletMode() const final;

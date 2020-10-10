@@ -37,13 +37,13 @@ namespace vxstats {
 
   public:
     Device_win();
+
+  private:
     [[nodiscard]] bool useDarkMode() const final;
     [[nodiscard]] bool isTabletMode() const final;
     [[nodiscard]] bool hasTouchScreen() const final;
     [[nodiscard]] bool isVoiceOverActive() const final;
     Connection typeOfNetwork( const QString &_interface ) final;
-
-  private:
     [[nodiscard]] bool isPhysical( const QString &_hardwareAddress ) const final;
   };
 

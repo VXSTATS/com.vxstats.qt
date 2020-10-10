@@ -18,6 +18,10 @@
 #include <QFile>
 #include <QTextStream>
 
+#ifdef QT_GUI_LIB
+  #include <QTouchDevice>
+#endif
+
 /* local header */
 #include "Device.h"
 
@@ -27,6 +31,9 @@ namespace vxstats {
 
   public:
     Device_linux();
+
+  private:
+    [[nodiscard]] bool hasTouchScreen() const final;
   };
 
   Device &Device::instance() {
@@ -126,5 +133,14 @@ namespace vxstats {
 
       tryToSplitVersionFromModel();
     }
+  }
+
+  bool Device_linux::hasTouchScreen() const {
+
+#ifdef QT_GUI_LIB
+    return QTouchDevice::devices().size() > 0;
+#else
+    return false;
+#endif
   }
 }

@@ -15,31 +15,22 @@
 
 set(WARNING_FLAGS
 
-  # From Xcode default project
-#  -Wno-sign-conversion
-  # +QRC and singleton
-  -Wno-exit-time-destructors
-#  -Wno-conversion
-
   # Own parameter
   -Wno-c++98-compat # C++11
   -Wno-padded
 
-  # Qt global.h
-  -Wno-redundant-parens
-
   # For doxygen documentation, because we handle two languages #1
   -Wno-documentation
+
+  # +QRC and singleton
+  -Wno-exit-time-destructors
 
   # QRC
   -Wno-global-constructors
 
+  # Qt global.h
+  -Wno-redundant-parens
+
   # Deprecated QNetwork* Qt 5.15
   -Wno-deprecated-declarations
-
-  # Only Apple
-  -Wno-old-style-cast
-
-  # Only Android Linux Build
-  -Wno-weak-vtables
 )

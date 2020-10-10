@@ -43,6 +43,8 @@ namespace vxstats {
 
   public:
     Device_mac();
+
+  private:
     [[nodiscard]] bool useDarkMode() const final;
     [[nodiscard]] bool isVoiceOverActive() const final;
 #if QT_VERSION < QT_VERSION_CHECK( 5, 9, 0 )
@@ -145,7 +147,7 @@ namespace vxstats {
               allUpDevices << interface->ifa_name;
             }
 #ifdef DEBUG
-            qDebug() << interface->ifa_name << host.data();
+            qDebug() << "Interface:" << interface->ifa_name << host.data();
 #endif
           }
         }
@@ -155,14 +157,13 @@ namespace vxstats {
 
     Device::Connection result = Device::Connection::Unknown;
     CFArrayRef interfaceArray = SCNetworkInterfaceCopyAll();
-    NSArray *networkInterfaces = CFBridgingRelease( interfaceArray );
     CFStringRef displayName = nullptr;
     CFStringRef bsdName = nullptr;
     CFStringRef type = nullptr;
 
-    for ( NSUInteger x = 0; x < networkInterfaces.count; x++ ) {
+    for ( CFIndex x = 0; x < CFArrayGetCount( interfaceArray ); x++ ) {
 
-      SCNetworkInterfaceRef interface = ( __bridge SCNetworkInterfaceRef )( networkInterfaces[ x ] );
+      SCNetworkInterfaceRef interface = static_cast<SCNetworkInterfaceRef>( CFArrayGetValueAtIndex( interfaceArray, x ) );
 
       displayName = SCNetworkInterfaceGetLocalizedDisplayName( interface );
       bsdName = SCNetworkInterfaceGetBSDName( interface );
@@ -170,7 +171,7 @@ namespace vxstats {
       if ( allUpDevices.contains( QString::fromCFString( bsdName ) ) ) {
 
 #ifdef DEBUG
-        qDebug() << QString::fromCFString( type ) << QString::fromCFString( bsdName ) << QString::fromCFString( displayName );
+        qDebug() << "Type/Name:" << QString::fromCFString( type ) << QString::fromCFString( bsdName ) << QString::fromCFString( displayName );
 #endif
         bool end = false;
         if ( type != nullptr ) {
@@ -197,6 +198,7 @@ namespace vxstats {
         }
       }
     }
+    CFRelease( interfaceArray );
     return result;
   }
 

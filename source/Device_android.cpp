@@ -16,6 +16,10 @@
 /* qt header */
 #include <QtAndroidExtras>
 
+#ifdef QT_GUI_LIB
+  #include <QTouchDevice>
+#endif
+
 /* local header */
 #include "Device.h"
 
@@ -25,6 +29,9 @@ namespace vxstats {
 
   public:
     Device_android();
+
+  private:
+    [[nodiscard]] bool hasTouchScreen() const final;
   };
 
   Device &Device::instance() {
@@ -51,5 +58,14 @@ namespace vxstats {
     version.remove( model );
     version = version.trimmed();
     setVersion( version );
+  }
+
+  bool Device_android::hasTouchScreen() const {
+
+#ifdef QT_GUI_LIB
+    return QTouchDevice::devices().size() > 0;
+#else
+    return true;
+#endif
   }
 }
