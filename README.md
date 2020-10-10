@@ -78,7 +78,7 @@ set(IOS ON)
 
 # Implementation
 ```c++
-using namespace vxstats:
+using namespace vxstats;
 ```
 
 ## Pre-Setup

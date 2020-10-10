@@ -88,7 +88,7 @@ namespace vxstats {
 
         continue;
       }
-      hardwareAddress = interface.hardwareAddress();
+      hardwareAddress = interface.hardwareAddress().toLower();
       break;
     }
 
