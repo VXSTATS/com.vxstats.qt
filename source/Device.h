@@ -304,7 +304,10 @@ namespace vxstats {
      */
     virtual Connection typeOfNetwork( const QString &_interface );
 
+    // TODO: Insert documentation
     virtual void addOutstandingMessage( const QString &_message ) const;
+
+    // TODO: Insert documentation
     virtual QStringList sendOutstandingMessages() const;
 
   protected:
