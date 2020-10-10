@@ -174,7 +174,7 @@ namespace vxstats {
           }
           hardwareAddress += QString( "%1" ).arg( adapter->Address[i], 2, 16, QLatin1Char( '0' ) );
         }
-        hardwareAddress = hardwareAddress.toUpper();
+        hardwareAddress = hardwareAddress.toLower();
         if ( hardwareAddress == _hardwareAddress ) {
 
           if ( adapterInfo ) {
