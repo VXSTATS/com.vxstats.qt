@@ -30,7 +30,7 @@
    * [App Store](#app-store)
 
 # Preparation
-Checkout and create environment.
+Checkout and create the environment.
 ```bash
 git clone --depth 1 --branch 1.0 --single-branch https://github.com/VXAPPS/com.vxstats.qt.git
 cd com.vxstats.qt
@@ -39,21 +39,21 @@ cd build
 ```
 
 ## macOS
-The macOS build will do a fair use check of the app, so it is important to have openssl installed. You can find openssl using the OPENSSL_ROOT_DIR set. The easiest way is to install openssl from brew (https://brew.sh/).
+The macOS build will do a fair use check of the app, so it is essential to have OpenSSL installed. You can find OpenSSL using the OPENSSL_ROOT_DIR set. The easiest way is to install OpenSSL from brew (https://brew.sh/).
 ```bash
 brew install openssl
 ```
-Then you will find an openssl installation here: /usr/local/Cellar/openssl@1.1/1.1.1g
+Then you will find an OpenSSL installation here: /usr/local/Cellar/openssl@1.1/1.1.1g
 
 # Installation
-Use a Qt Creator to load CMakeList.txt from checked-out folder, or simply run the cmake enviroment, generate makefiles, and build it.
+Use a Qt Creator to load CMakeList.txt from the checked-out folder, run the cmake enviroment, generate makefiles, and build it.
 ```bash
 cmake ..
 make -j`nproc`
 ```
 
-## User defined build variables
-Inside cmake/env.cmake you will find some user-defined build variables for special purposes.
+## User-defined build variables
+Inside cmake/env.cmake you will find some user-defined build variables for particular purposes.
 
 ### Debugging
 You can log the verbose build output.
@@ -65,14 +65,14 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 ### Gui dependencies
 You can disable Qt Gui dependencies.
 ```bash
-# Build with or without gui dependency
+# Build with or without Qt Gui dependency
 set(GUI OFF)
 ```
 
 ### iOS
-If you want to build for iOS, or to build with a iOS specified cmake toolchain (https://github.com/leetal/ios-cmake). You will find a complete documentation here and can generate native XCode builds.
+If you want to build for iOS or build with an iOS specified cmake toolchain (https://github.com/leetal/ios-cmake). You will find complete documentation here and can generate native XCode builds.
 ```bash
-# Enable ios build
+# Enable iOS build
 set(IOS ON)
 ```
 
@@ -100,7 +100,7 @@ App::instance().setBuild( "$build" );
 ```
 
 ## Setup
-Set up your environment with your credentials. Please put your username, password and url here. For obfuscation please follow our best practice documentation.
+Set up your environment with your credentials. Please put your username, password and url here. For obfuscation, please follow our best practice documentation.
 ```c++
 Statistics::instance().setUsername( "sandbox" );
 Statistics::instance().setPassword( "sandbox" );
@@ -108,13 +108,13 @@ Statistics::instance().setServerFilePath( "https://sandbox.vxstats.com/" );
 ```
 
 ## Page
-This is the global context that you are currently in in your application. Just give it a simple name with logical app structure to identify where the user stays.
+This is the global context that you are currently in your application. Just give it a simple name with logical app structure to identify where the user stays.
 ```c++
 Statistics::instance().page( "Main" );
 ```
 
 ## Event
-If you want to request a page with dynamic content please use this function.
+If you want to request a page with dynamic content, please use this function.
 ```c++
 Statistics::instance().event( "$action", "$value" );
 ```
@@ -132,7 +132,7 @@ Statistics::instance().move( "$latitude", "$longitude" );
 ```
 
 ### Open
-To capture open websites or documents including the information which page or document has been requested.
+To capture open websites or documents including the information which page or form has been requested.
 ```c++
 Statistics::instance().open( "$urlOrName" );
 ```
@@ -215,4 +215,4 @@ Statistics::instance().touch( "$action" );
 
 # Pending Issues
 ## App Store
-We have already successfully passed the review process. If you have issues of the review process, please let us know and ask for support@vxapps.com to solve your needs.
+We have already successfully passed the review process. If you have issues with the review process, please let us know and ask for support@vxapps.com to solve your needs.

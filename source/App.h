@@ -30,7 +30,8 @@ namespace vxstats {
   /**
    * @~english
    * @brief The App class.
-   * General information about the running app including validation of fair use.
+   * General information about the running application including validation of
+   * fair use.
    *
    * @~german
    * @brief Die Klasse App.
@@ -95,7 +96,7 @@ namespace vxstats {
 
     /**
      * @~english
-     * @brief Returns the identifier of application. E.g. com.app.name
+     * @brief Returns the identifier of the application. E.g. com.app.name
      * @return Identifier of application.
      *
      * @~german
@@ -127,7 +128,7 @@ namespace vxstats {
 
     /**
      * @~english
-     * @brief Returns the version of application. E.g. 1.0
+     * @brief Returns the version of the application. E.g. 1.0
      * @return Version of application.
      *
      * @~german

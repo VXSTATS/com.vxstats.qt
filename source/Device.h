@@ -31,7 +31,7 @@ namespace vxstats {
   /**
    * @~english
    * @brief The Device class.
-   * Delivers information about current device.
+   * Delivers information about the current device.
    *
    * @~german
    * @brief Die Device Klasse.
@@ -142,8 +142,8 @@ namespace vxstats {
 
     /**
      * @~english
-     * @brief Returns true, if the device run in darkmode.
-     * @return True, if the device run in darkmode - otherwise false.
+     * @brief Returns true, if the device run in dark mode.
+     * @return True, if the device run in dark mode - otherwise false.
      *
      * @~german
      * @brief Gibt wahr zurück, wenn die Plattform den Darkmode verwendet.
@@ -153,8 +153,8 @@ namespace vxstats {
 
     /**
      * @~english
-     * @brief Returns true, if the device is jailbroken - otherwiese false.
-     * @return True, if the device is jailbroken - otherweise false.
+     * @brief Returns true, if the device is jailbroken - otherwise false.
+     * @return True, if the device is jailbroken - otherwise false.
      *
      * @~german
      * @brief Gibt wahr zurück, wenn das Gerät gejailbreakt ist - sonst falsch.
@@ -164,9 +164,9 @@ namespace vxstats {
 
     /**
      * @~english
-     * @brief Returns true, if the device is in tabletmode, opens one app a time
-     * - otherwise false.
-     * @return True, if the device is in tablemode - otherwise false.
+     * @brief Returns true, if the device is in tablet mode, opens one app a
+     * time - otherwise false.
+     * @return True, if the device is in tablet mode - otherwise false.
      *
      * @~german
      * @brief Gibt wahr zurück, wenn sich das Gerät im Tabletmodus befindet,
@@ -177,15 +177,15 @@ namespace vxstats {
 
     /**
      * @~english
-     * @brief Returns true, if the device contains an touch screen - otherwise
+     * @brief Returns true, if the device contains a touch screen - otherwise
      * false.
-     * @return True, if the device contains an touch screen - otherwise false.
+     * @return True, if the device contains a touch screen - otherwise false.
      *
      * @~german
-     * @brief Gibt wahr zurück, wenn das Gerät mit einem Touch-Bildschirm ausgestattet ist -
-     * sonst falsch.
-     * @return Wahr, wenn das Gerät mit einem Touch-Bildschirm ausgestattet ist - sonst
-     * falsch.
+     * @brief Gibt wahr zurück, wenn das Gerät mit einem Touch-Bildschirm
+     * ausgestattet ist - sonst falsch.
+     * @return Wahr, wenn das Gerät mit einem Touch-Bildschirm ausgestattet
+     * ist - sonst falsch.
      */
     virtual bool hasTouchScreen() const;
 
@@ -304,10 +304,26 @@ namespace vxstats {
      */
     virtual Connection typeOfNetwork( const QString &_interface );
 
-    // TODO: Insert documentation
+    /**
+     * @~english
+     * @brief Add a message to the outstanding message stack.
+     * @param _message   Message to add.
+     *
+     * @~german
+     * @brief Für den ausstehenden Nachrichten eine Nachricht hinzu.
+     * @param _message   Nachricht, die hinzugefügt werden soll.
+     */
     virtual void addOutstandingMessage( const QString &_message ) const;
 
-    // TODO: Insert documentation
+    /**
+     * @~english
+     * @brief Get outstanding messages.
+     * @return A list of outstanding messages.
+     *
+     * @~german
+     * @brief Erhalte alle zwischengespeicherten Nachrichten.
+     * @return Die Liste aller ausstehenden Nachrichten.
+     */
     virtual QStringList sendOutstandingMessages() const;
 
   protected:
@@ -341,7 +357,7 @@ namespace vxstats {
   private:
     /**
      * @~english
-     * @brief Is the current devie initialized?
+     * @brief Is the current device initialized?
      *
      * @~german
      * @brief Wurde das aktuelle Gerät initialisiert?
@@ -377,7 +393,7 @@ namespace vxstats {
 
     /**
      * @~english
-     * @brief The device unique identifier.
+     * @brief The unique device identifier.
      *
      * @~german
      * @brief Die eindeutige Id des Geräts.
@@ -403,8 +419,8 @@ namespace vxstats {
 
     /**
      * @~english
-     * @brief Returns the device unique identifier.
-     * @return The device unique identifier.
+     * @brief Returns the unique device identifier.
+     * @return The unique device identifier.
      *
      * @~german
      * @brief Gibt die eindeutige Id des Geräts zurück.

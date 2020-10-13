@@ -582,7 +582,6 @@ namespace vxstats {
      */
     void sendOutstandingMessages();
 
-  private Q_SLOTS:
     /**
      * @~english
      * @brief Called when a reply has comfirmed complete receipt, or to add the

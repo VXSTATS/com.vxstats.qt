@@ -59,7 +59,7 @@ namespace vxstats {
     connect( m_networkAccessManager, &QNetworkAccessManager::authenticationRequired, this, &Statistics::slotAuthenticationRequired );
     connect( m_networkAccessManager, &QNetworkAccessManager::finished, this, &Statistics::slotFinished );
 
-    Reachability *reachability = new Reachability( this );
+    auto reachability = new Reachability( this );
     connect( reachability, &Reachability::reachabilityChanged, this, &Statistics::slotReachabilityChanged );
     reachability->slotUpdateReachability();
   }

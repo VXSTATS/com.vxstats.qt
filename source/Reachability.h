@@ -58,7 +58,6 @@ namespace vxstats {
      */
     explicit Reachability( QObject *_parent = nullptr );
 
-  public Q_SLOTS:
     /**
      * @~english
      * @brief Any changes on Reachability status. Online/Offline, Status, Radio.

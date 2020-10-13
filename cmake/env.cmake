@@ -16,10 +16,10 @@
 # Debugging of build steps
 set(CMAKE_VERBOSE_MAKEFILE OFF)
 
-# Build with or without gui dependency
+# Build with or without Qt Gui dependency
 set(GUI ON)
 
-# Enable ios build
+# Enable iOS build
 set(IOS OFF)
 
 # Pathes
