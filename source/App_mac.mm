@@ -31,6 +31,17 @@
 
 namespace vxstats {
 
+  /**
+   * @~english
+   * @brief The App class for macOS.
+   * General information about the running application including validation of
+   * fair use.
+   *
+   * @~german
+   * @brief Die Klasse App für macOS.
+   * Bietet allgemeine Informationen über die Anwendung und eine Überprüfung
+   * der fairen Verwendung.
+   */
   class App_mac : public App {
 
   public:

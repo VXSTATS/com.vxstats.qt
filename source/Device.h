@@ -250,7 +250,7 @@ namespace vxstats {
      * @brief Returns the device version. E.g. 5510
      * @return The device version.
      *
-     * @~english
+     * @~german
      * @brief Gibt die Geräteversion zurück. Bsp.: 5510
      * @return Die Geräteversion.
      */
@@ -261,7 +261,7 @@ namespace vxstats {
      * @brief Sets the device version. E.g. 5510
      * @param _version   The device version.
      *
-     * @~english
+     * @~german
      * @brief Setzt die Geräteversion. Bsp.: 5510
      * @param _version   Die Geräteversion.
      */
@@ -386,7 +386,7 @@ namespace vxstats {
      * @~english
      * @brief The device version.
      *
-     * @~english
+     * @~german
      * @brief Die Geräteversion.
      */
     QString m_version = {};

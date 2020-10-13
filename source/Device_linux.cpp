@@ -27,6 +27,15 @@
 
 namespace vxstats {
 
+  /**
+   * @~english
+   * @brief The Device class for Linux.
+   * Delivers information about the current device.
+   *
+   * @~german
+   * @brief Die Device Klasse für Linux.
+   * Liefert Informationen zum aktuellen Gerät.
+   */
   class Device_linux : public Device {
 
   public:

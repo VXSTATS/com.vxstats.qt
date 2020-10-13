@@ -33,19 +33,30 @@
 namespace vxstats {
 
   /* uuid struct: time-version-clock_seq_hi-clock_seq_lo-node */
+
+  /** uuid: time start. */
   constexpr int timeStart = 0;
+  /** uuid: time length. */
   constexpr int timeLength = 8;
 
+  /** uuid: version start. */
   constexpr int versionStart = 8;
+  /** uuid: version length. */
   constexpr int versionLength = 4;
 
+  /** uuid: clock sequence high start. */
   constexpr int clockSequenceHighStart = 12;
+  /** uuid: clock sequence high length. */
   constexpr int clockSequenceHighLength = 4;
 
+  /** uuid: clock sequence low start. */
   constexpr int clockSequenceLowStart = 16;
+  /** uuid: clock sequence low length. */
   constexpr int clockSequenceLowLength = 4;
 
+  /** uuid: node start. */
   constexpr int nodeStart = 20;
+  /** uuid: node length. */
   constexpr int nodeLength = 12;
 
   void Device::initialize() {

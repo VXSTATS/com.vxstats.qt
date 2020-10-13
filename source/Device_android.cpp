@@ -25,6 +25,15 @@
 
 namespace vxstats {
 
+  /**
+   * @~english
+   * @brief The Device class for Android.
+   * Delivers information about the current device.
+   *
+   * @~german
+   * @brief Die Device Klasse für Android.
+   * Liefert Informationen zum aktuellen Gerät.
+   */
   class Device_android : public Device {
 
   public:

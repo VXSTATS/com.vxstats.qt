@@ -43,6 +43,15 @@
 
 namespace vxstats {
 
+  /**
+   * @~english
+   * @brief The Device class for iOS.
+   * Delivers information about the current device.
+   *
+   * @~german
+   * @brief Die Device Klasse für iOS.
+   * Liefert Informationen zum aktuellen Gerät.
+   */
   class Device_ios : public Device {
 
   public:

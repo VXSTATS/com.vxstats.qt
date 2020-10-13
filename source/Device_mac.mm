@@ -39,6 +39,15 @@
 
 namespace vxstats {
 
+  /**
+   * @~english
+   * @brief The Device class for macOS.
+   * Delivers information about the current device.
+   *
+   * @~german
+   * @brief Die Device Klasse für macOS.
+   * Liefert Informationen zum aktuellen Gerät.
+   */
   class Device_mac : public Device {
 
   public:

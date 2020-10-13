@@ -33,6 +33,15 @@
 
 namespace vxstats {
 
+  /**
+   * @~english
+   * @brief The Device class for Windows.
+   * Delivers information about the current device.
+   *
+   * @~german
+   * @brief Die Device Klasse für Windows.
+   * Liefert Informationen zum aktuellen Gerät.
+   */
   class Device_win : public Device {
 
   public:

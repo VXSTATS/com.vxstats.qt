@@ -47,8 +47,13 @@
 
 namespace vxstats {
 
+  /** Base length. */
   constexpr int baseLength = 255;
+
+  /** Default field width. */
   constexpr int defaultFieldWidth = 8;
+
+  /** Default base. */
   constexpr int defaultBase = 10;
 
   Statistics::Statistics( QObject *_parent )
