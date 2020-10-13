@@ -94,9 +94,11 @@ namespace vxstats {
     /**
      * @~english
      * @brief Defines the path and name to the statistics server.
+     * @param _serverFilePath   The file name of the statistics server.
      *
      * @~german
      * @brief Definiert den Pfad und Namen zum Statistikserver.
+     * @param _serverFilePath   Der Dateiname zum Statistikserver.
      *
      * @~english @b Example: @~german @b Beispiel:
      * @~english <br>for the HTTPS address sandbox.vxstats.com and the folder /.
@@ -105,9 +107,6 @@ namespace vxstats {
      * @code
      * Statistics::instance().setServerFilePath( "https://sandbox.vxtats.com/" );
      * @endcode
-     *
-     * @~
-     * @param _serverFilePath   @~english The file name of the statistics server. @~german Der Dateiname zum Statistikserver.
      */
     void setServerFilePath( const QString &_serverFilePath );
 
@@ -120,6 +119,7 @@ namespace vxstats {
      * @brief Definiert den Benutzernamen zum Statistikserver.
      * @param _username   Der Benutzername zum Statistikserver.
      *
+     * @~english @b Example: @~german @b Beispiel:
      * @~
      * @code
      * Statistics instance().setUsername( "sandbox" );
@@ -136,6 +136,7 @@ namespace vxstats {
      * @brief Definiert das Passwort zum Statistikserver.
      * @param _password   Das Passwoort zum Statistikserver.
      *
+     * @~english @b Example: @~german @b Beispiel:
      * @~
      * @code
      * Statistics instance().setPassword( "sandbox" );
@@ -144,24 +145,28 @@ namespace vxstats {
     void setPassword( const QString &_password );
 
     /**
-   * @~english
+     * @~english
      * @brief Request a page with the name pageName in order to transfer it to the statistics server.
-   *
+     * @param _page   The name of the requested page.
+     * @note Limited to 255 characters.
+     *
      * @~german
      * @brief Aufruf einer Seite mit dem Namen pageName um es an den Statistikserver zu übermitteln.
-     *
-     * @~
-     * @param _page   @~english The name of the requested page. @~german Der Name der aufgerufenen Seite.
-     * @note @~english Limited to 255 characters. @~german Auf 255 Zeichen begrenzt.
+     * @param _page   Der Name der aufgerufenen Seite.
+     * @note Auf 255 Zeichen begrenzt.
      */
     void page( const QString &_page );
 
     /**
      * @~english
      * @brief If you want to request a page with dynamic content please use this function.
+     * @param _event   The event.
+     * @param _value   The value for the event.
      *
      * @~german
      * @brief Wenn Sie eine Seite mit dynamischem Inhalt aufrufen möchten, verwenden Sie diese Funktion.
+     * @param _event   Das Event.
+     * @param _value   Der Wert für das Event.
      *
      * @~english @b Example: @~german @b Beispiel:
      * @~english @n Page with ads. @~german @n Seite mit Werbung.
@@ -259,11 +264,6 @@ namespace vxstats {
      * @code
      * Statistics::instance().touch( action );
      * @endcode
-     *
-     * @~
-     * @param _event   @~english The event. @~german Das Event.
-     * @~
-     * @param _value   @~english The value for the event. @~german Der Wert für das Event.
      */
 #ifdef __clang__
 #pragma clang diagnostic push
@@ -277,9 +277,13 @@ namespace vxstats {
     /**
      * @~english
      * @brief To capture ads - correspondingly the shown ad.
+     * @param _campaign   The displayed ad.
+     * @note Limited to 255 characters.
      *
      * @~german
      * @brief Für das Erfassen von Werbeeinblendungen - entsprechend die angezeigte Werbung.
+     * @param _campaign   Die angezeigte Werbung.
+     * @note Auf 255 Zeichen begrenzt.
      *
      * @~
      * @see Statistics#event:withValue:
@@ -287,18 +291,19 @@ namespace vxstats {
      * @code
      * Statistics::instance().event( "ads", campaign );
      * @endcode
-     *
-     * @~
-     * @param _campaign   @~english The displayed ad. Limited to 255 characters. @~german Die angezeigte Werbung. Auf 255 Zeichen begrenzt.
      */
     void ads( const QString &_campaign );
 
     /**
      * @~english
      * @brief To capture map shifts - correspondingly the new center.
+     * @param _latitude   Latitude of center.
+     * @param _longitude   Longitude of center.
      *
      * @~german
      * @brief Für die Erfassung von Kartenverschiebungen - entsprechend das neue Zentrum.
+     * @param _latitude   Latitude des Zentrums.
+     * @param _longitude   Longitude des Zentrums.
      *
      * @~
      * @see event
@@ -306,21 +311,20 @@ namespace vxstats {
      * @code
      * Statistics::instance().event( "move", latitude,longitude);
      * @endcode
-     *
-     * @~
-     * @param _latitude   @~english Latitude of center. @~german Latitude des Zentrums.
-     * @~
-     * @param _longitude   @~english Longitude of center. @~german Longitude des Zentrums.
      */
     void move( double _latitude, double _longitude );
 
     /**
      * @~english
      * @brief To capture open websites or documents including the information which page or document has been requested.
+     * @param _urlOrName   @~english The displayed website/document.
+     * @note Limited to 255 characters.
      *
      * @~german
      * @brief Für das Erfassen von geöffneten Webseiten oder Dokumenten mit der Information, welche Seite bzw.
      * welches Dokument aufgerufen wurde.
+     * @param _urlOrName   Die angezeigte Webseite/das angezeigte Dokument.
+     * @note Auf 255 Zeichen begrenzt.
      *
      * @~
      * @see event
@@ -328,18 +332,19 @@ namespace vxstats {
      * @code
      * Statistics::instance().event( "open", urlOrName );
      * @endcode
-     *
-     * @~
-     * @param _urlOrName   @~english The displayed website/document. Limited to 255 characters. @~german Die angezeigte Webseite/das angezeigte Dokument. Auf 255 Zeichen begrenzt.
      */
     void open( const QString &_urlOrName );
 
     /**
      * @~english
      * @brief To capture played files including the information which file/action has been played.
+     * @param _urlOrName   The played file.
+     * @note Limited to 255 characters.
      *
      * @~german
      * @brief Für das Erfassen von abgespielten Dateien mit der Info, welche Datei/Aktion abgespielt wurde.
+     * @param _urlOrName   Die abgespielte Datei.
+     * @note Auf 255 Zeichen begrentzt.
      *
      * @~
      * @see Statistics#event:withValue:
@@ -347,18 +352,19 @@ namespace vxstats {
      * @code
      * Statistics::instance().event( "play", urlOrName );
      * @endcode
-     *
-     * @~
-     * @param _urlOrName   @~english The played file. Limited to 255 characters. @~german Die abgespielte Datei. Auf 255 Zeichen begrentzt.
      */
     void play( const QString &_urlOrName );
 
     /**
      * @~english
      * @brief To capture searches including the information for which has been searched.
+     * @param _text   The searched text.
+     * @note Limited to 255 characters.
      *
      * @~german
      * @brief Für die Erfassung von Suchen mit der Information, nach was gesucht wurde.
+     * @param _text   Der gesuchte Text.
+     * @note Auf 255 Zeichen begrenzt.
      *
      * @~
      * @see Statistics#event:withValue:
@@ -366,9 +372,6 @@ namespace vxstats {
      * @code
      * Statistics::instance().event( "search", text );
      * @endcode
-     *
-     * @~
-     * @param _text   @~english The searched text. Limited to 255 characters. @~german Der gesuchte Text. Auf 255 Zeichen begrenzt.
      */
     void search( const QString &_text );
 
@@ -391,9 +394,13 @@ namespace vxstats {
     /**
      * @~english
      * @brief To capture typed/touched actions.
+     * @param _action   The name of the touched action.
+     * @note Limited to 255 characters.
      *
      * @~german
      * @brief Für die Erfassung von getippten/gedrückten Aktionen.
+     * @param _action   Der Name der getippten/gedrückten Aktion.
+     * @note Auf 255 Zeichen begrenzt.
      *
      * @~
      * @see Statistics#event:withValue:
@@ -401,9 +408,6 @@ namespace vxstats {
      * @code
      * Statistics::instance().event( "touch", action );
      * @endcode
-     *
-     * @~
-     * @param _action   @~english The name of the touched action. Limited to 255 characters. @~german Der Name der getippten/gedrückten Aktion. Auf 255 Zeichen begrenzt.
      */
     void touch( const QString &_action );
 

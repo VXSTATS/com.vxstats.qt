@@ -72,16 +72,16 @@ namespace vxstats {
     /**
      * @~english
      * @brief Signal is emitted, if the reachability is changed.
-     * @param p_connection   Changed connection.
-     * @param p_radio   Changed radio.
+     * @param _connection   Changed connection.
+     * @param _radio   Changed radio.
      *
      * @~german
      * @brief Signal wird gesendet, wenn sich die Verbindung geändert hat.
-     * @param p_connection   Geänderte Verbindungsart.
-     * @param p_radio   Geänderte Funkverbindung.
+     * @param _connection   Geänderte Verbindungsart.
+     * @param _radio   Geänderte Funkverbindung.
      */
-    void reachabilityChanged( Device::Connection p_connection,
-                              Device::Radio p_radio );
+    void reachabilityChanged( Device::Connection _connection,
+                              Device::Radio _radio );
 
   private:
     /**
