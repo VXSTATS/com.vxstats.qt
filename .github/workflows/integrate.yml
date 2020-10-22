@@ -70,11 +70,15 @@ jobs:
             os: windows-2016
             compiler: cl
             version: "Visual Studio 15 2017 Win64"
+            version2: "2017"
+            qtversion: "5.12.9"
 
           - name: windows-2019-msvc2019
             os: windows-2019
             compiler: cl
             version: "Visual Studio 16 2019"
+            version2: "2019"
+            qtversion: "5.15.1"
 
           - name: macOS-10.15-xcode-11
             os: macOS-10.15
@@ -139,6 +143,22 @@ jobs:
             fi
             echo "OPENSSL_ROOT_DIR=/usr/local/Cellar/openssl@1.1/1.1.1h" >> $GITHUB_ENV
             echo "Qt5_DIR=/usr/local/opt/qt/lib/cmake" >> $GITHUB_ENV
+
+      - name: Install Qt
+        if: runner.os == 'Windows'
+        uses: jurplel/install-qt-action@v2
+        with:
+          version: '${{matrix.qtversion}}'
+          host: 'windows'
+          target: 'desktop'
+          arch: 'win64_msvc${{matrix.version2}}_64'
+          dir: '${{github.workspace}}/example/'
+          install-deps: 'true'
+          mirror: 'http://mirrors.ocf.berkeley.edu/qt/'
+          cached: 'false'
+          aqtversion: '==0.9.7'
+          py7zrversion: '==0.10.1'
+          extra: '--external 7z'
 
       - name: Dependencies (Windows)
         if: runner.os == 'Windows'

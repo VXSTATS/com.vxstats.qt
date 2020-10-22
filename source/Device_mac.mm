@@ -29,6 +29,9 @@
 #include <net/if.h>
 #include <netdb.h>
 
+/* stl header */
+#include <array>
+
 /* objc header */
 #include <Foundation/Foundation.h>
 #include <CoreFoundation/CoreFoundation.h>
