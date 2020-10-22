@@ -31,6 +31,9 @@ set(WARNING_FLAGS
   # Qt global.h
   -Wno-redundant-parens
 
+  # Moc
+  -Wextra-semi-stmt
+
   # Deprecated QNetwork* Qt 5.15
   -Wno-deprecated-declarations
 )
