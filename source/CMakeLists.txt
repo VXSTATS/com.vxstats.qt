@@ -13,7 +13,7 @@
 # Zuwiderhandlungen werden strafrechtlich verfolgt.
 #
 
-project(com.vxstats.qt LANGUAGES CXX)
+project(com.vxstats.qt)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -37,6 +37,7 @@ if(ANDROID)
 endif()
 
 add_library(${PROJECT_NAME}
+  ../.github/workflows/integrate.yml
   ../README.md
   App.cpp
   App.h
