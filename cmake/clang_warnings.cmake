@@ -32,7 +32,7 @@ set(WARNING_FLAGS
   -Wno-redundant-parens
 
   # Moc
-  -Wextra-semi-stmt
+  -Wno-extra-semi-stmt
 
   # Deprecated QNetwork* Qt 5.15
   -Wno-deprecated-declarations
