@@ -152,7 +152,6 @@ jobs:
           host: 'windows'
           target: 'desktop'
           arch: 'win64_msvc${{matrix.version2}}_64'
-          dir: '${{github.workspace}}/example/'
           install-deps: 'true'
           mirror: 'http://mirrors.ocf.berkeley.edu/qt/'
           cached: 'false'
@@ -174,6 +173,7 @@ jobs:
               echo "CC=clang" >> $Env:GITHUB_ENV
               echo "CXX=clang++" >> $Env:GITHUB_ENV
             }
+            echo "Qt5_DIR=/${{runner.workspace}}/Qt/${{matrix.qtversion}}/lib/cmake" >> $GITHUB_ENV
 
       - name: Create Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build
