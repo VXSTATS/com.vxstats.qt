@@ -182,7 +182,7 @@ Statistics::instance().touch( "$action" );
 - Windows 7 (support ended)
 
 ## macOS
-- *macOS 10.16  - (not yet supported)*
+- macOS 11.0
 - macOS 10.15
 - macOS 10.14
 - macOS 10.13
@@ -198,7 +198,7 @@ Statistics::instance().touch( "$action" );
 - Every combination of supported Qt Version on a Linux system should work nicely
 
 ## iOS
-- *iOS 14 - (not yet supported)*
+- iOS 14
 - iOS 13
 - iOS 12
 - iOS 11

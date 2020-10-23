@@ -209,12 +209,12 @@ namespace vxstats {
     return version;
   }
 
-  Device::Connection Device::typeOfNetwork( const QString & /*_interface*/ ) {
+  Device::Connection Device::typeOfNetwork( [[maybe_unused]] const QString &_interface ) {
 
     return Device::Connection::Unknown;
   }
 
-  void Device::addOutstandingMessage( const QString & /*_message*/ ) const {
+  void Device::addOutstandingMessage( [[maybe_unused]] const QString &_message ) const {
 
     /* Virtual function */
   }
@@ -248,7 +248,7 @@ namespace vxstats {
     }
   }
 
-  bool Device::isPhysical( const QString & /*_hardwareAddress*/ ) const {
+  bool Device::isPhysical( [[maybe_unused]] const QString &_hardwareAddress ) const {
 
     return true;
   }

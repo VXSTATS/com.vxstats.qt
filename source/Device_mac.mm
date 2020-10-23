@@ -128,7 +128,7 @@ namespace vxstats {
     return value ? result : value;
   }
 
-  Device::Connection Device_mac::typeOfNetwork( const QString & /*_interface*/ ) {
+  Device::Connection Device_mac::typeOfNetwork( [[maybe_unused]] const QString &_interface ) {
 
     QStringList allUpDevices;
     struct ifaddrs *allInterfaces = nullptr;
