@@ -184,7 +184,7 @@ Statistics::instance().touch( "$action" );
 - Windows 7 (support ended)
 
 ## macOS
-- macOS 11.0
+- macOS 11.0 (arm64 not yet supported by Qt)
 - macOS 10.15
 - macOS 10.14
 - macOS 10.13
