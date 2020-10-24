@@ -1,3 +1,5 @@
+![integration](https://github.com/VXSTATS/com.vxstats.qt/workflows/integration/badge.svg)
+
 * [Preparation](#preparation)
    * [macOS](#macos)
 * [Installation](#installation)
@@ -32,7 +34,7 @@
 # Preparation
 Checkout and create the environment.
 ```bash
-git clone --depth 1 --branch 1.0 --single-branch https://github.com/VXAPPS/com.vxstats.qt.git
+git clone --depth 1 --branch 1.0 --single-branch https://github.com/VXSTATS/com.vxstats.qt.git
 cd com.vxstats.qt
 mkdir build
 cd build
@@ -57,21 +59,21 @@ Inside cmake/env.cmake you will find some user-defined build variables for parti
 
 ### Debugging
 You can log the verbose build output.
-```bash
+```cmake
 # Debugging of build steps
 set(CMAKE_VERBOSE_MAKEFILE ON)
 ```
 
 ### Gui dependencies
 You can disable Qt Gui dependencies.
-```bash
+```cmake
 # Build with or without Qt Gui dependency
 set(GUI OFF)
 ```
 
 ### iOS
 If you want to build for iOS or build with an iOS specified cmake toolchain (https://github.com/leetal/ios-cmake). You will find complete documentation here and can generate native XCode builds.
-```bash
+```cmake
 # Enable iOS build
 set(IOS ON)
 ```
@@ -215,4 +217,4 @@ Statistics::instance().touch( "$action" );
 
 # Pending Issues
 ## App Store
-We have already successfully passed the review process. If you have issues with the review process, please let us know and ask for support@vxapps.com to solve your needs.
+We have already successfully passed the review process. If you have issues with the review process, please let us know and ask for support@vxstats.com to solve your needs.
