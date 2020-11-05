@@ -87,7 +87,7 @@ namespace vxstats {
     ::sysctlbyname( "hw.model", model.data(), &len, nullptr, 0 );
     QString hwmodel = model.data();
 
-    int versionBegin = hwmodel.indexOf( QStringLiteral( "," ) );
+    auto versionBegin = hwmodel.indexOf( ',' );
     if ( versionBegin > 1 && hwmodel.at( versionBegin - 1 ).isDigit() ) {
 
       --versionBegin;

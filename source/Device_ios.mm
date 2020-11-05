@@ -20,7 +20,11 @@
 #include <QFile>
 
 #ifdef QT_GUI_LIB
-  #include <QTouchDevice>
+  #if QT_VERSION >= QT_VERSION_CHECK( 6, 0, 0 )
+    #include <QInputDevice>
+  #else
+    #include <QTouchDevice>
+  #endif
 #endif
 
 /* c header */
@@ -98,7 +102,7 @@ namespace vxstats {
     }
     else {
 
-      int versionBegin = hwmodel.indexOf( "," );
+      auto versionBegin = hwmodel.indexOf( "," );
       if ( versionBegin > 1 && hwmodel.at( versionBegin - 1 ).isDigit() ) {
 
         --versionBegin;
@@ -158,9 +162,13 @@ namespace vxstats {
   bool Device_ios::hasTouchScreen() const {
 
 #ifdef QT_GUI_LIB
-    return QTouchDevice::devices().size() > 0;
+#if QT_VERSION >= QT_VERSION_CHECK( 6, 0, 0 )
+    return !QInputDevice::devices().empty();
 #else
-    return true;
+    return !QTouchDevice::devices().empty();
+#endif
+#else
+    return false;
 #endif
   }
 

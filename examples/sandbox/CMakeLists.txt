@@ -39,7 +39,7 @@ else()
 endif()
 
 if(GUI)
-  set(${PROJECT_NAME}_libs Qt5::Gui)
+  set(${PROJECT_NAME}_libs ${QtVERSION}::Gui)
 endif()
 
-target_link_libraries(${PROJECT_NAME} PRIVATE com.vxstats.qt Qt5::Core ${${PROJECT_NAME}_libs})
+target_link_libraries(${PROJECT_NAME} PRIVATE com.vxstats.qt ${QtVERSION}::Core ${${PROJECT_NAME}_libs})

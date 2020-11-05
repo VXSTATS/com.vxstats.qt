@@ -26,7 +26,6 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QNetworkRequest>
-#include <QNetworkSession>
 #include <QSettings>
 #include <QtGlobal>
 
@@ -376,7 +375,11 @@ namespace vxstats {
 #endif
 
     /* created time block */
+#if QT_VERSION >= QT_VERSION_CHECK( 5, 8, 0 )
+    core.addQueryItem( QStringLiteral( "created" ), QString( QStringLiteral( "%1" ) ).arg( QDateTime::currentDateTimeUtc().toSecsSinceEpoch() ) );
+#else
     core.addQueryItem( QStringLiteral( "created" ), QString( QStringLiteral( "%1" ) ).arg( QDateTime::currentDateTimeUtc().toTime_t() ) );
+#endif
     /* data block */
     core.addQueryItem( QStringLiteral( "page" ), m_lastPage );
     return core;

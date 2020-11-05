@@ -19,7 +19,11 @@
 #include <QTextStream>
 
 #ifdef QT_GUI_LIB
-  #include <QTouchDevice>
+  #if QT_VERSION >= QT_VERSION_CHECK( 6, 0, 0 )
+    #include <QInputDevice>
+  #else
+    #include <QTouchDevice>
+  #endif
 #endif
 
 /* local header */

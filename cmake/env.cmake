@@ -22,6 +22,9 @@ set(GUI ON)
 # Enable iOS build
 set(IOS OFF)
 
+# Enable iOS build
+set(QtVERSION Qt5)
+
 # Pathes
 if(NOT DEV)
   get_filename_component(DEV "${CMAKE_CURRENT_LIST_DIR}/.." ABSOLUTE)

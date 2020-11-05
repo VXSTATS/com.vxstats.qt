@@ -17,7 +17,11 @@
 #include <QtAndroidExtras>
 
 #ifdef QT_GUI_LIB
-  #include <QTouchDevice>
+  #if QT_VERSION >= QT_VERSION_CHECK( 6, 0, 0 )
+    #include <QInputDevice>
+  #else
+    #include <QTouchDevice>
+  #endif
 #endif
 
 /* local header */
@@ -72,9 +76,13 @@ namespace vxstats {
   bool Device_android::hasTouchScreen() const {
 
 #ifdef QT_GUI_LIB
-    return QTouchDevice::devices().size() > 0;
+#if QT_VERSION >= QT_VERSION_CHECK( 6, 0, 0 )
+    return !QInputDevice::devices().empty();
 #else
-    return true;
+    return !QTouchDevice::devices().empty();
+#endif
+#else
+    return false;
 #endif
   }
 }

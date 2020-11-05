@@ -24,7 +24,11 @@
 #endif
 
 #ifdef QT_GUI_LIB
-  #include <QTouchDevice>
+  #if QT_VERSION >= QT_VERSION_CHECK( 6, 0, 0 )
+    #include <QInputDevice>
+  #else
+    #include <QTouchDevice>
+  #endif
 #endif
 
 /* local header */
@@ -148,7 +152,11 @@ namespace vxstats {
   bool Device::hasTouchScreen() const {
 
 #ifdef QT_GUI_LIB
+#if QT_VERSION >= QT_VERSION_CHECK( 6, 0, 0 )
+    return !QInputDevice::devices().empty();
+#else
     return !QTouchDevice::devices().empty();
+#endif
 #else
     return false;
 #endif
@@ -227,7 +235,7 @@ namespace vxstats {
   void Device::tryToSplitVersionFromModel() {
 
     /* Do we find space and only numbers from behind - this could be the version */
-    int pos = model().lastIndexOf( QChar::Space );
+    auto pos = model().lastIndexOf( QChar::Space );
     if ( pos != -1 ) {
 
       bool isVersion = true;
