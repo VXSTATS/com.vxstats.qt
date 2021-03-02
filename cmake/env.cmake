@@ -22,7 +22,7 @@ set(GUI ON)
 # Enable iOS build
 set(IOS OFF)
 
-# Enable iOS build
+# Enable Qt build - use Qt5 or Qt6
 set(QtVERSION Qt5)
 
 # Pathes
