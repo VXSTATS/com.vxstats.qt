@@ -96,7 +96,7 @@ jobs:
             compiler: cl
             version: Visual Studio 16 2019
             version2: 2019
-            qtversion: 5.15.1
+            qtversion: 5.15.2
 
           - name: macOS-10.15-xcode-11.4
             os: macOS-10.15
@@ -185,10 +185,9 @@ jobs:
           target: 'desktop'
           arch: 'win64_msvc${{matrix.version2}}_64'
           install-deps: 'true'
-          mirror: 'http://mirrors.ocf.berkeley.edu/qt/'
           cached: 'false'
-          aqtversion: '==0.9.7'
-          py7zrversion: '==0.10.1'
+          aqtversion: '==0.11.1'
+          py7zrversion: '==0.11.3'
           extra: '--external 7z'
 
       - name: Dependencies (Windows)
