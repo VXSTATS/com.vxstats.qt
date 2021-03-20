@@ -165,7 +165,9 @@ Statistics::instance().touch( "$action" );
 
 # Compatiblity
 ## Qt Versions
-- *6 (not yet supported)*
+- *6.2 (not officially released)*
+- 6.1 (will miss Apple M1 support)
+- *6.0 (will not be supported)*
 - 5.15
 - 5.14
 - 5.13
@@ -193,7 +195,7 @@ Statistics::instance().touch( "$action" );
 - macOS 10.10
 
 ## Linux
-- Red Hat 8.2
+- Red Hat 8
 - Ubuntu 20.04
 - Ubuntu 18.04
 - Ubuntu 16.04 (support ended, extended support ends 04/30/2021)

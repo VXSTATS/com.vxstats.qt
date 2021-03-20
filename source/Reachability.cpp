@@ -18,8 +18,12 @@
   #include <QDebug>
 #endif
 #include <QMetaEnum>
-#include <QNetworkConfiguration>
-#include <QNetworkConfigurationManager>
+#if QT_VERSION >= QT_VERSION_CHECK( 6, 1, 0 )
+  #include <QNetworkInformation>
+#else
+  #include <QNetworkConfiguration>
+  #include <QNetworkConfigurationManager>
+#endif
 
 /* local header */
 #include "Reachability.h"
@@ -29,12 +33,34 @@ namespace vxstats {
   Reachability::Reachability( QObject *_parent )
     : QObject( _parent ) {
 
+#if QT_VERSION >= QT_VERSION_CHECK( 6, 1, 0 )
+    connect( QNetworkInformation::instance(), &QNetworkInformation::reachabilityChanged, this, &Reachability::slotUpdateReachability );
+#else
     m_networkConfigurationManager = new QNetworkConfigurationManager( this );
     connect( m_networkConfigurationManager, &QNetworkConfigurationManager::configurationChanged, this, &Reachability::slotUpdateReachability );
     connect( m_networkConfigurationManager, &QNetworkConfigurationManager::onlineStateChanged, this, &Reachability::slotUpdateReachability );
     connect( m_networkConfigurationManager, &QNetworkConfigurationManager::updateCompleted, this, &Reachability::slotUpdateReachability );
+#endif
   }
 
+#if QT_VERSION >= QT_VERSION_CHECK( 6, 1, 0 )
+  void Reachability::slotUpdateReachability( QNetworkInformation::Reachability _newReachability ) {
+
+    if ( _newReachability != QNetworkInformation::Reachability::Online ) {
+
+#ifdef DEBUG
+      qDebug() << Q_FUNC_INFO << __LINE__ << "Network Offline";
+#endif
+
+      Q_EMIT reachabilityChanged( Device::Connection::Offline, Device::Radio::None );
+      return;
+    }
+
+    Device::Connection connection = Device::Connection::Wifi;
+    Device::Radio radio = Device::Radio::None;
+    Q_EMIT reachabilityChanged( connection, radio );
+  }
+#else
   void Reachability::slotUpdateReachability() {
 
 #ifdef DEBUG
@@ -116,4 +142,5 @@ namespace vxstats {
     }
     Q_EMIT reachabilityChanged( connection, radio );
   }
+#endif
 }

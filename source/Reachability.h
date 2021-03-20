@@ -17,12 +17,17 @@
 
 /* qt header */
 #include <QObject>
+#if QT_VERSION >= QT_VERSION_CHECK( 6, 1, 0 )
+  #include <QNetworkInformation>
+#endif
 
 /* local header */
 #include "Device.h"
 
 /* qt class */
+#if QT_VERSION < QT_VERSION_CHECK( 6, 0, 0 )
 class QNetworkConfigurationManager;
+#endif
 
 /**
  * @~english
@@ -61,12 +66,18 @@ namespace vxstats {
     /**
      * @~english
      * @brief Any changes on Reachability status. Online/Offline, Status, Radio.
+     * @param _newReachability   Changed connection.
      *
      * @~german
      * @brief Änderungen im Netzwerk zu jedem Status. Online/Offline, Status,
+     * @param _newReachability   Geänderte Verbindungsart.
      * Funk.
      */
+#if QT_VERSION >= QT_VERSION_CHECK( 6, 1, 0 )
+    void slotUpdateReachability( QNetworkInformation::Reachability _newReachability );
+#else
     void slotUpdateReachability();
+#endif
 
   Q_SIGNALS:
     /**
@@ -83,6 +94,7 @@ namespace vxstats {
     void reachabilityChanged( Device::Connection _connection,
                               Device::Radio _radio );
 
+#if QT_VERSION < QT_VERSION_CHECK( 6, 0, 0 )
   private:
     /**
      * @~english
@@ -93,5 +105,6 @@ namespace vxstats {
      * aktuellen Typ zu erhalten.
      */
     QNetworkConfigurationManager *m_networkConfigurationManager = nullptr;
+#endif
   };
 }
