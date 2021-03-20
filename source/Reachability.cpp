@@ -18,9 +18,7 @@
   #include <QDebug>
 #endif
 #include <QMetaEnum>
-#if QT_VERSION >= QT_VERSION_CHECK( 6, 1, 0 )
-  #include <QNetworkInformation>
-#else
+#if QT_VERSION < QT_VERSION_CHECK( 6, 0, 0 )
   #include <QNetworkConfiguration>
   #include <QNetworkConfigurationManager>
 #endif

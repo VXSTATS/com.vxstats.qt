@@ -151,7 +151,11 @@ namespace vxstats {
   bool Device_linux::hasTouchScreen() const {
 
 #ifdef QT_GUI_LIB
+#if QT_VERSION >= QT_VERSION_CHECK( 6, 0, 0 )
+    return QInputDevice::devices().size() > 0;
+#else
     return QTouchDevice::devices().size() > 0;
+#endif
 #else
     return false;
 #endif
