@@ -63,7 +63,7 @@ namespace vxstats {
     connect( m_networkAccessManager, &QNetworkAccessManager::authenticationRequired, this, &Statistics::slotAuthenticationRequired );
     connect( m_networkAccessManager, &QNetworkAccessManager::finished, this, &Statistics::slotFinished );
 
-    auto reachability = new Reachability( this );
+    auto *reachability = new Reachability( this );
     connect( reachability, &Reachability::reachabilityChanged, this, &Statistics::slotReachabilityChanged );
 #if QT_VERSION >= QT_VERSION_CHECK( 6, 1, 0 )
     reachability->slotUpdateReachability( QNetworkInformation::instance()->reachability() );

@@ -49,7 +49,7 @@ int main( int argc, char *argv[] ) {
 
   Statistics::instance().page( QStringLiteral( "Start" ) );
 
-  auto timer = new QTimer;
+  auto *timer = new QTimer;
   QObject::connect( timer, &QTimer::timeout, []() {
 
     Statistics::instance().page( QStringLiteral( "Demo" ) );

@@ -16,6 +16,7 @@
 /* qt header */
 #include <QDir>
 #include <QFile>
+#include <QProcess>
 #include <QTextStream>
 
 #ifdef QT_GUI_LIB
@@ -46,6 +47,7 @@ namespace vxstats {
     Device_linux();
 
   private:
+    [[nodiscard]] bool useDarkMode() const final;
     [[nodiscard]] bool hasTouchScreen() const final;
   };
 
@@ -84,7 +86,7 @@ namespace vxstats {
         idsFiles << QStringLiteral( "/pci.ids" ) << QStringLiteral( "/usr/share/lshw/pci.ids" ) << QStringLiteral( "/usr/local/share/pci.ids" );
         idsFiles << QStringLiteral( "/usr/share/pci.ids" ) << QStringLiteral( "/etc/pci.ids" ) << QStringLiteral( "/usr/share/hwdata/pci.ids" );
         idsFiles << QStringLiteral( "/usr/share/misc/pci.ids" );
-        for ( const QString &idsFile : idsFiles ) {
+        for ( const QString &idsFile : qAsConst( idsFiles ) ) {
 
           QFile dataFile( idsFile );
           if ( dataFile.exists() && dataFile.open( QIODevice::ReadOnly ) ) {
@@ -148,13 +150,30 @@ namespace vxstats {
     }
   }
 
+  bool Device_linux::useDarkMode() const {
+
+    QString program = QStringLiteral( "gsettings" );
+    QStringList arguments;
+    arguments << QStringLiteral( "get" ) << QStringLiteral( "org.gnome.desktop.interface" ) << QStringLiteral( "gtk-theme" );
+
+    QProcess process;
+#if QT_VERSION >= QT_VERSION_CHECK( 6, 0, 0 )
+    process.startCommand( program + " " + arguments.join( " " ) );
+#else
+    process.start( program, arguments );
+#endif
+    process.waitForFinished();
+    QString result( process.readAllStandardOutput() );
+    return result.contains( QStringLiteral( "-dark" ) );
+  }
+
   bool Device_linux::hasTouchScreen() const {
 
 #ifdef QT_GUI_LIB
 #if QT_VERSION >= QT_VERSION_CHECK( 6, 0, 0 )
-    return QInputDevice::devices().size() > 0;
+    return !QInputDevice::devices().empty();
 #else
-    return QTouchDevice::devices().size() > 0;
+    return !QTouchDevice::devices().empty();
 #endif
 #else
     return false;
