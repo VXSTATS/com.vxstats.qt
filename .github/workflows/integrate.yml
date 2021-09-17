@@ -173,7 +173,7 @@ jobs:
               echo "CC=clang" >> $GITHUB_ENV
               echo "CXX=clang++" >> $GITHUB_ENV
             fi
-            echo "OPENSSL_ROOT_DIR=/usr/local/Cellar/openssl@1.1/1.1.1j" >> $GITHUB_ENV
+            echo "OPENSSL_ROOT_DIR=/usr/local/Cellar/openssl@1.1/1.1.1l" >> $GITHUB_ENV
             echo "Qt5_DIR=/usr/local/opt/qt@5/lib/cmake" >> $GITHUB_ENV
 
       - name: Install Qt
