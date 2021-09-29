@@ -158,7 +158,7 @@ namespace vxstats {
 
     QProcess process;
 #if QT_VERSION >= QT_VERSION_CHECK( 6, 0, 0 )
-    process.startCommand( program + " " + arguments.join( " " ) );
+    process.startCommand( program + " " + arguments.join( QStringLiteral( " " ) ) );
 #else
     process.start( program, arguments );
 #endif

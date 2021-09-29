@@ -480,6 +480,7 @@ namespace vxstats {
 
     if ( _reply->error() == QNetworkReply::NoError ) {
 
+#if QT_VERSION < QT_VERSION_CHECK( 6, 2, 0 )
 #ifdef DEBUG
       if ( _reply->hasRawHeader( "Authentication-Info" ) ) {
 
@@ -520,6 +521,7 @@ namespace vxstats {
         }
       }
 #endif
+#endif
       return;
     }
 
@@ -557,9 +559,9 @@ namespace vxstats {
 
         QNetworkRequest request( m_serverFilePath );
 #if QT_VERSION >= QT_VERSION_CHECK( 5, 15, 0 )
-      request.setAttribute( QNetworkRequest::Http2AllowedAttribute, true );
+        request.setAttribute( QNetworkRequest::Http2AllowedAttribute, true );
 #else
-      request.setAttribute( QNetworkRequest::HTTP2AllowedAttribute, true );
+        request.setAttribute( QNetworkRequest::HTTP2AllowedAttribute, true );
 #endif
         request.setHeader( QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded" );
         request.setRawHeader( "Authorization", digest.toUtf8() );
