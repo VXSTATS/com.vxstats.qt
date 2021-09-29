@@ -13,17 +13,14 @@
 # Zuwiderhandlungen werden strafrechtlich verfolgt.
 #
 
-# Debugging of build steps
-set(CMAKE_VERBOSE_MAKEFILE OFF)
+# for debugging of build steps
+option(CMAKE_VERBOSE_MAKEFILE "Show the complete build commands" OFF)
 
-# Build with or without Qt Gui dependency
-set(GUI ON)
+# build with or without Qt Gui dependency
+option(GUI "Build with or without Qt Gui dependency" ON)
 
-# Enable iOS build
-set(IOS OFF)
-
-# Enable Qt build - use Qt5 or Qt6
-set(QtVERSION Qt5)
+# enable iOS build
+option(IOS "Enable iOS build" OFF)
 
 # Pathes
 if(NOT DEV)

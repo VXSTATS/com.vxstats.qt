@@ -60,22 +60,22 @@ Inside cmake/env.cmake you will find some user-defined build variables for parti
 ### Debugging
 You can log the verbose build output.
 ```cmake
-# Debugging of build steps
-set(CMAKE_VERBOSE_MAKEFILE ON)
+# for debugging of build steps
+option(CMAKE_VERBOSE_MAKEFILE "Show the complete build commands" OFF)
 ```
 
 ### Gui dependencies
 You can disable Qt Gui dependencies.
 ```cmake
-# Build with or without Qt Gui dependency
-set(GUI OFF)
+# build with or without Qt Gui dependency
+option(GUI "Build with or without Qt Gui dependency" ON)
 ```
 
 ### iOS
 If you want to build for iOS or build with an iOS specified cmake toolchain (https://github.com/leetal/ios-cmake). You will find complete documentation here and can generate native XCode builds.
 ```cmake
-# Enable iOS build
-set(IOS ON)
+# enable iOS build
+option(IOS "Enable iOS build" OFF)
 ```
 
 # Implementation
@@ -180,6 +180,7 @@ Statistics::instance().touch( "$action" );
 - 5.6 (support ended)
 
 ## Windows
+- *Windows 11 (not officially released)*
 - Windows 10
 - Windows 8.1
 - Windows 8 (support ended, extended support ends 01/10/2023)
