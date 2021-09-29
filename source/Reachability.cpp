@@ -32,7 +32,11 @@ namespace vxstats {
     : QObject( _parent ) {
 
 #if QT_VERSION >= QT_VERSION_CHECK( 6, 1, 0 )
-    connect( QNetworkInformation::instance(), &QNetworkInformation::reachabilityChanged, this, &Reachability::slotUpdateReachability );
+    QNetworkInformation::load( QNetworkInformation::Feature::Reachability );
+    if ( QNetworkInformation::instance() ) {
+
+      connect( QNetworkInformation::instance(), &QNetworkInformation::reachabilityChanged, this, &Reachability::slotUpdateReachability );
+    }
 #else
     m_networkConfigurationManager = new QNetworkConfigurationManager( this );
     connect( m_networkConfigurationManager, &QNetworkConfigurationManager::configurationChanged, this, &Reachability::slotUpdateReachability );

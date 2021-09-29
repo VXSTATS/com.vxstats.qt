@@ -66,7 +66,10 @@ namespace vxstats {
     auto *reachability = new Reachability( this );
     connect( reachability, &Reachability::reachabilityChanged, this, &Statistics::slotReachabilityChanged );
 #if QT_VERSION >= QT_VERSION_CHECK( 6, 1, 0 )
-    reachability->slotUpdateReachability( QNetworkInformation::instance()->reachability() );
+    if ( QNetworkInformation::instance() ) {
+
+      reachability->slotUpdateReachability( QNetworkInformation::instance()->reachability() );
+    }
 #else
     reachability->slotUpdateReachability();
 #endif
