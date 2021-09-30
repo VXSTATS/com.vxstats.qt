@@ -36,7 +36,10 @@ set(WARNING_FLAGS
 
   # Deprecated QNetwork Qt 5.15
   -Wno-deprecated-declarations
+)
 
-  # Clang-13
+set(WARNING_FLAGS_VERSION13
+
+  # Moc
   -Wno-reserved-identifier
 )

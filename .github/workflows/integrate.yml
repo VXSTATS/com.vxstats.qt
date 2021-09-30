@@ -141,7 +141,7 @@ jobs:
           - name: macos-11.0-xcode-13-x86_64
             os: macos-11.0
             compiler: xcode
-            version: 13.0
+            version: "13.0"
             cmake: -DCMAKE_OSX_ARCHITECTURES:STRING=x86_64
 
     steps:
@@ -219,6 +219,7 @@ jobs:
         if: runner.os == 'Windows'
         run: |
             choco install openssl
+
             if ( "${{matrix.compiler}}" -eq "gcc" ) {
               choco install gcc --global
               echo "CC=gcc" >> $Env:GITHUB_ENV
