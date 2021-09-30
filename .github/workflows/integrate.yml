@@ -26,12 +26,14 @@ jobs:
           ubuntu-20.04-clang-10,
           ubuntu-20.04-clang-11,
           ubuntu-20.04-clang-12,
+          ubuntu-20.04-clang-13,
           windows-2016-msvc2017,
           windows-2019-msvc2019,
           macos-10.15-xcode-11.4,
           macos-10.15-xcode-12,
           macos-10.15-xcode-12.4,
-          macos-11.0-x86_64
+          macos-11.0-xcode-12.5-x86_64,
+          macos-11.0-xcode-13-x86_64
         ]
         config: [Debug, Release]
         include:
@@ -90,6 +92,11 @@ jobs:
             compiler: clang
             version: 12
 
+          - name: ubuntu-20.04-clang-13
+            os: ubuntu-20.04
+            compiler: clang
+            version: 13
+
           - name: windows-2016-msvc2017
             os: windows-2016
             compiler: cl
@@ -119,17 +126,23 @@ jobs:
             compiler: xcode
             version: 12.4
 
-          - name: macos-11.0-x86_64
+          - name: macos-11.0-xcode-12.5-x86_64
             os: macos-11.0
             compiler: xcode
             version: 12.5
             cmake: -DCMAKE_OSX_ARCHITECTURES:STRING=x86_64
 
-#          - name: macos-11.0-arm64
+#          - name: macos-11.0-xcode-12.5-arm64
 #            os: macos-11.0
 #            compiler: xcode
 #            version: 12.5
 #            cmake: -DCMAKE_OSX_ARCHITECTURES:STRING=arm64
+
+          - name: macos-11.0-xcode-13-x86_64
+            os: macos-11.0
+            compiler: xcode
+            version: 13
+            cmake: -DCMAKE_OSX_ARCHITECTURES:STRING=x86_64
 
     steps:
       - uses: actions/checkout@v2
@@ -144,6 +157,9 @@ jobs:
             fi
             if [ "${{matrix.compiler}}" = "clang" ] && [ "${{matrix.version}}" = "12" ]; then
               sudo add-apt-repository "deb http://apt.llvm.org/focal/ llvm-toolchain-focal-12 main"
+            fi
+            if [ "${{matrix.compiler}}" = "clang" ] && [ "${{matrix.version}}" = "13" ]; then
+              sudo add-apt-repository "deb http://apt.llvm.org/focal/ llvm-toolchain-focal-13 main"
             fi
             if [ "${{matrix.compiler}}" = "gcc" ] && [ "${{matrix.version}}" = "11" ]; then
               sudo add-apt-repository ppa:ubuntu-toolchain-r/test
@@ -180,6 +196,7 @@ jobs:
               echo "CC=clang" >> $GITHUB_ENV
               echo "CXX=clang++" >> $GITHUB_ENV
             fi
+
             echo "OPENSSL_ROOT_DIR=/usr/local/Cellar/openssl@1.1/1.1.1l" >> $GITHUB_ENV
             echo "QT_DIR=/usr/local/opt/qt@5/lib/cmake" >> $GITHUB_ENV
             echo "Qt5_DIR=/usr/local/opt/qt@5/lib/cmake" >> $GITHUB_ENV
