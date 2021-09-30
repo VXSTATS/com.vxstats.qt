@@ -85,4 +85,4 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set(CMAKE_MODULE_PATH ${CMAKE}/modules)
 
 # Includes
-include(${CMAKE}/find.cmake)
+include(${CMAKE}/find_package.cmake)

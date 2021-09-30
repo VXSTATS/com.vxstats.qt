@@ -153,7 +153,11 @@ namespace vxstats {
 
 #ifdef QT_GUI_LIB
 #if QT_VERSION >= QT_VERSION_CHECK( 6, 0, 0 )
-    return !QInputDevice::devices().empty();
+    const QList<const QInputDevice *> devices = QInputDevice::devices();
+    return std::any_of( devices.begin(), devices.end(), []( const auto *_device ) {
+
+      return _device->type() == QInputDevice::DeviceType::TouchScreen;
+    } );
 #else
     return !QTouchDevice::devices().empty();
 #endif

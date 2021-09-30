@@ -65,7 +65,6 @@ namespace vxstats {
     [[nodiscard]] bool useDarkMode() const final;
     [[nodiscard]] bool isJailbroken() const final;
     [[nodiscard]] bool isTabletMode() const final;
-    [[nodiscard]] bool hasTouchScreen() const final;
     [[nodiscard]] bool isVoiceOverActive() const final;
 #if QT_VERSION < QT_VERSION_CHECK( 5, 9, 0 )
     QString osVersion() const final;
@@ -157,19 +156,6 @@ namespace vxstats {
   bool Device_ios::isTabletMode() const {
 
     return true;
-  }
-
-  bool Device_ios::hasTouchScreen() const {
-
-#ifdef QT_GUI_LIB
-#if QT_VERSION >= QT_VERSION_CHECK( 6, 0, 0 )
-    return !QInputDevice::devices().empty();
-#else
-    return !QTouchDevice::devices().empty();
-#endif
-#else
-    return false;
-#endif
   }
 
   bool Device_ios::isVoiceOverActive() const {

@@ -22,19 +22,19 @@
 #include <cstdio>
 
 /* system header */
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <sys/sysctl.h>
 #include <ifaddrs.h>
 #include <net/if.h>
 #include <netdb.h>
+#include <sys/socket.h>
+#include <sys/sysctl.h>
+#include <sys/types.h>
 
 /* stl header */
 #include <array>
 
 /* objc header */
-#include <Foundation/Foundation.h>
 #include <CoreFoundation/CoreFoundation.h>
+#include <Foundation/Foundation.h>
 #include <SystemConfiguration/SystemConfiguration.h>
 
 /* local header */
@@ -145,7 +145,7 @@ namespace vxstats {
         const struct sockaddr *addr = interface->ifa_addr;
 
         /* Check for running IPv4, IPv6 interfaces. Skip the loopback interface. */
-        if ( ( flags & ( IFF_UP | IFF_RUNNING | IFF_LOOPBACK ) ) == ( IFF_UP | IFF_RUNNING ) ) {
+        if ( ( flags & static_cast<unsigned int>( IFF_UP | IFF_RUNNING | IFF_LOOPBACK ) ) == static_cast<unsigned int>( IFF_UP | IFF_RUNNING ) ) {
 
           if ( addr->sa_family == AF_INET || addr->sa_family == AF_INET6 ) {
 

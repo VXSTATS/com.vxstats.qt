@@ -48,7 +48,6 @@ namespace vxstats {
 
   private:
     [[nodiscard]] bool useDarkMode() const final;
-    [[nodiscard]] bool hasTouchScreen() const final;
   };
 
   Device &Device::instance() {
@@ -165,18 +164,5 @@ namespace vxstats {
     process.waitForFinished();
     QString result( process.readAllStandardOutput() );
     return result.contains( QStringLiteral( "-dark" ) );
-  }
-
-  bool Device_linux::hasTouchScreen() const {
-
-#ifdef QT_GUI_LIB
-#if QT_VERSION >= QT_VERSION_CHECK( 6, 0, 0 )
-    return !QInputDevice::devices().empty();
-#else
-    return !QTouchDevice::devices().empty();
-#endif
-#else
-    return false;
-#endif
   }
 }

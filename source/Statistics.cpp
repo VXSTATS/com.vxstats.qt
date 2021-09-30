@@ -480,7 +480,7 @@ namespace vxstats {
 
     if ( _reply->error() == QNetworkReply::NoError ) {
 
-#if QT_VERSION < QT_VERSION_CHECK( 6, 2, 0 )
+#if QT_VERSION < QT_VERSION_CHECK( 6, 0, 0 )
 #ifdef DEBUG
       if ( _reply->hasRawHeader( "Authentication-Info" ) ) {
 

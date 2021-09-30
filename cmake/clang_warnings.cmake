@@ -22,17 +22,14 @@ set(WARNING_FLAGS
   # For doxygen documentation, because we handle two languages #1
   -Wno-documentation
 
-  # +QRC and singleton
+  # QRC and singleton
   -Wno-exit-time-destructors
 
   # QRC
   -Wno-global-constructors
 
-  # Qt global.h
+  # Moc and Qt global.h
   -Wno-redundant-parens
-
-  # Moc
-  -Wno-extra-semi-stmt
 
   # Deprecated QNetwork* Qt 5.15
   -Wno-deprecated-declarations

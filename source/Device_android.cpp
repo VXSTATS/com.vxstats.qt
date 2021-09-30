@@ -42,9 +42,6 @@ namespace vxstats {
 
   public:
     Device_android();
-
-  private:
-    [[nodiscard]] bool hasTouchScreen() const final;
   };
 
   Device &Device::instance() {
@@ -71,18 +68,5 @@ namespace vxstats {
     version.remove( model );
     version = version.trimmed();
     setVersion( version );
-  }
-
-  bool Device_android::hasTouchScreen() const {
-
-#ifdef QT_GUI_LIB
-#if QT_VERSION >= QT_VERSION_CHECK( 6, 0, 0 )
-    return !QInputDevice::devices().empty();
-#else
-    return !QTouchDevice::devices().empty();
-#endif
-#else
-    return false;
-#endif
   }
 }
