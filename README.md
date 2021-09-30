@@ -43,9 +43,10 @@ cd build
 ## macOS
 The macOS build will do a fair use check of the app, so it is essential to have OpenSSL installed. You can find OpenSSL using the OPENSSL_ROOT_DIR set. The easiest way is to install OpenSSL from brew (https://brew.sh/).
 ```bash
-brew install openssl
+brew install openssl@1.1
+brew list openssl@1.1
 ```
-Then you will find an OpenSSL installation here: /usr/local/Cellar/openssl@1.1/1.1.1g
+Then brew will show you the OpenSSL installation path of latest version.
 
 # Installation
 Use a Qt Creator to load CMakeList.txt from the checked-out folder, run the cmake enviroment, generate makefiles, and build it.
@@ -55,7 +56,7 @@ make -j`nproc`
 ```
 
 ## User-defined build variables
-Inside cmake/env.cmake you will find some user-defined build variables for particular purposes.
+Inside cmake/env.cmake you will find some user-defined build options for particular purposes.
 
 ### Debugging
 You can log the verbose build output.
@@ -166,8 +167,7 @@ Statistics::instance().touch( "$action" );
 # Compatiblity
 ## Qt Versions
 - 6.2
-- 6.1 (will miss Apple M1 support)
-- *6.0 (will not be fully supported)*
+- 6.1 (arm64 build not supported - Apple Silicon and Windows on ARM)
 - 5.15
 - 5.14
 - 5.13
