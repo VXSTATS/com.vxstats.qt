@@ -37,7 +37,7 @@ namespace vxstats {
       connect( QNetworkInformation::instance(), &QNetworkInformation::reachabilityChanged, this, &Reachability::slotUpdateReachability );
     }
 #else
-    m_networkConfigurationManager = std::make_unique<QNetworkConfigurationManager>( this );
+    m_networkConfigurationManager = QSharedPointer<QNetworkConfigurationManager>( new QNetworkConfigurationManager( this ) );
     connect( m_networkConfigurationManager.get(), &QNetworkConfigurationManager::configurationChanged, this, &Reachability::slotUpdateReachability );
     connect( m_networkConfigurationManager.get(), &QNetworkConfigurationManager::onlineStateChanged, this, &Reachability::slotUpdateReachability );
     connect( m_networkConfigurationManager.get(), &QNetworkConfigurationManager::updateCompleted, this, &Reachability::slotUpdateReachability );

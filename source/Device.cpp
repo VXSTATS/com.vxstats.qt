@@ -231,7 +231,7 @@ namespace vxstats {
     /* Virtual function */
   }
 
-  QStringList Device::sendOutstandingMessages() const {
+  QVector<QString> Device::sendOutstandingMessages() const {
 
     return {};
   }

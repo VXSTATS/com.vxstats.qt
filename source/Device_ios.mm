@@ -71,7 +71,7 @@ namespace vxstats {
 #endif
     Connection typeOfNetwork( const QString &_interface ) final;
     void addOutstandingMessage( const QString &_message ) const final;
-    [[nodiscard]] QStringList sendOutstandingMessages() const final;
+    [[nodiscard]] QVector<QString> sendOutstandingMessages() const final;
     [[nodiscard]] QString uniqueId() const final;
   };
 
@@ -223,9 +223,9 @@ namespace vxstats {
     [userDefaults synchronize];
   }
 
-  QStringList Device_ios::sendOutstandingMessages() const {
+  QVector<QString> Device_ios::sendOutstandingMessages() const {
 
-    QStringList result;
+    QVector<QString> result;
     NSUserDefaults *userDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.vxstats.statistics"];
     NSArray *messages = [userDefaults objectForKey:@"offline"];
     [userDefaults removeObjectForKey:@"offline"];

@@ -57,7 +57,7 @@ namespace vxstats {
   Statistics::Statistics( QObject *_parent )
     : QObject( _parent ) {
 
-    m_networkAccessManager = std::make_unique<QNetworkAccessManager>( this );
+    m_networkAccessManager = QSharedPointer<QNetworkAccessManager>( new QNetworkAccessManager( this ) );
     m_networkAccessManager->setStrictTransportSecurityEnabled( true );
     connect( m_networkAccessManager.get(), &QNetworkAccessManager::authenticationRequired, this, &Statistics::slotAuthenticationRequired );
     connect( m_networkAccessManager.get(), &QNetworkAccessManager::finished, this, &Statistics::slotFinished );
@@ -462,7 +462,7 @@ namespace vxstats {
   void Statistics::sendOutstandingMessages() {
 
 #if defined Q_OS_OSX || defined Q_OS_IOS
-    QStringList messages = Device::instance().sendOutstandingMessages();
+    QVector<QString> messages = Device::instance().sendOutstandingMessages();
 #else
     QSettings settings( QStringLiteral( "group.com.vxstats.statistics" ) );
     const QStringList messages = settings.value( QStringLiteral( "offline" ) ).toStringList();

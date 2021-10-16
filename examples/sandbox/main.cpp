@@ -13,9 +13,6 @@
  * Zuwiderhandlungen werden strafrechtlich verfolgt.
  */
 
-/* stl header */
-#include <memory>
-
 /* qt header */
 #ifdef QT_GUI_LIB
   #include <QGuiApplication>
@@ -52,7 +49,7 @@ int main( int argc, char *argv[] ) {
 
   Statistics::instance().page( QStringLiteral( "Start" ) );
 
-  auto timer = std::make_unique<QTimer>();
+  QSharedPointer<QTimer> timer = QSharedPointer<QTimer>( new QTimer );
   QObject::connect( timer.get(), &QTimer::timeout, []() {
 
     Statistics::instance().page( QStringLiteral( "Demo" ) );

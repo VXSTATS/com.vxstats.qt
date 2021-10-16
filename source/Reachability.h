@@ -15,11 +15,9 @@
 
 #pragma once
 
-/* stl header */
-#include <memory>
-
 /* qt header */
 #include <QObject>
+#include <QSharedPointer>
 #if QT_VERSION >= QT_VERSION_CHECK( 6, 1, 0 )
   #include <QNetworkInformation>
 #endif
@@ -105,7 +103,7 @@ namespace vxstats {
      * @brief Manager des konfigurierten Netzwerkes um Informationen zu dem
      * aktuellen Typ zu erhalten.
      */
-    std::unique_ptr<QNetworkConfigurationManager> m_networkConfigurationManager = nullptr;
+    QSharedPointer<QNetworkConfigurationManager> m_networkConfigurationManager = nullptr;
 #endif
   };
 }

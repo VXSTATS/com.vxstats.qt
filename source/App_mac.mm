@@ -15,8 +15,8 @@
 
 /* openssl header */
 #include <openssl/err.h>
-#include <openssl/pkcs7.h>
 #include <openssl/objects.h>
+#include <openssl/pkcs7.h>
 #include <openssl/sha.h>
 #include <openssl/x509.h>
 

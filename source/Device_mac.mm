@@ -64,7 +64,7 @@ namespace vxstats {
 #endif
     Connection typeOfNetwork( const QString &_interface ) final;
     void addOutstandingMessage( const QString &_message ) const final;
-    [[nodiscard]] QStringList sendOutstandingMessages() const final;
+    [[nodiscard]] QVector<QString> sendOutstandingMessages() const final;
     [[nodiscard]] QString uniqueId() const final;
   };
 
@@ -130,7 +130,7 @@ namespace vxstats {
 
   Device::Connection Device_mac::typeOfNetwork( [[maybe_unused]] const QString &_interface ) {
 
-    QStringList allUpDevices;
+    QVector<QString> allUpDevices;
     struct ifaddrs *allInterfaces = nullptr;
 
     /* Get list of all interfaces on the local machine: */
@@ -173,7 +173,7 @@ namespace vxstats {
 
     for ( CFIndex x = 0; x < CFArrayGetCount( interfaceArray ); x++ ) {
 
-      auto interface = static_cast<SCNetworkInterfaceRef>( CFArrayGetValueAtIndex( interfaceArray, x ) );
+      const auto *interface = static_cast<SCNetworkInterfaceRef>( CFArrayGetValueAtIndex( interfaceArray, x ) );
 
       displayName = SCNetworkInterfaceGetLocalizedDisplayName( interface );
       bsdName = SCNetworkInterfaceGetBSDName( interface );
@@ -233,9 +233,9 @@ namespace vxstats {
     [userDefaults synchronize];
   }
 
-  QStringList Device_mac::sendOutstandingMessages() const {
+  QVector<QString> Device_mac::sendOutstandingMessages() const {
 
-    QStringList result;
+    QVector<QString> result;
     NSUserDefaults *userDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.vxstats.statistics"];
     NSArray *messages = [userDefaults objectForKey:@"offline"];
     [userDefaults removeObjectForKey:@"offline"];

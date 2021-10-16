@@ -15,12 +15,10 @@
 
 #pragma once
 
-/* stl header */
-#include <memory>
-
 /* qt header */
 #include <QNetworkAccessManager>
 #include <QObject>
+#include <QSharedPointer>
 #include <QString>
 #include <QUrlQuery>
 
@@ -542,7 +540,7 @@ namespace vxstats {
      * @~german
      * @brief Netzwerkverbindungsmanager, um Aktivitäten zu verschicken.
      */
-    std::unique_ptr<QNetworkAccessManager> m_networkAccessManager = nullptr;
+    QSharedPointer<QNetworkAccessManager> m_networkAccessManager = nullptr;
 
     /**
      * @~english

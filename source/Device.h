@@ -16,8 +16,9 @@
 #pragma once
 
 /* qt header */
-#include <QString>
 #include <QObject>
+#include <QString>
+#include <QVector>
 
 /**
  * @~english
@@ -324,7 +325,7 @@ namespace vxstats {
      * @brief Erhalte alle zwischengespeicherten Nachrichten.
      * @return Die Liste aller ausstehenden Nachrichten.
      */
-    virtual QStringList sendOutstandingMessages() const;
+    virtual QVector<QString> sendOutstandingMessages() const;
 
   protected:
     /**
