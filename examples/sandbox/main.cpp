@@ -49,8 +49,9 @@ int main( int argc, char *argv[] ) {
 
   Statistics::instance().page( QStringLiteral( "Start" ) );
 
-  auto *timer = new QTimer;
-  QObject::connect( timer, &QTimer::timeout, []() {
+  std::unique_ptr<QTimer> timer = std::make_unique<QTimer>();
+//  auto *timer = new QTimer;
+  QObject::connect( timer.get(), &QTimer::timeout, []() {
 
     Statistics::instance().page( QStringLiteral( "Demo" ) );
   } );
