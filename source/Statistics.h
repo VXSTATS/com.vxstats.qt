@@ -15,9 +15,13 @@
 
 #pragma once
 
+/* stl header */
+#include <memory>
+
 /* qt header */
-#include <QString>
+#include <QNetworkAccessManager>
 #include <QObject>
+#include <QString>
 #include <QUrlQuery>
 
 /* local header */
@@ -25,7 +29,6 @@
 
 /* qt class */
 class QAuthenticator;
-class QNetworkAccessManager;
 class QNetworkReply;
 
 /**
@@ -539,7 +542,7 @@ namespace vxstats {
      * @~german
      * @brief Netzwerkverbindungsmanager, um Aktivitäten zu verschicken.
      */
-    QNetworkAccessManager *m_networkAccessManager = nullptr;
+    std::unique_ptr<QNetworkAccessManager> m_networkAccessManager = nullptr;
 
     /**
      * @~english

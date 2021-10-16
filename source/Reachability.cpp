@@ -20,7 +20,6 @@
 #include <QMetaEnum>
 #if QT_VERSION < QT_VERSION_CHECK( 6, 0, 0 )
   #include <QNetworkConfiguration>
-  #include <QNetworkConfigurationManager>
 #endif
 
 /* local header */
@@ -38,10 +37,10 @@ namespace vxstats {
       connect( QNetworkInformation::instance(), &QNetworkInformation::reachabilityChanged, this, &Reachability::slotUpdateReachability );
     }
 #else
-    m_networkConfigurationManager = new QNetworkConfigurationManager( this );
-    connect( m_networkConfigurationManager, &QNetworkConfigurationManager::configurationChanged, this, &Reachability::slotUpdateReachability );
-    connect( m_networkConfigurationManager, &QNetworkConfigurationManager::onlineStateChanged, this, &Reachability::slotUpdateReachability );
-    connect( m_networkConfigurationManager, &QNetworkConfigurationManager::updateCompleted, this, &Reachability::slotUpdateReachability );
+    m_networkConfigurationManager = std::make_unique<QNetworkConfigurationManager>( this );
+    connect( m_networkConfigurationManager.get(), &QNetworkConfigurationManager::configurationChanged, this, &Reachability::slotUpdateReachability );
+    connect( m_networkConfigurationManager.get(), &QNetworkConfigurationManager::onlineStateChanged, this, &Reachability::slotUpdateReachability );
+    connect( m_networkConfigurationManager.get(), &QNetworkConfigurationManager::updateCompleted, this, &Reachability::slotUpdateReachability );
 #endif
   }
 

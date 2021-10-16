@@ -15,19 +15,20 @@
 
 #pragma once
 
+/* stl header */
+#include <memory>
+
 /* qt header */
 #include <QObject>
 #if QT_VERSION >= QT_VERSION_CHECK( 6, 1, 0 )
   #include <QNetworkInformation>
 #endif
+#if QT_VERSION < QT_VERSION_CHECK( 6, 0, 0 )
+  #include <QNetworkConfigurationManager>
+#endif
 
 /* local header */
 #include "Device.h"
-
-/* qt class */
-#if QT_VERSION < QT_VERSION_CHECK( 6, 0, 0 )
-class QNetworkConfigurationManager;
-#endif
 
 /**
  * @~english
@@ -104,7 +105,7 @@ namespace vxstats {
      * @brief Manager des konfigurierten Netzwerkes um Informationen zu dem
      * aktuellen Typ zu erhalten.
      */
-    QNetworkConfigurationManager *m_networkConfigurationManager = nullptr;
+    std::unique_ptr<QNetworkConfigurationManager> m_networkConfigurationManager = nullptr;
 #endif
   };
 }

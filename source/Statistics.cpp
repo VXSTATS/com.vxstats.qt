@@ -23,7 +23,6 @@
 #include <QDateTime>
 #include <QDebug>
 #include <QMetaEnum>
-#include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QNetworkRequest>
 #include <QSettings>
@@ -58,13 +57,13 @@ namespace vxstats {
   Statistics::Statistics( QObject *_parent )
     : QObject( _parent ) {
 
-    m_networkAccessManager = new QNetworkAccessManager( this );
+    m_networkAccessManager = std::make_unique<QNetworkAccessManager>( this );
     m_networkAccessManager->setStrictTransportSecurityEnabled( true );
-    connect( m_networkAccessManager, &QNetworkAccessManager::authenticationRequired, this, &Statistics::slotAuthenticationRequired );
-    connect( m_networkAccessManager, &QNetworkAccessManager::finished, this, &Statistics::slotFinished );
+    connect( m_networkAccessManager.get(), &QNetworkAccessManager::authenticationRequired, this, &Statistics::slotAuthenticationRequired );
+    connect( m_networkAccessManager.get(), &QNetworkAccessManager::finished, this, &Statistics::slotFinished );
 
-    auto *reachability = new Reachability( this );
-    connect( reachability, &Reachability::reachabilityChanged, this, &Statistics::slotReachabilityChanged );
+    auto reachability = std::make_unique<Reachability>( this );
+    connect( reachability.get(), &Reachability::reachabilityChanged, this, &Statistics::slotReachabilityChanged );
 #if QT_VERSION >= QT_VERSION_CHECK( 6, 1, 0 )
     if ( QNetworkInformation::instance() ) {
 
