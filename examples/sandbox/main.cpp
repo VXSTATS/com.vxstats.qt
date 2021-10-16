@@ -50,10 +50,17 @@ int main( int argc, char *argv[] ) {
   Statistics::instance().page( QStringLiteral( "Start" ) );
 
   auto timer = QSharedPointer<QTimer>( new QTimer );
+#if QT_VERSION >= QT_VERSION_CHECK( 5, 11, 0 )
   QObject::connect( timer.get(), &QTimer::timeout, []() {
 
     Statistics::instance().page( QStringLiteral( "Demo" ) );
   } );
+#else
+  QObject::connect( timer.data(), &QTimer::timeout, []() {
+
+    Statistics::instance().page( QStringLiteral( "Demo" ) );
+  } );
+#endif
   timer->start( createPageMilliseconds );
 
 #ifdef QT_GUI_LIB

@@ -38,9 +38,15 @@ namespace vxstats {
     }
 #else
     m_networkConfigurationManager = QSharedPointer<QNetworkConfigurationManager>( new QNetworkConfigurationManager( this ) );
+#if QT_VERSION >= QT_VERSION_CHECK( 5, 11, 0 )
     connect( m_networkConfigurationManager.get(), &QNetworkConfigurationManager::configurationChanged, this, &Reachability::slotUpdateReachability );
     connect( m_networkConfigurationManager.get(), &QNetworkConfigurationManager::onlineStateChanged, this, &Reachability::slotUpdateReachability );
     connect( m_networkConfigurationManager.get(), &QNetworkConfigurationManager::updateCompleted, this, &Reachability::slotUpdateReachability );
+#else
+    connect( m_networkConfigurationManager.data(), &QNetworkConfigurationManager::configurationChanged, this, &Reachability::slotUpdateReachability );
+    connect( m_networkConfigurationManager.data(), &QNetworkConfigurationManager::onlineStateChanged, this, &Reachability::slotUpdateReachability );
+    connect( m_networkConfigurationManager.data(), &QNetworkConfigurationManager::updateCompleted, this, &Reachability::slotUpdateReachability );
+#endif
 #endif
   }
 

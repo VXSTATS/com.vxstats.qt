@@ -59,11 +59,20 @@ namespace vxstats {
 
     m_networkAccessManager = QSharedPointer<QNetworkAccessManager>( new QNetworkAccessManager( this ) );
     m_networkAccessManager->setStrictTransportSecurityEnabled( true );
+#if QT_VERSION >= QT_VERSION_CHECK( 5, 11, 0 )
     connect( m_networkAccessManager.get(), &QNetworkAccessManager::authenticationRequired, this, &Statistics::slotAuthenticationRequired );
     connect( m_networkAccessManager.get(), &QNetworkAccessManager::finished, this, &Statistics::slotFinished );
+#else
+    connect( m_networkAccessManager.data(), &QNetworkAccessManager::authenticationRequired, this, &Statistics::slotAuthenticationRequired );
+    connect( m_networkAccessManager.data(), &QNetworkAccessManager::finished, this, &Statistics::slotFinished );
+#endif
 
     auto reachability = QSharedPointer<Reachability>( new Reachability( this ) );
+#if QT_VERSION >= QT_VERSION_CHECK( 5, 11, 0 )
     connect( reachability.get(), &Reachability::reachabilityChanged, this, &Statistics::slotReachabilityChanged );
+#else
+    connect( reachability.data(), &Reachability::reachabilityChanged, this, &Statistics::slotReachabilityChanged );
+#endif
 #if QT_VERSION >= QT_VERSION_CHECK( 6, 1, 0 )
     if ( QNetworkInformation::instance() ) {
 
