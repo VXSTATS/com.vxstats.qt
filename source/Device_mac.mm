@@ -136,10 +136,8 @@ namespace vxstats {
     /* Get list of all interfaces on the local machine: */
     if ( getifaddrs( &allInterfaces ) == 0 ) {
 
-      struct ifaddrs *interface = nullptr;
-
       /* For each interface ... */
-      for ( interface = allInterfaces; interface != nullptr; interface = interface->ifa_next ) {
+      for ( struct ifaddrs *interface = allInterfaces; interface != nullptr; interface = interface->ifa_next ) {
 
         unsigned int flags = interface->ifa_flags;
         const struct sockaddr *addr = interface->ifa_addr;
@@ -175,7 +173,7 @@ namespace vxstats {
 
     for ( CFIndex x = 0; x < CFArrayGetCount( interfaceArray ); x++ ) {
 
-      SCNetworkInterfaceRef interface = static_cast<SCNetworkInterfaceRef>( CFArrayGetValueAtIndex( interfaceArray, x ) );
+      auto interface = static_cast<SCNetworkInterfaceRef>( CFArrayGetValueAtIndex( interfaceArray, x ) );
 
       displayName = SCNetworkInterfaceGetLocalizedDisplayName( interface );
       bsdName = SCNetworkInterfaceGetBSDName( interface );

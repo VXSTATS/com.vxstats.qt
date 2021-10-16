@@ -69,9 +69,9 @@ namespace vxstats {
     const NSData *receiptData = [NSData dataWithContentsOfURL:receiptURL];
 
     /* Create a memory buffer to extract the PKCS #7 container */
-    BIO *receiptBIO = BIO_new( BIO_s_mem() );
-    BIO_write( receiptBIO, [receiptData bytes], static_cast<int>( [receiptData length] ) );
-    PKCS7 *receiptPKCS7 = d2i_PKCS7_bio( receiptBIO, nullptr );
+    std::unique_ptr<BIO, decltype( &BIO_free_all )> receiptBIO( BIO_new( BIO_s_mem() ), &BIO_free_all );
+    BIO_write( receiptBIO.get(), [receiptData bytes], static_cast<int>( [receiptData length] ) );
+    PKCS7 *receiptPKCS7 = d2i_PKCS7_bio( receiptBIO.get(), nullptr );
     if ( !receiptPKCS7 ) {
 
       return false;
@@ -94,19 +94,20 @@ namespace vxstats {
     file.open( QIODevice::ReadOnly );
     NSData *appleRootData = file.readAll().toNSData();
     file.close();
-    BIO *appleRootBIO = BIO_new( BIO_s_mem() );
-    BIO_write( appleRootBIO, static_cast<const void *>( [appleRootData bytes] ), static_cast<int>( [appleRootData length] ) );
-    X509 *appleRootX509 = d2i_X509_bio( appleRootBIO, nullptr );
+
+    std::unique_ptr<BIO, decltype( &BIO_free_all )> appleRootBIO( BIO_new( BIO_s_mem() ), &BIO_free_all );
+    BIO_write( appleRootBIO.get(), static_cast<const void *>( [appleRootData bytes] ), static_cast<int>( [appleRootData length] ) );
+    X509 *appleRootX509 = d2i_X509_bio( appleRootBIO.get(), nullptr );
 
     /* Create a certificate store */
-    X509_STORE *store = X509_STORE_new();
-    X509_STORE_add_cert( store, appleRootX509 );
+    std::unique_ptr<X509_STORE, decltype( &X509_STORE_free )> store( X509_STORE_new(), &X509_STORE_free );
+    X509_STORE_add_cert( store.get(), appleRootX509 );
 
     /* Be sure to load the digests before the verification */
     OpenSSL_add_all_digests();
 
     /* Check the signature */
-    int result = PKCS7_verify( receiptPKCS7, nullptr, store, nullptr, nullptr, 0 );
+    int result = PKCS7_verify( receiptPKCS7, nullptr, store.get(), nullptr, nullptr, 0 );
     return result == 1;
   }
 }
