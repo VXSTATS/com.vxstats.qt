@@ -81,7 +81,7 @@ namespace vxstats {
         vendorFileAlternative.close();
 
         /* Identify vendor */
-        QVector<QString> idsFiles;
+        QStringList idsFiles;
         idsFiles << QStringLiteral( "/pci.ids" ) << QStringLiteral( "/usr/share/lshw/pci.ids" ) << QStringLiteral( "/usr/local/share/pci.ids" );
         idsFiles << QStringLiteral( "/usr/share/pci.ids" ) << QStringLiteral( "/etc/pci.ids" ) << QStringLiteral( "/usr/share/hwdata/pci.ids" );
         idsFiles << QStringLiteral( "/usr/share/misc/pci.ids" );

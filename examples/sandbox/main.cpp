@@ -49,7 +49,7 @@ int main( int argc, char *argv[] ) {
 
   Statistics::instance().page( QStringLiteral( "Start" ) );
 
-  QSharedPointer<QTimer> timer = QSharedPointer<QTimer>( new QTimer );
+  auto timer = QSharedPointer<QTimer>( new QTimer );
   QObject::connect( timer.get(), &QTimer::timeout, []() {
 
     Statistics::instance().page( QStringLiteral( "Demo" ) );
