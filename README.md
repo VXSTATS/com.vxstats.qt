@@ -41,12 +41,16 @@ cd build
 ```
 
 ## macOS
-The macOS build will do a fair use check of the app, so it is essential to have OpenSSL installed. You can find OpenSSL using the OPENSSL_ROOT_DIR set. The easiest way is to install OpenSSL from brew (https://brew.sh/).
+The macOS build will do a fair use check of the app, so it is essential to have OpenSSL 1.1 or OpenSSL 3 installed. You can find OpenSSL using the OPENSSL_ROOT_DIR set. The easiest way is to install OpenSSL from brew (https://brew.sh/).
 ```bash
 brew install openssl@1.1
 brew list openssl@1.1
 ```
-Then brew will show you the OpenSSL installation path of latest version. Normally you can use /usr/local/opt/openssl@1.1.
+```bash
+brew install openssl@3
+brew list openssl@3
+```
+Then brew will show you the OpenSSL installation path of latest version. Normally you can use /usr/local/opt/openssl@1.1 or /usr/local/opt/openssl@3.
 
 # Installation
 Use a Qt Creator to load CMakeList.txt from the checked-out folder, run the cmake enviroment, generate makefiles, and build it.
