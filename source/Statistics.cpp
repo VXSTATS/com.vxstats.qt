@@ -262,26 +262,26 @@ namespace vxstats {
     core.addQueryItem( QStringLiteral( "uuid" ), Device::instance().uniqueIdentifier() );
 #if QT_VERSION >= QT_VERSION_CHECK( 5, 9, 0 )
     QOperatingSystemVersion current = QOperatingSystemVersion::current();
-    QString os = current.name();
+    QString operatingSystem = current.name();
     if ( current.type() == QOperatingSystemVersion::IOS || current.type() == QOperatingSystemVersion::MacOS || current.type() == QOperatingSystemVersion::TvOS || current.type() == QOperatingSystemVersion::WatchOS ) {
 
-      os[ 0 ] = os[ 0 ].toLower();
+      operatingSystem[ 0 ] = operatingSystem[ 0 ].toLower();
     }
     else if ( current.type() == QOperatingSystemVersion::Unknown ) {
 
-      os = QSysInfo::productType();
-      os[ 0 ] = os[ 0 ].toUpper();
+      operatingSystem = QSysInfo::productType();
+      operatingSystem[ 0 ] = operatingSystem[ 0 ].toUpper();
     }
-    core.addQueryItem( QStringLiteral( "os" ), os );
+    core.addQueryItem( QStringLiteral( "os" ), operatingSystem );
 #else
 #ifdef Q_OS_OSX
     core.addQueryItem( QStringLiteral( "os" ), QStringLiteral( "macOS" ) );
 #elif defined Q_OS_IOS
     core.addQueryItem( QStringLiteral( "os" ), QStringLiteral( "iOS" ) );
 #else
-    QString os = QSysInfo::productType();
-    os[ 0 ] = os[ 0 ].toUpper();
-    core.addQueryItem( QStringLiteral( "os" ), os );
+    QString operatingSystem = QSysInfo::productType();
+    operatingSystem[ 0 ] = operatingSystem[ 0 ].toUpper();
+    core.addQueryItem( QStringLiteral( "os" ), operatingSystem );
 #endif
 #endif
     core.addQueryItem( QStringLiteral( "osversion" ), Device::instance().osVersion() );
@@ -306,19 +306,19 @@ namespace vxstats {
     /* connection - 'Bluetooth','Ethernet','Offline','Unknown','Wifi','WWAN' */
     if ( m_connection != Device::Connection::Unknown ) {
 
-      const QMetaObject &mo = Device::staticMetaObject;
-      int index = mo.indexOfEnumerator( "Connection" );
-      QMetaEnum metaEnum = mo.enumerator( index );
+      const QMetaObject &metaObjectConnection = Device::staticMetaObject;
+      int index = metaObjectConnection.indexOfEnumerator( "Connection" );
+      QMetaEnum metaEnumConnection = metaObjectConnection.enumerator( index );
 
-      core.addQueryItem( QStringLiteral( "connection" ), QString::fromLatin1( metaEnum.valueToKey( static_cast<int>( m_connection ) ) ) );
+      core.addQueryItem( QStringLiteral( "connection" ), QString::fromLatin1( metaEnumConnection.valueToKey( static_cast<int>( m_connection ) ) ) );
     }
 
     /* radio - 'None','GPRS','Edge','WCDMA','HSDPA','HSUPA','CDMA1x','CDMAEVDORev0','CDMAEVDORevA','CDMAEVDORevB','HRPD','LTE','2G','3G','4G','5G','WiMAX' */
-    const QMetaObject &mo = Device::staticMetaObject;
-    int index = mo.indexOfEnumerator( "Radio" );
-    QMetaEnum metaEnum = mo.enumerator( index );
+    const QMetaObject &etaObjectRadio = Device::staticMetaObject;
+    int index = etaObjectRadio.indexOfEnumerator( "Radio" );
+    QMetaEnum metaEnumRadio = etaObjectRadio.enumerator( index );
 
-    QString radio = QString::fromLatin1( metaEnum.valueToKey( static_cast<int>( m_radio ) ) );
+    QString radio = QString::fromLatin1( metaEnumRadio.valueToKey( static_cast<int>( m_radio ) ) );
     radio.remove( QStringLiteral( "Radio" ) );
     if ( m_radio != Device::Radio::None ) {
 

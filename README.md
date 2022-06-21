@@ -166,41 +166,38 @@ Statistics::instance().touch( "$action" );
 
 # Compatiblity
 ## Qt Versions
+- 6.4
+- 6.3
 - 6.2
 - 6.1 (arm64 build not supported - Apple Silicon and Windows on ARM)
 - 5.15
-- 5.14
-- 5.13
-- 5.12
-- 5.9 (support ended)
 
 ## Windows
-- *Windows 11 (not officially released)*
+- Windows 11
 - Windows 10
-- Windows 8.1 (support ended, extended support ends 01/10/2023)
 
 ## macOS
-- macOS 11.0
+- macOS 12
+- macOS 11
 - macOS 10.15
 - macOS 10.14
 - macOS 10.13
 - macOS 10.12
 
 ## Linux
+- Red Hat 9
 - Red Hat 8
+- Ubuntu 22.04
 - Ubuntu 20.04
 - Ubuntu 18.04
-- Ubuntu 16.04 (support ended)
 - Every combination of supported Qt Version on a Linux system should work nicely
 
 ## iOS
+- iOS 16
+- iOS 15
 - iOS 14
 - iOS 13
 - iOS 12
-- iOS 11
-- iOS 10
-- iOS 9
-- iOS 8
 
 ## Android
 - API 16 4.1.1 and above

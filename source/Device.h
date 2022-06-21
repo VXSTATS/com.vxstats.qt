@@ -103,6 +103,15 @@ namespace vxstats {
 
     /**
      * @~english
+     * @brief Deletes copy constructor.
+     *
+     * @~german
+     * @brief Entfernt den kopierenden Konstruktor.
+     */
+    Device( const Device & ) = delete;
+
+    /**
+     * @~english
      * @brief Deletes move constructor.
      *
      * @~german
@@ -119,7 +128,7 @@ namespace vxstats {
      * @brief Entfernt die kopierte Zuweisung.
      * @return Keine Rückgabe.
      */
-    Device &operator=( Device const & ) = delete;
+    Device &operator=( const Device & ) = delete;
 
     /**
      * @~english
@@ -150,7 +159,7 @@ namespace vxstats {
      * @brief Gibt wahr zurück, wenn die Plattform den Darkmode verwendet.
      * @return Wahr, wenn die Plattform den Darkmode verwendet - sonst falsch.
      */
-    virtual bool useDarkMode() const;
+    [[nodiscard]] virtual bool useDarkMode() const;
 
     /**
      * @~english
@@ -161,7 +170,7 @@ namespace vxstats {
      * @brief Gibt wahr zurück, wenn das Gerät gejailbreakt ist - sonst falsch.
      * @return Wahr, wenn das Gerät gejailbreakt ist - sonst falsch.
      */
-    virtual bool isJailbroken() const;
+    [[nodiscard]] virtual bool isJailbroken() const;
 
     /**
      * @~english
@@ -174,7 +183,7 @@ namespace vxstats {
      * eine Anwendung belegt den gesamten Bildschirm - sonst falsch.
      * @return Wahr, wenn sich das Gerät im Tabletmodus befindet - sonst falsch.
      */
-    virtual bool isTabletMode() const;
+    [[nodiscard]] virtual bool isTabletMode() const;
 
     /**
      * @~english
@@ -188,7 +197,7 @@ namespace vxstats {
      * @return Wahr, wenn das Gerät mit einem Touch-Bildschirm ausgestattet
      * ist - sonst falsch.
      */
-    virtual bool hasTouchScreen() const;
+    [[nodiscard]] virtual bool hasTouchScreen() const;
 
     /**
      * @~english
@@ -200,7 +209,7 @@ namespace vxstats {
      * sonst falsch.
      * @return Wahr, wenn auf dem Gerät VoiceOver aktiviert ist - sonst falsch.
      */
-    virtual bool isVoiceOverActive() const;
+    [[nodiscard]] virtual bool isVoiceOverActive() const;
 
     /**
      * @~english
@@ -211,7 +220,7 @@ namespace vxstats {
      * @brief Gibt das Gerätemodell zurück. Bsp.: Precision
      * @return Das Gerätemodell.
      */
-    inline QString model() const { return m_model; }
+    [[nodiscard]] inline QString model() const { return m_model; }
 
     /**
      * @~english
@@ -233,7 +242,7 @@ namespace vxstats {
      * @brief Gibt den Gerätehersteller zurück. Bsp.: Dell Inc.
      * @return Der Gerätehersteller.
      */
-    inline QString vendor() const { return m_vendor; }
+    [[nodiscard]] inline QString vendor() const { return m_vendor; }
 
     /**
      * @~english
@@ -255,7 +264,7 @@ namespace vxstats {
      * @brief Gibt die Geräteversion zurück. Bsp.: 5510
      * @return Die Geräteversion.
      */
-    inline QString version() const { return m_version; }
+    [[nodiscard]] inline QString version() const { return m_version; }
 
     /**
      * @~english
@@ -277,7 +286,7 @@ namespace vxstats {
      * @brief Die Version des Betriebssystems, z.B. 10.11.6
      * @return Die Version des Betriebssystems.
      */
-    virtual QString osVersion() const;
+    [[nodiscard]] virtual QString osVersion() const;
 
     /**
      * @~english
@@ -288,7 +297,7 @@ namespace vxstats {
      * @brief Eindeutige Id des Geräts.
      * @return Eindeutige Id des Geräts.
      */
-    inline QString uniqueIdentifier() const { return m_uniqueIdentifier; }
+    [[nodiscard]] inline QString uniqueIdentifier() const { return m_uniqueIdentifier; }
 
     /**
      * @~english
@@ -325,7 +334,7 @@ namespace vxstats {
      * @brief Erhalte alle zwischengespeicherten Nachrichten.
      * @return Die Liste aller ausstehenden Nachrichten.
      */
-    virtual QVector<QString> sendOutstandingMessages() const;
+    [[nodiscard]] virtual QVector<QString> sendOutstandingMessages() const;
 
   protected:
     /**
@@ -416,7 +425,7 @@ namespace vxstats {
      * einen physischen Adapter handelt.
      * @return Wahr, wenn es ein physischer Adapter ist - sonst falsch.
      */
-    virtual bool isPhysical( const QString &_hardwareAddress ) const;
+    [[nodiscard]] virtual bool isPhysical( const QString &_hardwareAddress ) const;
 
     /**
      * @~english
@@ -427,6 +436,6 @@ namespace vxstats {
      * @brief Gibt die eindeutige Id des Geräts zurück.
      * @return Die eindeutige Id des Geräts.
      */
-    virtual QString uniqueId() const;
+    [[nodiscard]] virtual QString uniqueId() const;
   };
 }
