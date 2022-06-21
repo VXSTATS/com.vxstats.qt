@@ -63,6 +63,15 @@ namespace vxstats {
 
     /**
      * @~english
+     * @brief Deletes copy constructor.
+     *
+     * @~german
+     * @brief Entfernt den kopierenden Konstruktor.
+     */
+    Statistics( const Statistics & ) = delete;
+
+    /**
+     * @~english
      * @brief Deletes move constructor.
      *
      * @~german
@@ -79,7 +88,7 @@ namespace vxstats {
      * @brief Entfernt die kopierte Zuweisung.
      * @return Keine Rückgabe.
      */
-    Statistics &operator=( Statistics const & ) = delete;
+    Statistics &operator=( const Statistics & ) = delete;
 
     /**
      * @~english
@@ -424,6 +433,15 @@ namespace vxstats {
      */
     explicit Statistics( QObject *_parent = nullptr );
 
+    /**
+     * @~english
+     * @brief Default destructor for Statistics.
+     *
+     * @~german
+     * @brief Standarddestruktor für Statistics.
+     */
+    ~Statistics() override = default;
+
   private:
     /**
      * @~english
@@ -551,7 +569,7 @@ namespace vxstats {
      * @brief Allgemeine Informationen zu jedem speziellen Block.
      * @return Allgemeine Informationen einer zu versendenden Nachricht.
      */
-    QUrlQuery coreMessage() const;
+    [[nodiscard]] QUrlQuery coreMessage() const;
 
     /**
      * @~english

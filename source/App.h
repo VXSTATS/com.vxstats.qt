@@ -54,6 +54,15 @@ namespace vxstats {
 
     /**
      * @~english
+     * @brief Deletes copy constructor.
+     *
+     * @~german
+     * @brief Entfernt den kopierenden Konstruktor.
+     */
+    App( const App & ) = delete;
+
+    /**
+     * @~english
      * @brief Deletes move constructor.
      *
      * @~german
@@ -70,7 +79,7 @@ namespace vxstats {
      * @brief Entfernt die kopierte Zuweisung.
      * @return Keine Rückgabe.
      */
-    App &operator=( App const & ) = delete;
+    App &operator=( const App & ) = delete;
 
     /**
      * @~english
@@ -92,7 +101,7 @@ namespace vxstats {
      * @brief Gibt wahr zurück, wenn die Anwendung fair verwendet wird.
      * @return Wahr, wenn die Anwendung fair verwendet wird - sonst falsch.
      */
-    virtual bool fairUse() const;
+    [[nodiscard]] virtual bool fairUse() const;
 
     /**
      * @~english
@@ -106,7 +115,7 @@ namespace vxstats {
      * @~
      * @see setIdentifier
      */
-    QString identifier() const;
+    [[nodiscard]] QString identifier() const;
 
     /**
      * @~english
@@ -138,7 +147,7 @@ namespace vxstats {
      * @~
      * @see setVersion
      */
-    QString version() const;
+    [[nodiscard]] QString version() const;
 
     /**
      * @~english
@@ -170,7 +179,7 @@ namespace vxstats {
      * @~
      * @see setBuild
      */
-    inline QString build() const { return m_build; }
+    [[nodiscard]] inline QString build() const { return m_build; }
 
     /**
      * @~english
