@@ -220,14 +220,14 @@ jobs:
 
       - name: Install Qt
         if: runner.os == 'Windows'
-        uses: jurplel/install-qt-action@v3
+        uses: jurplel/install-qt-action@v2
         with:
           version: '${{matrix.qtversion}}'
           host: 'windows'
           target: 'desktop'
           arch: 'win64_msvc${{matrix.version2}}_64'
           install-deps: 'true'
-          cache: 'false'
+          cached: 'false'
           aqtversion: '==0.11.1'
           py7zrversion: '==0.11.3'
           extra: '--external 7z'
