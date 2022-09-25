@@ -48,6 +48,10 @@ namespace vxstats {
 
   private:
     [[nodiscard]] bool useDarkMode() const final;
+
+    void findVendor();
+    void findModel();
+    void findVersion();
   };
 
   Device &Device::instance() {
@@ -57,6 +61,30 @@ namespace vxstats {
   }
 
   Device_linux::Device_linux() {
+
+    findVendor();
+    findModel();
+    findVersion();
+  }
+
+  bool Device_linux::useDarkMode() const {
+
+    const QString program = QStringLiteral( "gsettings" );
+    QStringList arguments;
+    arguments << QStringLiteral( "get" ) << QStringLiteral( "org.gnome.desktop.interface" ) << QStringLiteral( "gtk-theme" );
+
+    QProcess process;
+#if QT_VERSION >= QT_VERSION_CHECK( 6, 0, 0 )
+    process.startCommand( program + " " + arguments.join( QStringLiteral( " " ) ) );
+#else
+    process.start( program, arguments );
+#endif
+    process.waitForFinished();
+    const QString result( process.readAllStandardOutput() );
+    return result.contains( QStringLiteral( "-dark" ) );
+  }
+
+  void Device_linux::findVendor() {
 
     QFile vendorFile( QStringLiteral( "/sys/class/dmi/id/sys_vendor" ) );
     if ( vendorFile.exists() && vendorFile.open( QIODevice::ReadOnly ) ) {
@@ -70,8 +98,8 @@ namespace vxstats {
     /* Get a vendor name, if no dmi is present */
     if ( vendor().isEmpty() ) {
 
-      QDir dir( QStringLiteral( "/sys/bus/pci/devices" ) );
-      QStringList folders = dir.entryList( {}, QDir::NoDot | QDir::NoDotDot | QDir::Dirs );
+      const QDir dir( QStringLiteral( "/sys/bus/pci/devices" ) );
+      const QStringList folders = dir.entryList( {}, QDir::NoDot | QDir::NoDotDot | QDir::Dirs );
       QFile vendorFileAlternative( QStringLiteral( "/sys/bus/pci/devices/" ) + folders.at( 0 ) + QStringLiteral( "/vendor" ) );
       if ( vendorFileAlternative.exists() && vendorFileAlternative.open( QIODevice::ReadOnly ) ) {
 
@@ -90,10 +118,10 @@ namespace vxstats {
           QFile dataFile( idsFile );
           if ( dataFile.exists() && dataFile.open( QIODevice::ReadOnly ) ) {
 
-            QTextStream in( &dataFile );
-            while ( !in.atEnd() ) {
+            QTextStream istream( &dataFile );
+            while ( !istream.atEnd() ) {
 
-              QString line = in.readLine();
+              QString line = istream.readLine();
               line = line.simplified();
               if ( line.startsWith( hexVendor ) ) {
 
@@ -108,6 +136,9 @@ namespace vxstats {
         }
       }
     }
+  }
+
+  void Device_linux::findModel() {
 
     QFile modelFile( QStringLiteral( "/sys/class/dmi/id/product_name" ) );
     if ( modelFile.exists() && modelFile.open( QIODevice::ReadOnly ) ) {
@@ -130,6 +161,9 @@ namespace vxstats {
         modelFileAlternative.close();
       }
     }
+  }
+
+  void Device_linux::findVersion() {
 
     QFile versionFile( QStringLiteral( "/sys/class/dmi/id/product_version" ) );
     if ( versionFile.exists() && versionFile.open( QIODevice::ReadOnly ) ) {
@@ -147,22 +181,5 @@ namespace vxstats {
 
       tryToSplitVersionFromModel();
     }
-  }
-
-  bool Device_linux::useDarkMode() const {
-
-    QString program = QStringLiteral( "gsettings" );
-    QStringList arguments;
-    arguments << QStringLiteral( "get" ) << QStringLiteral( "org.gnome.desktop.interface" ) << QStringLiteral( "gtk-theme" );
-
-    QProcess process;
-#if QT_VERSION >= QT_VERSION_CHECK( 6, 0, 0 )
-    process.startCommand( program + " " + arguments.join( QStringLiteral( " " ) ) );
-#else
-    process.start( program, arguments );
-#endif
-    process.waitForFinished();
-    QString result( process.readAllStandardOutput() );
-    return result.contains( QStringLiteral( "-dark" ) );
   }
 }

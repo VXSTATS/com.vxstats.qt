@@ -115,7 +115,7 @@ namespace vxstats {
       QSettings settings( QStringLiteral( "group.com.vxstats.statistics" ) );
       if ( !settings.contains( QStringLiteral( "uuid" ) ) ) {
 
-        QUuid uuid = QUuid::createUuid();
+        const QUuid uuid = QUuid::createUuid();
         settings.setValue( QStringLiteral( "uuid" ), uuid.toString().remove( '{' ).remove( '}' ) );
         settings.sync();
       }
@@ -127,7 +127,7 @@ namespace vxstats {
 #ifdef DEBUG
       qDebug() << Q_FUNC_INFO << __LINE__ << "Hardware Address" << hardwareAddress;
 #endif
-      QString hash = QString::fromLatin1( QCryptographicHash::hash( hardwareAddress.toUtf8(), QCryptographicHash::Md5 ).toHex() );
+      const QString hash = QString::fromLatin1( QCryptographicHash::hash( hardwareAddress.toUtf8(), QCryptographicHash::Md5 ).toHex() );
       /* UUID struct: time-version-clock_seq_hi-clock_seq_lo-node */
       m_uniqueIdentifier = QString( QStringLiteral( "%1-%2-%3-%4-%5" ) ).arg( hash.mid( timeStart, timeLength ), hash.mid( versionStart, versionLength ), hash.mid( clockSequenceHighStart, clockSequenceHighLength ), hash.mid( clockSequenceLowStart, clockSequenceLowLength ), hash.mid( nodeStart, nodeLength ) );
     }
@@ -202,7 +202,7 @@ namespace vxstats {
 
     QString version = QSysInfo::productVersion();
 #if QT_VERSION >= QT_VERSION_CHECK( 5, 9, 0 )
-    QOperatingSystemVersion current = QOperatingSystemVersion::current();
+    const QOperatingSystemVersion current = QOperatingSystemVersion::current();
     if ( current.majorVersion() != -1 ) {
 
       version = QString::number( current.majorVersion() );
@@ -243,8 +243,8 @@ namespace vxstats {
     if ( pos != -1 ) {
 
       bool isVersion = true;
-      QString maybeVersion = model().mid( pos + 1, model().size() - ( pos + 1 ) );
-      for ( QChar chr : maybeVersion ) {
+      const QString maybeVersion = model().mid( pos + 1, model().size() - ( pos + 1 ) );
+      for ( const QChar &chr : maybeVersion ) {
 
         if ( !chr.isDigit() && !chr.isPunct() ) {
 

@@ -27,16 +27,17 @@
 #include <Statistics.h>
 
 /* com.vxstats.qt namespace */
-using namespace vxstats;
+using vxstats::App;
+using vxstats::Statistics;
 
 constexpr int createPageMilliseconds = 1000;
 
 int main( int argc, char *argv[] ) {
 
 #ifdef QT_GUI_LIB
-  QGuiApplication app( argc, argv );
+  const QGuiApplication app( argc, argv );
 #else
-  QCoreApplication app( argc, argv );
+  const QCoreApplication app( argc, argv );
 #endif
   QCoreApplication::setApplicationName( QStringLiteral( "com.vxstats.sandbox" ) );
   QCoreApplication::setApplicationVersion( QStringLiteral( "1.0" ) );

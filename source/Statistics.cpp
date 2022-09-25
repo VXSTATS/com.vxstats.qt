@@ -261,7 +261,7 @@ namespace vxstats {
     /* device block */
     core.addQueryItem( QStringLiteral( "uuid" ), Device::instance().uniqueIdentifier() );
 #if QT_VERSION >= QT_VERSION_CHECK( 5, 9, 0 )
-    QOperatingSystemVersion current = QOperatingSystemVersion::current();
+    const QOperatingSystemVersion current = QOperatingSystemVersion::current();
     QString operatingSystem = current.name();
     if ( current.type() == QOperatingSystemVersion::IOS || current.type() == QOperatingSystemVersion::MacOS || current.type() == QOperatingSystemVersion::TvOS || current.type() == QOperatingSystemVersion::WatchOS ) {
 
@@ -299,7 +299,7 @@ namespace vxstats {
     }
 
     /* locale */
-    QStringList locale = QLocale::system().name().split( '_' );
+    const QStringList locale = QLocale::system().name().split( '_' );
     core.addQueryItem( QStringLiteral( "language" ), locale.at( 0 ) );
     core.addQueryItem( QStringLiteral( "country" ), locale.at( 1 ) );
 
@@ -307,16 +307,16 @@ namespace vxstats {
     if ( m_connection != Device::Connection::Unknown ) {
 
       const QMetaObject &metaObjectConnection = Device::staticMetaObject;
-      int index = metaObjectConnection.indexOfEnumerator( "Connection" );
-      QMetaEnum metaEnumConnection = metaObjectConnection.enumerator( index );
+      const int index = metaObjectConnection.indexOfEnumerator( "Connection" );
+      const QMetaEnum metaEnumConnection = metaObjectConnection.enumerator( index );
 
       core.addQueryItem( QStringLiteral( "connection" ), QString::fromLatin1( metaEnumConnection.valueToKey( static_cast<int>( m_connection ) ) ) );
     }
 
     /* radio - 'None','GPRS','Edge','WCDMA','HSDPA','HSUPA','CDMA1x','CDMAEVDORev0','CDMAEVDORevA','CDMAEVDORevB','HRPD','LTE','2G','3G','4G','5G','WiMAX' */
     const QMetaObject &etaObjectRadio = Device::staticMetaObject;
-    int index = etaObjectRadio.indexOfEnumerator( "Radio" );
-    QMetaEnum metaEnumRadio = etaObjectRadio.enumerator( index );
+    const int index = etaObjectRadio.indexOfEnumerator( "Radio" );
+    const QMetaEnum metaEnumRadio = etaObjectRadio.enumerator( index );
 
     QString radio = QString::fromLatin1( metaEnumRadio.valueToKey( static_cast<int>( m_radio ) ) );
     radio.remove( QStringLiteral( "Radio" ) );
@@ -378,9 +378,9 @@ namespace vxstats {
     HDC deviceContext = GetDC( 0 );
     int dpiX = GetDeviceCaps( deviceContext, LOGPIXELSX );
     ReleaseDC( 0, deviceContext );
-    double ratio = dpiX / 96.0;
+    const double ratio = dpiX / 96.0;
 #else
-    double ratio = screen->devicePixelRatio();
+    const double ratio = screen->devicePixelRatio();
 #endif
     /* Device Pixel Ratio - dpr */
     if ( ratio != 1.0 ) {
@@ -437,11 +437,11 @@ namespace vxstats {
 
         m_cnonce = QString::fromLatin1( QCryptographicHash::hash( QString( QStringLiteral( "%1" ) ).arg( m_cnonce ).toUtf8(), QCryptographicHash::Md5 ).toHex() );
 
-        QByteArray hash1 = QCryptographicHash::hash( QString( QStringLiteral( "%1:%2:%3" ) ).arg( m_username, m_realm, m_password ).toUtf8(), QCryptographicHash::Md5 ).toHex();
-        QByteArray hash2 = QCryptographicHash::hash( QString( QStringLiteral( "POST:%1" ) ).arg( m_domain ).toUtf8(), QCryptographicHash::Md5 ).toHex();
-        QByteArray response = QCryptographicHash::hash( QString( QStringLiteral( "%1:%2:%3:%4:%5:%6" ) ).arg( hash1, m_nonce ).arg( m_requestCounter, defaultFieldWidth, defaultBase, QLatin1Char( '0' ) ).arg( m_cnonce, "auth", hash2 ).toUtf8(), QCryptographicHash::Md5 ).toHex();
+        const QByteArray hash1 = QCryptographicHash::hash( QString( QStringLiteral( "%1:%2:%3" ) ).arg( m_username, m_realm, m_password ).toUtf8(), QCryptographicHash::Md5 ).toHex();
+        const QByteArray hash2 = QCryptographicHash::hash( QString( QStringLiteral( "POST:%1" ) ).arg( m_domain ).toUtf8(), QCryptographicHash::Md5 ).toHex();
+        const QByteArray response = QCryptographicHash::hash( QString( QStringLiteral( "%1:%2:%3:%4:%5:%6" ) ).arg( hash1, m_nonce ).arg( m_requestCounter, defaultFieldWidth, defaultBase, QLatin1Char( '0' ) ).arg( m_cnonce, "auth", hash2 ).toUtf8(), QCryptographicHash::Md5 ).toHex();
 
-        QString digest = QString( QStringLiteral( "Digest username=\"%1\", realm=\"%2\", nonce=\"%3\", uri=\"%4\", response=\"%5\", algorithm=MD5, qop=auth, nc=%6, cnonce=\"%7\"" ) ).arg( m_username, m_realm, m_nonce, m_domain, response ).arg( m_requestCounter, defaultFieldWidth, defaultBase, QLatin1Char( '0' ) ).arg( m_cnonce );
+        const QString digest = QString( QStringLiteral( "Digest username=\"%1\", realm=\"%2\", nonce=\"%3\", uri=\"%4\", response=\"%5\", algorithm=MD5, qop=auth, nc=%6, cnonce=\"%7\"" ) ).arg( m_username, m_realm, m_nonce, m_domain, response ).arg( m_requestCounter, defaultFieldWidth, defaultBase, QLatin1Char( '0' ) ).arg( m_cnonce );
         request.setRawHeader( "Authorization", digest.toUtf8() );
 
         m_requestCounter++;
@@ -516,9 +516,9 @@ namespace vxstats {
 
           qDebug() << "ERROR: Nonce NOT vaild:" << m_cnonce;
         }
-        QByteArray hash1 = QCryptographicHash::hash( QString( QStringLiteral( "%1:%2:%3" ) ).arg( m_username, m_realm, m_password ).toUtf8(), QCryptographicHash::Md5 ).toHex();
-        QByteArray hash2 = QCryptographicHash::hash( QString( QStringLiteral( ":%1" ) ).arg( m_domain ).toUtf8(), QCryptographicHash::Md5 ).toHex();
-        QString response = QString::fromLatin1( QCryptographicHash::hash( QString( QStringLiteral( "%1:%2:%3:%4:%5:%6" ) ).arg( hash1, m_nonce ).arg( m_requestCounter - 1, defaultFieldWidth, defaultBase, QLatin1Char( '0' ) ).arg( m_cnonce, "auth", hash2 ).toUtf8(), QCryptographicHash::Md5 ).toHex() );
+        const QByteArray hash1 = QCryptographicHash::hash( QString( QStringLiteral( "%1:%2:%3" ) ).arg( m_username, m_realm, m_password ).toUtf8(), QCryptographicHash::Md5 ).toHex();
+        const QByteArray hash2 = QCryptographicHash::hash( QString( QStringLiteral( ":%1" ) ).arg( m_domain ).toUtf8(), QCryptographicHash::Md5 ).toHex();
+        const QString response = QString::fromLatin1( QCryptographicHash::hash( QString( QStringLiteral( "%1:%2:%3:%4:%5:%6" ) ).arg( hash1, m_nonce ).arg( m_requestCounter - 1, defaultFieldWidth, defaultBase, QLatin1Char( '0' ) ).arg( m_cnonce, "auth", hash2 ).toUtf8(), QCryptographicHash::Md5 ).toHex() );
         if ( authData.queryItemValue( QStringLiteral( "rspauth" ) ) == response ) {
 
           qDebug() << "Response is vailid:" << response;
@@ -540,7 +540,7 @@ namespace vxstats {
     /* Digest Challenge */
     if ( _reply->error() == QNetworkReply::AuthenticationRequiredError && _reply->hasRawHeader( "WWW-Authenticate" ) ) {
 
-      QString digestPrefix( QStringLiteral( "Digest" ) );
+      const QString digestPrefix( QStringLiteral( "Digest" ) );
       QString authSession = QString::fromLatin1( _reply->rawHeader( "WWW-Authenticate" ) );
       if ( authSession.startsWith( digestPrefix ) ) {
 
@@ -559,11 +559,11 @@ namespace vxstats {
         m_nonce = authData.queryItemValue( QStringLiteral( "nonce" ) );
         m_cnonce = QString::fromLatin1( QCryptographicHash::hash( QString( QStringLiteral( "%1" ) ).arg( m_nonce ).toUtf8(), QCryptographicHash::Md5 ).toHex() );
 
-        QByteArray hash1 = QCryptographicHash::hash( QString( QStringLiteral( "%1:%2:%3" ) ).arg( m_username, m_realm, m_password ).toUtf8(), QCryptographicHash::Md5 ).toHex();
-        QByteArray hash2 = QCryptographicHash::hash( QString( QStringLiteral( "POST:%1" ) ).arg( m_domain ).toUtf8(), QCryptographicHash::Md5 ).toHex();
-        QByteArray response = QCryptographicHash::hash( QString( QStringLiteral( "%1:%2:%3:%4:%5:%6" ) ).arg( hash1, m_nonce ).arg( m_requestCounter, defaultFieldWidth, defaultBase, QLatin1Char( '0' ) ).arg( m_cnonce, QStringLiteral( "auth" ), hash2 ).toUtf8(), QCryptographicHash::Md5 ).toHex();
+        const QByteArray hash1 = QCryptographicHash::hash( QString( QStringLiteral( "%1:%2:%3" ) ).arg( m_username, m_realm, m_password ).toUtf8(), QCryptographicHash::Md5 ).toHex();
+        const QByteArray hash2 = QCryptographicHash::hash( QString( QStringLiteral( "POST:%1" ) ).arg( m_domain ).toUtf8(), QCryptographicHash::Md5 ).toHex();
+        const QByteArray response = QCryptographicHash::hash( QString( QStringLiteral( "%1:%2:%3:%4:%5:%6" ) ).arg( hash1, m_nonce ).arg( m_requestCounter, defaultFieldWidth, defaultBase, QLatin1Char( '0' ) ).arg( m_cnonce, QStringLiteral( "auth" ), hash2 ).toUtf8(), QCryptographicHash::Md5 ).toHex();
 
-        QString digest = QString( QStringLiteral( "Digest username=\"%1\", realm=\"%2\", nonce=\"%3\", uri=\"%4\", response=\"%5\", algorithm=MD5, qop=auth, nc=%6, cnonce=\"%7\"" ) ).arg( m_username, m_realm, m_nonce, m_domain, response ).arg( m_requestCounter, defaultFieldWidth, defaultBase, QLatin1Char( '0' ) ).arg( m_cnonce );
+        const QString digest = QString( QStringLiteral( "Digest username=\"%1\", realm=\"%2\", nonce=\"%3\", uri=\"%4\", response=\"%5\", algorithm=MD5, qop=auth, nc=%6, cnonce=\"%7\"" ) ).arg( m_username, m_realm, m_nonce, m_domain, response ).arg( m_requestCounter, defaultFieldWidth, defaultBase, QLatin1Char( '0' ) ).arg( m_cnonce );
 
         QNetworkRequest request( m_serverFilePath );
 #if QT_VERSION >= QT_VERSION_CHECK( 5, 15, 0 )
@@ -601,10 +601,10 @@ namespace vxstats {
 
 #ifdef DEBUG
     const QMetaObject &metaObject = Device::staticMetaObject;
-    int indexRadio = metaObject.indexOfEnumerator( "Radio" );
-    QMetaEnum radioEnum = metaObject.enumerator( indexRadio );
-    int indexConnection = metaObject.indexOfEnumerator( "Connection" );
-    QMetaEnum connectionEnum = metaObject.enumerator( indexConnection );
+    const int indexRadio = metaObject.indexOfEnumerator( "Radio" );
+    const QMetaEnum radioEnum = metaObject.enumerator( indexRadio );
+    const int indexConnection = metaObject.indexOfEnumerator( "Connection" );
+    const QMetaEnum connectionEnum = metaObject.enumerator( indexConnection );
     qDebug() << Q_FUNC_INFO << __LINE__ << "Network Changed" << connectionEnum.valueToKey( static_cast<int>( m_connection ) ) << radioEnum.valueToKey( static_cast<int>( m_radio ) );
 #endif
   }

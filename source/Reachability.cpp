@@ -63,8 +63,8 @@ namespace vxstats {
       return;
     }
 
-    Device::Connection connection = Device::Connection::Wifi;
-    Device::Radio radio = Device::Radio::None;
+    const Device::Connection connection = Device::Connection::Wifi;
+    const Device::Radio radio = Device::Radio::None;
     Q_EMIT reachabilityChanged( connection, radio );
   }
 #else
@@ -84,7 +84,7 @@ namespace vxstats {
       return;
     }
 
-    QNetworkConfiguration configuration = m_networkConfigurationManager->defaultConfiguration();
+    const QNetworkConfiguration configuration = m_networkConfigurationManager->defaultConfiguration();
 #ifdef DEBUG
     const QList<QNetworkConfiguration> allConfigurations = m_networkConfigurationManager->allConfigurations( QNetworkConfiguration::Active );
     for ( const QNetworkConfiguration &currentConfiguration : allConfigurations ) {
