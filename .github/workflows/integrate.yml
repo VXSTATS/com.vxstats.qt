@@ -227,7 +227,7 @@ jobs:
           target: 'desktop'
           arch: 'win64_msvc${{matrix.version2}}_64'
           install-deps: 'true'
-          cached: 'false'
+          cache: 'false'
           aqtversion: '==0.11.1'
           py7zrversion: '==0.11.3'
           extra: '--external 7z'

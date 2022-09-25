@@ -14,4 +14,6 @@
 #
 
 set(WARNING_FLAGS
+  # Deprecated QNetwork Qt 5.15
+  -Wno-deprecated-declarations
 )
